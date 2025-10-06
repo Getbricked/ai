@@ -1,0 +1,7 @@
+azure-mgmt-resource
+azure-identity
+azure-mgmt-consumption
+azure-mgmt-subscription
+azure-mgmt-storage 
+azure-mgmt-cognitiveservices 
+azure-mgmt-search
