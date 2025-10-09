@@ -35,18 +35,18 @@ def delete_resource_group(resource_client, rg_name):
         sys.exit(1)
 
 
-def main():
-    credential = DefaultAzureCredential()
-    subscription_id = get_subscription_id(credential)
-    resource_client = ResourceManagementClient(credential, subscription_id)
+# def main():
+#     credential = DefaultAzureCredential()
+#     subscription_id = get_subscription_id(credential)
+#     resource_client = ResourceManagementClient(credential, subscription_id)
 
-    if DELETE:
-        delete_resource_group(resource_client, RG_NAME)
-    else:
-        create_resource_group(resource_client, RG_NAME, LOCATION)
+#     if DELETE:
+#         delete_resource_group(resource_client, RG_NAME)
+#     else:
+#         create_resource_group(resource_client, RG_NAME, LOCATION)
 
-    logger.info("Operation completed successfully.")
+#     logger.info("Operation completed successfully.")
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
