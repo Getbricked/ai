@@ -99,34 +99,22 @@ def delete_openai_resource(cognitive_client, rg_name, openai_name):
         sys.exit(1)
 
 
-def main():
+def purge_openai_resource(cognitive_client, rg_name, openai_name, location):
+    """Purges a soft-deleted Azure OpenAI resource."""
+    logger.info(
+        f"Attempting to purge resource '{openai_name}' in location '{location}'..."
+    )
     try:
-        credential = DefaultAzureCredential()
-        subscription_id = get_subscription_id(credential)
-        cognitive_client = CognitiveServicesManagementClient(
-            credential, subscription_id
+        cognitive_client.deleted_accounts.begin_purge(
+            location, rg_name, openai_name
+        ).result()
+        logger.info(
+            f"Successfully purged Azure OpenAI resource '{openai_name}' from RG '{rg_name}'."
         )
-
-        if DELETE:
-            delete_embedding_deployment(
-                cognitive_client, RG_NAME, OPENAI_NAME, EMBEDDING_DEPLOYMENT_NAME
-            )
-            delete_openai_resource(cognitive_client, RG_NAME, OPENAI_NAME)
-        else:
-            create_openai_resource(cognitive_client, RG_NAME, OPENAI_NAME, LOCATION)
-            deploy_embedding_model(
-                cognitive_client,
-                RG_NAME,
-                OPENAI_NAME,
-                EMBEDDING_MODEL_NAME,
-                EMBEDDING_DEPLOYMENT_NAME,
-            )
-
-        logger.info("Operation completed successfully.")
-
-    except AuthenticationRequiredError as e:
-        logger.error(f"Authentication error: {e.message}")
-        sys.exit(1)
-    except Exception as e:
-        logger.error(f"Unexpected error: {e}")
+    except ResourceNotFoundError:
+        logger.warning(
+            f"Could not purge resource '{openai_name}'. A deleted resource with that name was not found in location '{location}'."
+        )
+    except HttpResponseError as e:
+        logger.error(f"HTTP error purging Azure OpenAI resource: {e.message}")
         sys.exit(1)

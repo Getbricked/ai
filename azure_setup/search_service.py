@@ -1,122 +1,143 @@
 import sys
-import logging
 import requests
-from azure.identity import DefaultAzureCredential
-from azure.mgmt.subscription import SubscriptionClient
+from azure.identity import DefaultAzureCredential, AuthenticationRequiredError
 from azure.mgmt.search import SearchManagementClient
-from azure.core.exceptions import ResourceExistsError, ResourceNotFoundError
-from azure.identity import AuthenticationRequiredError
-from ._config import RG_NAME, LOCATION, SEARCH_NAME, INDEX_NAME, DELETE
-
-from ._utils import get_subscription_id, logger, get_search_admin_key
+from azure.core.exceptions import (
+    ResourceExistsError,
+    ResourceNotFoundError,
+    HttpResponseError,
+)
+from azure_setup._utils import get_subscription_id, logger
 
 
 def create_search_service(search_client, rg_name, search_name, location):
+    """Creates or updates an Azure AI Search service."""
     try:
-        logger.info(
-            f"Creating Azure AI Search service '{search_name}' in resource group '{rg_name}'..."
-        )
+        logger.info(f"Creating or updating search service '{search_name}'...")
         poller = search_client.services.begin_create_or_update(
             rg_name,
             search_name,
             {
                 "location": location,
                 "sku": {"name": "free"},
-                "replica_count": 1,
-                "partition_count": 1,
-                "hosting_mode": "default",
+                "properties": {
+                    "replicaCount": 1,
+                    "partitionCount": 1,
+                    "hostingMode": "default",
+                },
             },
         )
         service = poller.result()
-        logger.info(f"Search service '{search_name}' created successfully.")
+        logger.info(f"Search service '{search_name}' is ready.")
         return service
     except ResourceExistsError:
-        logger.warning(f"Search service '{search_name}' already exists.")
+        # This case is less likely with begin_create_or_update but handled for safety
+        logger.warning(f"Search service '{search_name}' already exists. Retrieving it.")
         return search_client.services.get(rg_name, search_name)
+    except HttpResponseError as e:
+        logger.error(f"HTTP error creating search service: {e.message}")
+        return None
     except Exception as e:
-        logger.error(f"Error creating search service: {e}")
-        sys.exit(1)
+        logger.error(f"An unexpected error occurred during service creation: {e}")
+        return None
 
 
 def create_search_index(admin_key, search_name, index_name):
+    """Creates or updates a search index with vector and semantic configurations."""
     try:
-        logger.info(
-            f"Creating search index '{index_name}' in service '{search_name}'..."
-        )
-
-        url = f"https://{search_name}.search.windows.net/indexes?api-version=2024-07-01"
-
-        headers = {
-            "Content-Type": "application/json",
-            "api-key": admin_key,
-        }
-
+        logger.info(f"Creating or updating search index '{index_name}'...")
+        url = f"https://{search_name}.search.windows.net/indexes/{index_name}?api-version=2024-05-01-preview"
+        headers = {"Content-Type": "application/json", "api-key": admin_key}
         index_definition = {
             "name": index_name,
             "fields": [
-                {"name": "id", "type": "Edm.String", "key": True, "searchable": False},
+                {"name": "id", "type": "Edm.String", "key": True, "filterable": True},
+                {
+                    "name": "title",
+                    "type": "Edm.String",
+                    "searchable": True,
+                    "retrievable": True,
+                },
+                {
+                    "name": "filepath",
+                    "type": "Edm.String",
+                    "searchable": False,
+                    "retrievable": True,
+                },
                 {
                     "name": "content",
                     "type": "Edm.String",
                     "searchable": True,
-                    "filterable": False,
-                    "sortable": False,
+                    "retrievable": True,
                 },
                 {
                     "name": "embedding",
-                    "type": "Collection(Edm.Double)",
+                    "type": "Collection(Edm.Single)",
                     "searchable": True,
                     "retrievable": True,
+                    "dimensions": 1536,  # Dimensions for text-embedding-3-small
+                    "vectorSearchProfileName": "my-vector-profile",
                 },
             ],
+            "vectorSearch": {
+                "profiles": [
+                    {
+                        "name": "my-vector-profile",
+                        "algorithmConfigurationName": "my-hnsw-config",
+                    }
+                ],
+                "algorithms": [{"name": "my-hnsw-config", "kind": "hnsw"}],
+            },
+            "semanticSearch": {
+                "defaultTitleField": "title",
+                "defaultContentField": "content",
+                "configurations": [
+                    {
+                        "name": "my-semantic-config",
+                        "prioritizedFields": {
+                            "titleField": {"fieldName": "title"},
+                            "prioritizedContentFields": [{"fieldName": "content"}],
+                        },
+                    }
+                ],
+            },
         }
-
         response = requests.put(url, headers=headers, json=index_definition)
-        response.raise_for_status()
-        logger.info(f"Search index '{index_name}' created successfully.")
-    except requests.exceptions.HTTPError as e:
-        if e.response.status_code == 409:
-            logger.warning(f"Search index '{index_name}' already exists.")
+
+        # Check response status and log appropriately
+        if response.status_code == 201:
+            logger.info(f"Search index '{index_name}' created successfully.")
+        elif response.status_code == 204:
+            logger.info(f"Search index '{index_name}' updated successfully.")
         else:
-            logger.error(f"HTTP error creating search index: {e.response.text}")
+            # This will raise an exception for other error codes
+            response.raise_for_status()
+
+    except requests.exceptions.HTTPError as e:
+        # Handle 409 Conflict specifically, which means the index exists but differs
+        if e.response.status_code == 409:
+            logger.warning(
+                f"Search index '{index_name}' already exists with a different definition."
+            )
+        else:
+            logger.error(f"HTTP error managing search index: {e.response.text}")
             sys.exit(1)
     except Exception as e:
-        logger.error(f"Error creating search index: {e}")
+        logger.error(f"An unexpected error occurred during index management: {e}")
         sys.exit(1)
 
 
 def delete_search_service(search_client, rg_name, search_name):
+    """Deletes the search service."""
     try:
         logger.info(f"Deleting search service '{search_name}'...")
-        poller = search_client.services.begin_delete(rg_name, search_name)
-        poller.result()
+        search_client.services.delete(rg_name, search_name)
         logger.info(f"Search service '{search_name}' deleted successfully.")
     except ResourceNotFoundError:
-        logger.warning(f"Search service '{search_name}' not found.")
+        logger.warning(f"Search service '{search_name}' not found; nothing to delete.")
+    except HttpResponseError as e:
+        logger.error(f"HTTP error deleting search service: {e.message}")
+        sys.exit(1)
     except Exception as e:
         logger.error(f"Error deleting search service: {e}")
-        sys.exit(1)
-
-
-def delete_search_index(admin_key, search_name, index_name):
-    try:
-        logger.info(f"Deleting search index '{index_name}'...")
-        url = f"https://{search_name}.search.windows.net/indexes/{index_name}?api-version=2024-07-01"
-
-        headers = {
-            "Content-Type": "application/json",
-            "api-key": admin_key,
-        }
-
-        response = requests.delete(url, headers=headers)
-        if response.status_code == 404:
-            logger.warning(f"Search index '{index_name}' not found.")
-        else:
-            response.raise_for_status()
-            logger.info(f"Search index '{index_name}' deleted successfully.")
-    except requests.exceptions.HTTPError as e:
-        logger.error(f"HTTP error deleting search index: {e.response.text}")
-        sys.exit(1)
-    except Exception as e:
-        logger.error(f"Error deleting search index: {e}")
         sys.exit(1)

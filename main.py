@@ -3,6 +3,7 @@ import logging
 from azure.identity import DefaultAzureCredential
 from azure.mgmt.resource import ResourceManagementClient
 from azure.mgmt.subscription import SubscriptionClient
+from azure.mgmt.search import SearchManagementClient
 from azure.mgmt.cognitiveservices import CognitiveServicesManagementClient
 from azure.core.exceptions import (
     ResourceExistsError,
@@ -17,14 +18,17 @@ from azure_setup._config import (
     EMBEDDING_MODEL_NAME,
     EMBEDDING_DEPLOYMENT_NAME,
     DELETE,
+    SEARCH_NAME,
+    INDEX_NAME,
 )
 
-from azure_setup._utils import logger, get_subscription_id
+from azure_setup._utils import logger, get_subscription_id, get_search_admin_key
 from azure_setup.text_embedding import (
     delete_embedding_deployment,
     delete_openai_resource,
     create_openai_resource,
     deploy_embedding_model,
+    purge_openai_resource,
 )
 
 from azure_setup.resource_group import (
@@ -32,12 +36,20 @@ from azure_setup.resource_group import (
     delete_resource_group,
 )
 
+from azure_setup.search_service import (
+    create_search_service,
+    create_search_index,
+    delete_search_service,
+)
+
 
 def main():
     credential = DefaultAzureCredential()
     subscription_id = get_subscription_id(credential)
-    cognitive_client = CognitiveServicesManagementClient(credential, subscription_id)
+
     resource_client = ResourceManagementClient(credential, subscription_id)
+    cognitive_client = CognitiveServicesManagementClient(credential, subscription_id)
+    search_client = SearchManagementClient(credential, subscription_id)
 
     create_resource_group(resource_client, RG_NAME, LOCATION)
 
@@ -54,12 +66,26 @@ def main():
         )
         logger.info("Embedding model deployed successfully.")
 
+        create_search_service(search_client, RG_NAME, SEARCH_NAME, LOCATION)
+        admin_key = get_search_admin_key(
+            credential, subscription_id, RG_NAME, SEARCH_NAME
+        )
+        # create_search_index(admin_key, SEARCH_NAME, INDEX_NAME)
+
+        logger.info("Search service and index created successfully.")
+
         if DELETE:
+            logger.info("DELETE flag is set. Deleting resources...")
+
             delete_embedding_deployment(
                 cognitive_client, RG_NAME, OPENAI_NAME, EMBEDDING_DEPLOYMENT_NAME
             )
+
             delete_openai_resource(cognitive_client, RG_NAME, OPENAI_NAME)
+            purge_openai_resource(cognitive_client, RG_NAME, OPENAI_NAME, LOCATION)
+            delete_search_service(search_client, RG_NAME, SEARCH_NAME)
             delete_resource_group(resource_client, RG_NAME)
+
             logger.info("All resources deleted as per DELETE flag.")
 
     except AuthenticationRequiredError as e:
