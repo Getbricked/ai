@@ -5,39 +5,18 @@ from azure.mgmt.storage.models import StorageAccountCreateParameters, Sku, Kind
 from azure.core.exceptions import ResourceNotFoundError
 
 
-def create_resource_group(resource_client, rg_name, location):
-    """Creates a resource group."""
-    try:
-        logger.info(f"Attempting to create resource group '{rg_name}'...")
-        rg_result = resource_client.resource_groups.create_or_update(
-            rg_name, {"location": location}
-        )
-        logger.info(f"Resource group '{rg_name}' created in location '{location}'.")
-        return rg_result
-    except ResourceExistsError:
-        logger.warning(f"Resource group '{rg_name}' already exists.")
-        # If it already exists, we can still proceed.
-        return resource_client.resource_groups.get(rg_name)
-    except Exception as e:
-        logger.error(f"Error creating resource group '{rg_name}': {e}")
-        sys.exit(1)
-
-
-def create_storage_account(storage_client, rg_name, account_name, location):
+def create_storage_account(storage_client, rg_name, storage_name, location):
     """Creates a storage account in the specified resource group."""
     try:
-        logger.info(f"Attempting to create storage account '{account_name}'...")
+        logger.info(f"Attempting to create storage account '{storage_name}'...")
 
-        # Define the parameters for the storage account
-        # Standard_LRS is the most common and is eligible for the free tier.
-        # StorageV2 is the general-purpose account type.
         storage_params = StorageAccountCreateParameters(
             sku=Sku(name="Standard_LRS"), kind=Kind.STORAGE_V2, location=location
         )
 
         # The creation process is a long-running operation, so we use 'begin_create'
         poller = storage_client.storage_accounts.begin_create(
-            rg_name, account_name, storage_params
+            rg_name, storage_name, storage_params
         )
 
         # Wait for the operation to complete
@@ -46,22 +25,22 @@ def create_storage_account(storage_client, rg_name, account_name, location):
         return account_result
 
     except ResourceExistsError:
-        logger.warning(f"Storage account '{account_name}' already exists.")
+        logger.warning(f"Storage account '{storage_name}' already exists.")
     except Exception as e:
-        logger.error(f"Error creating storage account '{account_name}': {e}")
+        logger.error(f"Error creating storage account '{storage_name}': {e}")
         sys.exit(1)
 
 
-def delete_resource_group(resource_client, rg_name):
-    """Deletes a resource group and all resources within it."""
+def delete_storage_account(storage_client, rg_name, storage_name):
+    """Deletes a storage account in the specified resource group."""
     try:
-        logger.info(f"Attempting to delete resource group '{rg_name}'...")
-        # Deleting a resource group is a long-running operation
-        delete_poller = resource_client.resource_groups.begin_delete(rg_name)
-        delete_poller.result()
-        logger.info(f"Resource group '{rg_name}' and all its resources deleted.")
+        logger.info(f"Attempting to delete storage account '{storage_name}'...")
+        poller = storage_client.storage_accounts.delete(rg_name, storage_name)
+        if poller is not None:
+            poller.result()
+        logger.info(f"Storage account '{storage_name}' deleted successfully.")
     except ResourceNotFoundError:
-        logger.warning(f"Resource group '{rg_name}' does not exist.")
+        logger.warning(f"Storage account '{storage_name}' not found.")
     except Exception as e:
-        logger.error(f"Error deleting resource group '{rg_name}': {e}")
+        logger.error(f"Error deleting storage account '{storage_name}': {e}")
         sys.exit(1)

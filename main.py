@@ -1,15 +1,10 @@
 import sys
-import logging
 from azure.identity import DefaultAzureCredential
 from azure.mgmt.resource import ResourceManagementClient
 from azure.mgmt.subscription import SubscriptionClient
 from azure.mgmt.search import SearchManagementClient
+from azure.mgmt.storage import StorageManagementClient
 from azure.mgmt.cognitiveservices import CognitiveServicesManagementClient
-from azure.core.exceptions import (
-    ResourceExistsError,
-    ResourceNotFoundError,
-    HttpResponseError,
-)
 from azure.identity import AuthenticationRequiredError
 from azure_setup._config import (
     RG_NAME,
@@ -20,6 +15,8 @@ from azure_setup._config import (
     DELETE,
     SEARCH_NAME,
     INDEX_NAME,
+    STORAGE_RG_NAME,
+    STORAGE_NAME,
 )
 
 from azure_setup._utils import logger, get_subscription_id, get_search_admin_key
@@ -31,16 +28,15 @@ from azure_setup.text_embedding import (
     purge_openai_resource,
 )
 
-from azure_setup.resource_group import (
-    create_resource_group,
-    delete_resource_group,
-)
+from azure_setup.resource_group import create_resource_group, delete_resource_group
 
 from azure_setup.search_service import (
     create_search_service,
     create_search_index,
     delete_search_service,
 )
+
+from azure_setup.storage import create_storage_account, delete_storage_account
 
 
 def main():
@@ -50,8 +46,19 @@ def main():
     resource_client = ResourceManagementClient(credential, subscription_id)
     cognitive_client = CognitiveServicesManagementClient(credential, subscription_id)
     search_client = SearchManagementClient(credential, subscription_id)
+    storage_client = StorageManagementClient(credential, subscription_id)
 
+    # Resource group for OpenAI and Search
     create_resource_group(resource_client, RG_NAME, LOCATION)
+
+    # Resource group for Storage
+    create_resource_group(resource_client, STORAGE_RG_NAME, LOCATION)
+    create_storage_account(
+        storage_client,
+        STORAGE_RG_NAME,
+        STORAGE_NAME,
+        LOCATION,
+    )
 
     logger.info("Resource group created.")
 
@@ -85,6 +92,10 @@ def main():
             purge_openai_resource(cognitive_client, RG_NAME, OPENAI_NAME, LOCATION)
             delete_search_service(search_client, RG_NAME, SEARCH_NAME)
             delete_resource_group(resource_client, RG_NAME)
+
+            # Storage cleanup (incase need to reset storage)
+            # delete_storage_account(storage_client, STORAGE_RG_NAME, STORAGE_NAME)
+            # delete_resource_group(resource_client, STORAGE_RG_NAME)
 
             logger.info("All resources deleted as per DELETE flag.")
 
