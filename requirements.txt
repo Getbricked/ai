@@ -5,4 +5,5 @@ azure-mgmt-subscription
 azure-mgmt-storage 
 azure-mgmt-cognitiveservices 
 azure-mgmt-search
+azure-search-documents
 azure-storage-blob

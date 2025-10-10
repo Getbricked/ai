@@ -1,5 +1,16 @@
 import sys
 import requests
+from azure.core.credentials import AzureKeyCredential
+from azure.search.documents.indexes import SearchIndexClient
+from azure.search.documents.indexes.models import (
+    SearchIndex,
+    SearchField,
+    SearchFieldDataType,
+    SemanticSearch,
+    SemanticConfiguration,
+    SemanticField,
+    SemanticPrioritizedFields,
+)
 from azure.core.exceptions import (
     ResourceExistsError,
     ResourceNotFoundError,
@@ -17,7 +28,7 @@ def create_search_service(search_client, rg_name, search_name, location):
             search_name,
             {
                 "location": location,
-                "sku": {"name": "free"},
+                "sku": {"name": "basic"},
                 "properties": {
                     "replicaCount": 1,
                     "partitionCount": 1,
@@ -40,84 +51,96 @@ def create_search_service(search_client, rg_name, search_name, location):
         return None
 
 
-def create_search_index(admin_key, search_name, index_name):
-    """Creates or updates a search index with vector and semantic configurations."""
-    try:
-        logger.info(f"Creating or updating search index '{index_name}'...")
-        url = f"https://{search_name}.search.windows.net/indexes/{index_name}?api-version=2025-09-01"
-        headers = {"Content-Type": "application/json", "api-key": admin_key}
-        index_definition = {
-            "name": index_name,
-            "fields": [
-                {"name": "id", "type": "Edm.String", "key": True, "filterable": True},
-                {
-                    "name": "title",
-                    "type": "Edm.String",
-                    "searchable": True,
-                    "retrievable": True,
-                },
-                {
-                    "name": "filepath",
-                    "type": "Edm.String",
-                    "searchable": False,
-                    "retrievable": True,
-                },
-                {
-                    "name": "content",
-                    "type": "Edm.String",
-                    "searchable": True,
-                    "retrievable": True,
-                },
-                {
-                    "name": "embedding",
-                    "type": "Collection(Edm.Single)",
-                    "searchable": True,
-                    "retrievable": True,
-                    "dimensions": 1536,
-                    "vectorSearchProfile": "my-vector-profile",
-                },
-            ],
-            "vectorSearch": {
-                "profiles": [
-                    {"name": "my-vector-profile", "algorithm": "my-hnsw-config"}
-                ],
-                "algorithms": [{"name": "my-hnsw-config", "kind": "hnsw"}],
-            },
-            # "semanticSearch": {
-            #     "configurations": [
-            #         {
-            #             "name": "my-semantic-config",
-            #             "prioritizedFields": {
-            #                 "titleField": {"fieldName": "title"},
-            #                 "prioritizedContentFields": [{"fieldName": "content"}],
-            #             },
-            #         }
-            #     ]
-            # },
-        }
-        response = requests.put(url, headers=headers, json=index_definition)
+def create_search_index(admin_key: str, search_name: str, index_name: str):
+    """
+    Creates a semantic-enabled search index for cybersecurity documents.
+    """
+    print(f"Attempting to create semantic index '{index_name}'...")
 
-        # Check response status and log appropriately
-        if response.status_code == 201:
-            logger.info(f"Search index '{index_name}' created successfully.")
-        elif response.status_code == 204:
-            logger.info(f"Search index '{index_name}' updated successfully.")
-        else:
-            # This will raise an exception for other error codes
-            response.raise_for_status()
+    endpoint = f"https://{search_name}.search.windows.net"
+    credential = AzureKeyCredential(admin_key)
+    index_client = SearchIndexClient(endpoint=endpoint, credential=credential)
 
-    except requests.exceptions.HTTPError as e:
-        # Handle 409 Conflict specifically, which means the index exists but differs
-        if e.response.status_code == 409:
-            logger.warning(
-                f"Search index '{index_name}' already exists with a different definition."
+    fields = [
+        SearchField(name="id", type=SearchFieldDataType.String, key=True),
+        SearchField(
+            name="title",
+            type=SearchFieldDataType.String,
+            searchable=True,
+            sortable=True,
+        ),
+        SearchField(name="content", type=SearchFieldDataType.String, searchable=True),
+        SearchField(
+            name="keywords",
+            type=SearchFieldDataType.Collection(SearchFieldDataType.String),
+            searchable=True,
+            filterable=True,
+            facetable=True,
+        ),
+        SearchField(
+            name="author",
+            type=SearchFieldDataType.String,
+            filterable=True,
+            facetable=True,
+            sortable=True,
+        ),
+        SearchField(
+            name="publicationDate",
+            type=SearchFieldDataType.DateTimeOffset,
+            filterable=True,
+            sortable=True,
+        ),
+        SearchField(
+            name="documentType",
+            type=SearchFieldDataType.String,
+            filterable=True,
+            facetable=True,
+        ),
+        SearchField(
+            name="cve_ids",
+            type=SearchFieldDataType.Collection(SearchFieldDataType.String),
+            searchable=True,
+            filterable=True,
+            facetable=True,
+        ),
+    ]
+
+    # --- CORRECTED: Define the semantic search configuration ---
+    semantic_config_name = "cybersecurity-semantic-config"
+    semantic_search = SemanticSearch(
+        configurations=[
+            SemanticConfiguration(
+                name=semantic_config_name,
+                # This block is now structured correctly
+                prioritized_fields=SemanticPrioritizedFields(
+                    title_field=SemanticField(field_name="title"),
+                    prioritized_content_fields=[SemanticField(field_name="content")],
+                    prioritized_keywords_fields=[
+                        SemanticField(field_name="keywords"),
+                        SemanticField(field_name="cve_ids"),
+                    ],
+                ),
             )
-        else:
-            logger.error(f"HTTP error managing search index: {e.response.text}")
-            sys.exit(1)
+        ]
+    )
+
+    # Add the semantic_search object to the index definition
+    index = SearchIndex(
+        name=index_name,
+        fields=fields,
+        semantic_search=semantic_search,  # <-- ADD THIS LINE
+    )
+
+    try:
+        result = index_client.create_or_update_index(
+            index
+        )  # Use create_or_update for easier iteration
+        print(f"Semantic index '{result.name}' created/updated successfully! ✅")
+        # Return the config name so we can use it in queries
+        return semantic_config_name
     except Exception as e:
-        logger.error(f"An unexpected error occurred during index management: {e}")
-        sys.exit(1)
+        print(f"An error occurred: {e} ❌")
+        return None
 
 
 def delete_search_service(search_client, rg_name, search_name):

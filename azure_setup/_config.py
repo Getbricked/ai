@@ -1,7 +1,7 @@
 # Resource group settings
 RG_NAME = "my-test-rg"
 LOCATION = "eastus"
-DELETE = False
+DELETE = True
 
 # OpenAI settings
 OPENAI_NAME = "myopenai-ex"
