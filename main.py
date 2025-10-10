@@ -70,7 +70,7 @@ def main():
         admin_key = get_search_admin_key(
             credential, subscription_id, RG_NAME, SEARCH_NAME
         )
-        # create_search_index(admin_key, SEARCH_NAME, INDEX_NAME)
+        create_search_index(admin_key, SEARCH_NAME, INDEX_NAME)
 
         logger.info("Search service and index created successfully.")
 

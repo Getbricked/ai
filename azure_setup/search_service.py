@@ -1,13 +1,11 @@
 import sys
 import requests
-from azure.identity import DefaultAzureCredential, AuthenticationRequiredError
-from azure.mgmt.search import SearchManagementClient
 from azure.core.exceptions import (
     ResourceExistsError,
     ResourceNotFoundError,
     HttpResponseError,
 )
-from azure_setup._utils import get_subscription_id, logger
+from azure_setup._utils import logger
 
 
 def create_search_service(search_client, rg_name, search_name, location):
@@ -46,7 +44,7 @@ def create_search_index(admin_key, search_name, index_name):
     """Creates or updates a search index with vector and semantic configurations."""
     try:
         logger.info(f"Creating or updating search index '{index_name}'...")
-        url = f"https://{search_name}.search.windows.net/indexes/{index_name}?api-version=2024-05-01-preview"
+        url = f"https://{search_name}.search.windows.net/indexes/{index_name}?api-version=2025-09-01"
         headers = {"Content-Type": "application/json", "api-key": admin_key}
         index_definition = {
             "name": index_name,
@@ -75,32 +73,27 @@ def create_search_index(admin_key, search_name, index_name):
                     "type": "Collection(Edm.Single)",
                     "searchable": True,
                     "retrievable": True,
-                    "dimensions": 1536,  # Dimensions for text-embedding-3-small
-                    "vectorSearchProfileName": "my-vector-profile",
+                    "dimensions": 1536,
+                    "vectorSearchProfile": "my-vector-profile",
                 },
             ],
             "vectorSearch": {
                 "profiles": [
-                    {
-                        "name": "my-vector-profile",
-                        "algorithmConfigurationName": "my-hnsw-config",
-                    }
+                    {"name": "my-vector-profile", "algorithm": "my-hnsw-config"}
                 ],
                 "algorithms": [{"name": "my-hnsw-config", "kind": "hnsw"}],
             },
-            "semanticSearch": {
-                "defaultTitleField": "title",
-                "defaultContentField": "content",
-                "configurations": [
-                    {
-                        "name": "my-semantic-config",
-                        "prioritizedFields": {
-                            "titleField": {"fieldName": "title"},
-                            "prioritizedContentFields": [{"fieldName": "content"}],
-                        },
-                    }
-                ],
-            },
+            # "semanticSearch": {
+            #     "configurations": [
+            #         {
+            #             "name": "my-semantic-config",
+            #             "prioritizedFields": {
+            #                 "titleField": {"fieldName": "title"},
+            #                 "prioritizedContentFields": [{"fieldName": "content"}],
+            #             },
+            #         }
+            #     ]
+            # },
         }
         response = requests.put(url, headers=headers, json=index_definition)
 

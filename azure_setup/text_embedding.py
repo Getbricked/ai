@@ -1,25 +1,11 @@
 import sys
-import logging
-from azure.identity import DefaultAzureCredential
-from azure.mgmt.resource import ResourceManagementClient
-from azure.mgmt.subscription import SubscriptionClient
-from azure.mgmt.cognitiveservices import CognitiveServicesManagementClient
 from azure.core.exceptions import (
     ResourceExistsError,
     ResourceNotFoundError,
     HttpResponseError,
 )
-from azure.identity import AuthenticationRequiredError
-from azure_setup._config import (
-    RG_NAME,
-    LOCATION,
-    OPENAI_NAME,
-    EMBEDDING_MODEL_NAME,
-    EMBEDDING_DEPLOYMENT_NAME,
-    DELETE,
-)
 
-from ._utils import logger, get_subscription_id
+from ._utils import logger
 
 
 def create_openai_resource(cognitive_client, rg_name, openai_name, location):

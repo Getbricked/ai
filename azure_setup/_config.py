@@ -1,7 +1,7 @@
 # Resource group settings
-RG_NAME = "my-test-rg"  # Resource group name
-LOCATION = "eastus"  # Azure region, e.g., eastus, westus
-DELETE = True  # Set to True to delete, False to create
+RG_NAME = "my-test-rg"
+LOCATION = "eastus"
+DELETE = True
 
 # OpenAI settings
 OPENAI_NAME = "myopenai-ex"
