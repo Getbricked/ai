@@ -15,3 +15,4 @@ INDEX_NAME = "my-text-index"
 # Azure Storage settings
 STORAGE_RG_NAME = "my-storage-rg"
 STORAGE_NAME = "kbstorageex"  # Must be globally unique
+CONTAINER_NAME = "documents"

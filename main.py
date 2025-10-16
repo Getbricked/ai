@@ -6,7 +6,7 @@ from azure.mgmt.search import SearchManagementClient
 from azure.mgmt.storage import StorageManagementClient
 from azure.mgmt.cognitiveservices import CognitiveServicesManagementClient
 from azure.identity import AuthenticationRequiredError
-from azure_setup._config import (
+from _config import (
     RG_NAME,
     LOCATION,
     OPENAI_NAME,
