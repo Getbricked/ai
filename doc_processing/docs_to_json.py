@@ -2,7 +2,9 @@ import os
 import json
 import PyPDF2
 from docx import Document
-from _utils import get_openai_embedding
+from ._utils import get_openai_embedding
+from .credentials import container_client, endpoint, api_key
+from _config import EMBEDDING_DEPLOYMENT_NAME
 
 
 def convert_to_json_and_upload(local_path):
@@ -53,7 +55,9 @@ def convert_to_json_and_upload(local_path):
                     "content": content,
                     "category": category,
                     "source": source,
-                    "contentVector": get_openai_embedding(content),  # Mock embedding
+                    "contentVector": get_openai_embedding(
+                        content, EMBEDDING_DEPLOYMENT_NAME, endpoint, api_key
+                    ),  # Mock embedding
                 }
                 json_documents.append(json_doc)
 

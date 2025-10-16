@@ -3,7 +3,7 @@ from azure.core.exceptions import ResourceNotFoundError
 from azure.mgmt.storage import StorageManagementClient
 from azure.mgmt.cognitiveservices import CognitiveServicesManagementClient
 from azure.identity import DefaultAzureCredential
-from openai import OpenAIClient
+from openai import AzureOpenAI
 from azure.core.credentials import AzureKeyCredential
 from azure_setup._utils import logger
 
@@ -75,17 +75,19 @@ def get_azure_openai_credentials(subscription_id, rg_name, openai_name):
         return None, None
 
 
-def get_openai_embedding(text, embedding_model, endpoint, api_key):
+def get_openai_embedding(text, embedding_name, endpoint, api_key):
 
     if not endpoint or not api_key:
         logger.error("Failed to retrieve Azure OpenAI credentials.")
         return None
 
-    client = OpenAIClient(
-        endpoint=endpoint,
-        credential=AzureKeyCredential(api_key),
+    client = AzureOpenAI(
+        azure_endpoint=endpoint,
+        api_key=api_key,
+        api_version="2023-05-15",  # Recommended to use a specific API version
     )
+
     embedding = (
-        client.embeddings.create(model=embedding_model, input=text).data[0].embedding
+        client.embeddings.create(model=embedding_name, input=text).data[0].embedding
     )
     return embedding
