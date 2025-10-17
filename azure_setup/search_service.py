@@ -28,7 +28,7 @@ def create_search_service(search_client, rg_name, search_name, location):
             search_name,
             {
                 "location": location,
-                "sku": {"name": "basic"},
+                "sku": {"name": "free"},
                 "properties": {
                     "replicaCount": 1,
                     "partitionCount": 1,

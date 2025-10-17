@@ -4,7 +4,7 @@ import PyPDF2
 from docx import Document
 from ._utils import get_openai_embedding
 from .credentials import container_client, endpoint, api_key
-from _config import EMBEDDING_DEPLOYMENT_NAME
+from _config import CONTAINER_NAME, EMBEDDING_DEPLOYMENT_NAME
 
 
 def convert_to_json_and_upload(local_path):
@@ -50,6 +50,19 @@ def convert_to_json_and_upload(local_path):
                 continue
 
             if content:
+
+                print(f"Checking if container '{CONTAINER_NAME}' exists...")
+                if container_client.exists():
+                    print(
+                        f"✅ Container '{CONTAINER_NAME}' already exists. No action taken."
+                    )
+                else:
+                    print(
+                        f"Container '{CONTAINER_NAME}' does not exist. Creating it now..."
+                    )
+                    container_client.create_container()
+                    print(f"✅ Successfully created container '{CONTAINER_NAME}'.")
+
                 json_doc = {
                     "id": doc_id,
                     "content": content,
@@ -59,6 +72,7 @@ def convert_to_json_and_upload(local_path):
                         content, EMBEDDING_DEPLOYMENT_NAME, endpoint, api_key
                     ),  # Mock embedding
                 }
+
                 json_documents.append(json_doc)
 
                 # Upload to Blob Storage
