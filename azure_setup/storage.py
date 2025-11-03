@@ -1,5 +1,5 @@
 import sys
-from ._utils import logger
+from _utils import logger
 from azure.core.exceptions import ResourceExistsError
 from azure.mgmt.storage.models import StorageAccountCreateParameters, Sku, Kind
 from azure.core.exceptions import ResourceNotFoundError

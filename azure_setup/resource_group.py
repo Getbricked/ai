@@ -2,7 +2,7 @@ import sys
 from azure.core.exceptions import ResourceExistsError, ResourceNotFoundError
 
 from _config import LOCATION, RG_NAME, DELETE
-from ._utils import logger
+from _utils import logger
 
 
 def create_resource_group(resource_client, rg_name, location):

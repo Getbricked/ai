@@ -5,7 +5,7 @@ from azure.core.exceptions import (
     HttpResponseError,
 )
 
-from ._utils import logger
+from _utils import logger
 
 
 def create_openai_resource(cognitive_client, rg_name, openai_name, location):

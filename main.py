@@ -19,7 +19,7 @@ from _config import (
     STORAGE_NAME,
 )
 
-from azure_setup._utils import logger, get_subscription_id, get_search_admin_key
+from _utils import get_subscription_id, get_search_admin_key, logger
 from azure_setup.text_embedding import (
     delete_embedding_deployment,
     delete_openai_resource,

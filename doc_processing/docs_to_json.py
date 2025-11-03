@@ -2,8 +2,8 @@ import os
 import json
 import PyPDF2
 from docx import Document
-from ._utils import get_openai_embedding
-from .credentials import container_client, endpoint, api_key
+from _utils import get_openai_embedding
+from _credentials import container_client, endpoint, api_key
 from _config import CONTAINER_NAME, EMBEDDING_DEPLOYMENT_NAME
 
 

@@ -16,7 +16,7 @@ from azure.core.exceptions import (
     ResourceNotFoundError,
     HttpResponseError,
 )
-from azure_setup._utils import logger
+from _utils import logger
 
 
 def create_search_service(search_client, rg_name, search_name, location):
