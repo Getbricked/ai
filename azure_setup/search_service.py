@@ -10,6 +10,9 @@ from azure.search.documents.indexes.models import (
     SemanticConfiguration,
     SemanticField,
     SemanticPrioritizedFields,
+    VectorSearch,
+    VectorSearchProfile,
+    HnswAlgorithmConfiguration,
 )
 from azure.core.exceptions import (
     ResourceExistsError,
@@ -40,7 +43,6 @@ def create_search_service(search_client, rg_name, search_name, location):
         logger.info(f"Search service '{search_name}' is ready.")
         return service
     except ResourceExistsError:
-        # This case is less likely with begin_create_or_update but handled for safety
         logger.warning(f"Search service '{search_name}' already exists. Retrieving it.")
         return search_client.services.get(rg_name, search_name)
     except HttpResponseError as e:
@@ -53,7 +55,8 @@ def create_search_service(search_client, rg_name, search_name, location):
 
 def create_search_index(admin_key: str, search_name: str, index_name: str):
     """
-    Creates a semantic-enabled search index for cybersecurity documents.
+    Creates a semantic-enabled search index with vector search support.
+    Vector search is the primary search method, with semantic ranking as optional reranking.
     """
     print(f"Attempting to create semantic index '{index_name}'...")
 
@@ -61,82 +64,86 @@ def create_search_index(admin_key: str, search_name: str, index_name: str):
     credential = AzureKeyCredential(admin_key)
     index_client = SearchIndexClient(endpoint=endpoint, credential=credential)
 
+    # Define the vector search configuration - primary search method
+    vector_search = VectorSearch(
+        algorithms=[
+            HnswAlgorithmConfiguration(
+                name="hnsw-algorithm-config",
+                parameters={
+                    "m": 4,
+                    "efConstruction": 400,
+                    "efSearch": 500,
+                    "metric": "cosine",
+                },
+            )
+        ],
+        profiles=[
+            VectorSearchProfile(
+                name="vector-profile",
+                algorithm_configuration_name="hnsw-algorithm-config",
+            )
+        ],
+    )
+
     fields = [
         SearchField(name="id", type=SearchFieldDataType.String, key=True),
         SearchField(
-            name="title",
+            name="content",
             type=SearchFieldDataType.String,
             searchable=True,
-            sortable=True,
+            retrievable=True,
         ),
-        SearchField(name="content", type=SearchFieldDataType.String, searchable=True),
         SearchField(
-            name="keywords",
-            type=SearchFieldDataType.Collection(SearchFieldDataType.String),
+            name="category",
+            type=SearchFieldDataType.String,
             searchable=True,
             filterable=True,
             facetable=True,
         ),
         SearchField(
-            name="author",
-            type=SearchFieldDataType.String,
-            filterable=True,
-            facetable=True,
-            sortable=True,
-        ),
-        SearchField(
-            name="publicationDate",
-            type=SearchFieldDataType.DateTimeOffset,
-            filterable=True,
-            sortable=True,
-        ),
-        SearchField(
-            name="documentType",
+            name="source",
             type=SearchFieldDataType.String,
             filterable=True,
             facetable=True,
+            sortable=True,
         ),
         SearchField(
-            name="cve_ids",
-            type=SearchFieldDataType.Collection(SearchFieldDataType.String),
+            name="content_vector",
+            type=SearchFieldDataType.Collection(SearchFieldDataType.Single),
+            vector_search_dimensions=1536,
+            vector_search_profile_name="vector-profile",
             searchable=True,
-            filterable=True,
-            facetable=True,
         ),
     ]
 
-    # --- CORRECTED: Define the semantic search configuration ---
+    # Define the semantic search configuration - for reranking vector results
     semantic_config_name = "cybersecurity-semantic-config"
     semantic_search = SemanticSearch(
         configurations=[
             SemanticConfiguration(
                 name=semantic_config_name,
-                # This block is now structured correctly
                 prioritized_fields=SemanticPrioritizedFields(
-                    title_field=SemanticField(field_name="title"),
-                    prioritized_content_fields=[SemanticField(field_name="content")],
-                    prioritized_keywords_fields=[
-                        SemanticField(field_name="keywords"),
-                        SemanticField(field_name="cve_ids"),
-                    ],
+                    title_field=None,  # No title field in your schema
+                    content_fields=[SemanticField(field_name="content")],
+                    keyword_fields=[SemanticField(field_name="category")],
                 ),
             )
         ]
     )
 
-    # Add the semantic_search object to the index definition
+    # Create the index with both vector and semantic search
     index = SearchIndex(
         name=index_name,
         fields=fields,
-        semantic_search=semantic_search,  # <-- ADD THIS LINE
+        vector_search=vector_search,  # Primary: vector search
+        semantic_search=semantic_search,  # Secondary: semantic reranking
     )
 
     try:
-        result = index_client.create_or_update_index(
-            index
-        )  # Use create_or_update for easier iteration
+        result = index_client.create_or_update_index(index)
         print(f"Semantic index '{result.name}' created/updated successfully! ✅")
-        # Return the config name so we can use it in queries
+        print(f"  - Primary search: Vector search (HNSW)")
+        print(f"  - Reranking: Semantic search ('{semantic_config_name}')")
         return semantic_config_name
     except Exception as e:
         print(f"An error occurred: {e} ❌")
