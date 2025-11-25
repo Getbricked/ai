@@ -4,6 +4,7 @@ from azure.search.documents.indexes import SearchIndexClient
 from azure.core.credentials import AzureKeyCredential
 import json
 from typing import List, Dict, Any, Optional
+from azure.search.documents.models import VectorQuery
 
 
 def load_json_documents_from_blob(
@@ -151,58 +152,75 @@ def upload_documents_to_search(
         return False
 
 
-def ingest_documents_from_blob_to_search(
-    azure_storage_connection_string: str,
-    container_name: str,
-    search_endpoint: str,
-    search_key: str,
-    index_name: str,
-    field_mapping: Optional[Dict[str, str]] = None,
-) -> bool:
+def search_index(
+    search_client: SearchClient,
+    query_text: Optional[str] = None,
+    vector: Optional[List[float]] = None,
+    vector_field: str = "content_vector",
+    top_k: int = 10,
+    filter: Optional[str] = None,
+    select: Optional[List[str]] = None,
+    semantic_configuration_name: Optional[str] = None,
+) -> List[Dict[str, Any]]:
     """
-    Complete pipeline to load documents from blob storage and upload to Azure AI Search.
+    Perform a search against an Azure Search index using text and/or vector search.
 
     Args:
-        azure_storage_connection_string: Azure Storage connection string
-        container_name: Blob container name
-        search_endpoint: Azure AI Search endpoint
-        search_key: Azure AI Search admin key
-        index_name: Name of the search index
-        field_mapping: Optional custom field mapping
+        search_client: Initialized SearchClient instance.
+        query_text: Free-text query (can be None when performing pure vector search).
+        vector: Optional embedding vector for vector similarity search.
+        vector_field: Name of the vector field in the index (default "content_vector").
+        top_k: Number of results to return.
+        filter: OData filter expression.
+        select: List of fields to include in results.
+        semantic_configuration_name: Optional semantic configuration name for semantic search.
 
     Returns:
-        True if ingestion completed successfully, False otherwise
+        List of hits where each hit is a dict: {"score": float, "document": dict}
     """
+    if not query_text and not vector:
+        raise ValueError("Either query_text or vector must be provided.")
+
+    search_kwargs: Dict[str, Any] = {"top": top_k}
+    if filter:
+        search_kwargs["filter"] = filter
+    if select:
+        search_kwargs["select"] = select
+    if semantic_configuration_name:
+        search_kwargs["semantic_configuration_name"] = semantic_configuration_name
+
     try:
-        # 1. Load documents from blob
-        documents = load_json_documents_from_blob(
-            azure_storage_connection_string, container_name
-        )
+        if vector:
+            vq = VectorQuery(value=vector, fields=[vector_field])
+            # If query_text is None, pass "*" to allow vector-only search with the SDK
+            search_text = query_text if query_text is not None else "*"
+            results = search_client.search(
+                search_text=search_text, vector_queries=[vq], **search_kwargs
+            )
+        else:
+            results = search_client.search(search_text=query_text, **search_kwargs)
 
-        if not documents:
-            print("No documents loaded. Exiting.")
-            return False
+        hits: List[Dict[str, Any]] = []
+        for r in results:
+            # r is already a dict-like object containing the document fields
+            # Convert to plain dict to access all fields
+            doc = dict(r)
 
-        # 2. Map documents
-        mapped_documents = map_documents_for_search(documents, field_mapping)
+            # Extract the search score (it's a key in the result)
+            score = doc.pop("@search.score", None)
 
-        if not mapped_documents:
-            print("No valid documents after mapping. Exiting.")
-            return False
+            # Remove other metadata fields that start with @
+            metadata_keys = [k for k in doc.keys() if k.startswith("@")]
+            for key in metadata_keys:
+                doc.pop(key, None)
 
-        # 3. Upload to search
-        search_credential = AzureKeyCredential(search_key)
-        search_client = SearchClient(
-            endpoint=search_endpoint,
-            index_name=index_name,
-            credential=search_credential,
-        )
+            hits.append({"score": score, "document": doc})
 
-        success = upload_documents_to_search(search_client, mapped_documents)
-
-        print("\n--- Data Ingestion Complete ---")
-        return success
+        return hits
 
     except Exception as e:
-        print(f"An error occurred during the ingestion process: {e}")
-        return False
+        print(f"Search failed: {e}")
+        import traceback
+
+        traceback.print_exc()
+        return []
