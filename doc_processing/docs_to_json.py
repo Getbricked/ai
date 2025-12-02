@@ -2,17 +2,28 @@ import os
 import json
 import PyPDF2
 from docx import Document
+import re
 from _utils import get_openai_embedding
-from _credentials import container_client, endpoint, api_key
+from _credentials import container_client, embed_endpoint, embed_api_key
 from _config import CONTAINER_NAME, EMBEDDING_DEPLOYMENT_NAME
 
 
 def convert_to_json_and_upload(local_path):
     json_documents = []
     total_size = 0
+
+    # Ensure container exists once
+    print(f"Checking if container '{CONTAINER_NAME}' exists...")
+    if container_client.exists():
+        print(f"✅ Container '{CONTAINER_NAME}' already exists. No action taken.")
+    else:
+        print(f"Container '{CONTAINER_NAME}' does not exist. Creating it now...")
+        container_client.create_container()
+        print(f"✅ Successfully created container '{CONTAINER_NAME}'.")
+
     for filename in os.listdir(local_path):
         file_path = os.path.join(local_path, filename)
-        doc_id = filename.replace(".", "_")  # Generate ID from filename
+        base_id = filename.replace(".", "_")  # Generate base ID from filename
         content = ""
         category = "Unknown"
         source = "Local Storage"
@@ -21,7 +32,7 @@ def convert_to_json_and_upload(local_path):
             if filename.endswith(".txt"):
                 with open(file_path, "r", encoding="utf-8") as f:
                     content = f.read().strip()
-                category = "Article"  # Example categorization
+                category = "Article"
             elif filename.endswith(".pdf"):
                 with open(file_path, "rb") as f:
                     pdf_reader = PyPDF2.PdfReader(f)
@@ -50,41 +61,39 @@ def convert_to_json_and_upload(local_path):
                 continue
 
             if content:
+                # Split content into sentences
+                sentences = re.split(r"(?<=[.!?])\s+", content)
+                sentences = [s.strip() for s in sentences if s.strip()]
 
-                print(f"Checking if container '{CONTAINER_NAME}' exists...")
-                if container_client.exists():
-                    print(
-                        f"✅ Container '{CONTAINER_NAME}' already exists. No action taken."
-                    )
-                else:
-                    print(
-                        f"Container '{CONTAINER_NAME}' does not exist. Creating it now..."
-                    )
-                    container_client.create_container()
-                    print(f"✅ Successfully created container '{CONTAINER_NAME}'.")
+                print(f"Processing {filename}: {len(sentences)} sentences found")
 
-                json_doc = {
-                    "id": doc_id,
-                    "content": content,
-                    "category": category,
-                    "source": source,
-                    "contentVector": get_openai_embedding(
-                        content, EMBEDDING_DEPLOYMENT_NAME, endpoint, api_key
-                    ),  # Mock embedding
-                }
+                # Process each sentence
+                for idx, sentence in enumerate(sentences, start=1):
+                    doc_id = f"{base_id}_{idx}"
 
-                json_documents.append(json_doc)
+                    json_doc = {
+                        "id": doc_id,
+                        "content": sentence,
+                        "category": category,
+                        "source": source,
+                        "contentVector": get_openai_embedding(
+                            sentence,
+                            EMBEDDING_DEPLOYMENT_NAME,
+                            embed_endpoint,
+                            embed_api_key,
+                        ),
+                    }
 
-                # Upload to Blob Storage
-                blob_name = f"doc-{doc_id}.json"
-                blob_client = container_client.get_blob_client(blob_name)
-                blob_data = json.dumps(json_doc)
-                blob_client.upload_blob(blob_data, overwrite=True)
-                size = len(blob_data.encode("utf-8"))
-                total_size += size
-                print(
-                    f"Converted and uploaded {blob_name} to Blob Storage ({size} bytes)."
-                )
+                    json_documents.append(json_doc)
+
+                    # Upload to Blob Storage
+                    blob_name = f"doc-{doc_id}.json"
+                    blob_client = container_client.get_blob_client(blob_name)
+                    blob_data = json.dumps(json_doc)
+                    blob_client.upload_blob(blob_data, overwrite=True)
+                    size = len(blob_data.encode("utf-8"))
+                    total_size += size
+                    print(f"  Uploaded {blob_name} ({size} bytes)")
             else:
                 print(f"No content extracted from {filename}")
         except Exception as e:

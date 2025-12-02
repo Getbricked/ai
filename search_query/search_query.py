@@ -4,7 +4,7 @@ from azure.search.documents.indexes import SearchIndexClient
 from azure.core.credentials import AzureKeyCredential
 import json
 from typing import List, Dict, Any, Optional
-from azure.search.documents.models import VectorQuery
+from azure.search.documents.models import VectorizedQuery  # Change this import
 
 
 def load_json_documents_from_blob(
@@ -191,9 +191,15 @@ def search_index(
 
     try:
         if vector:
-            vq = VectorQuery(value=vector, fields=[vector_field])
-            # If query_text is None, pass "*" to allow vector-only search with the SDK
-            search_text = query_text if query_text is not None else "*"
+            # Use VectorizedQuery instead of VectorQuery
+            vq = VectorizedQuery(
+                vector=vector,  # Changed from 'value' to 'vector'
+                k_nearest_neighbors=top_k,  # Add k parameter
+                fields=vector_field,  # Changed from list to string
+                kind="vector",  # Add required 'kind' parameter
+            )
+            # If query_text is None, pass None for pure vector search
+            search_text = query_text if query_text is not None else None
             results = search_client.search(
                 search_text=search_text, vector_queries=[vq], **search_kwargs
             )

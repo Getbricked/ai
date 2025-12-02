@@ -1,7 +1,7 @@
 import sys
 from azure.core.exceptions import ResourceExistsError, ResourceNotFoundError
 
-from _config import LOCATION, RG_NAME, DELETE
+from _config import LOCATION, RG_NAME
 from _utils import logger
 
 

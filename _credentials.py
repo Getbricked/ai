@@ -10,7 +10,9 @@ from azure.identity import DefaultAzureCredential
 
 credential = DefaultAzureCredential()
 subscription_id = get_subscription_id(credential)
-endpoint, api_key = get_azure_openai_credentials(subscription_id, RG_NAME, OPENAI_NAME)
+embed_endpoint, embed_api_key = get_azure_openai_credentials(
+    subscription_id, RG_NAME, OPENAI_NAME
+)
 # print(endpoint)
 # print(api_key)
 

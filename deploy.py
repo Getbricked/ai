@@ -12,7 +12,6 @@ from _config import (
     OPENAI_NAME,
     EMBEDDING_MODEL_NAME,
     EMBEDDING_DEPLOYMENT_NAME,
-    DELETE,
     SEARCH_NAME,
     INDEX_NAME,
     STORAGE_RG_NAME,
@@ -21,25 +20,21 @@ from _config import (
 
 from _utils import get_subscription_id, get_search_admin_key, logger
 from azure_setup.text_embedding import (
-    delete_embedding_deployment,
-    delete_openai_resource,
     create_openai_resource,
     deploy_embedding_model,
-    purge_openai_resource,
 )
 
-from azure_setup.resource_group import create_resource_group, delete_resource_group
+from azure_setup.resource_group import create_resource_group
 
 from azure_setup.search_service import (
     create_search_service,
     create_search_index,
-    delete_search_service,
 )
 
-from azure_setup.storage import create_storage_account, delete_storage_account
+from azure_setup.storage import create_storage_account
 
 
-def main():
+def deploy():
     credential = DefaultAzureCredential()
     subscription_id = get_subscription_id(credential)
 
@@ -81,28 +76,6 @@ def main():
 
         logger.info("Search service and index created successfully.")
 
-        from doc_processing.docs_to_json import convert_to_json_and_upload
-
-        convert_to_json_and_upload("docs/")
-
-        if DELETE:
-            logger.info("DELETE flag is set. Deleting resources...")
-
-            delete_embedding_deployment(
-                cognitive_client, RG_NAME, OPENAI_NAME, EMBEDDING_DEPLOYMENT_NAME
-            )
-
-            delete_openai_resource(cognitive_client, RG_NAME, OPENAI_NAME)
-            purge_openai_resource(cognitive_client, RG_NAME, OPENAI_NAME, LOCATION)
-            delete_search_service(search_client, RG_NAME, SEARCH_NAME)
-            delete_resource_group(resource_client, RG_NAME)
-
-            # Storage cleanup (incase need to reset storage)
-            # delete_storage_account(storage_client, STORAGE_RG_NAME, STORAGE_NAME)
-            # delete_resource_group(resource_client, STORAGE_RG_NAME)
-
-            logger.info("All resources deleted as per DELETE flag.")
-
     except AuthenticationRequiredError as e:
         logger.error(f"Authentication error: {e.message}")
         sys.exit(1)
@@ -112,4 +85,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    deploy()
