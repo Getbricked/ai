@@ -41,10 +41,10 @@ def delete():
     resource_client = ResourceManagementClient(credential, subscription_id)
     cognitive_client = CognitiveServicesManagementClient(credential, subscription_id)
     search_client = SearchManagementClient(credential, subscription_id)
-    storage_client = StorageManagementClient(credential, subscription_id)
+    # storage_client = StorageManagementClient(credential, subscription_id)
 
     try:
-        logger.info("DELETE flag is set. Deleting resources...")
+        logger.info("Deleting resources...")
 
         delete_embedding_deployment(
             cognitive_client, RG_NAME, OPENAI_NAME, EMBEDDING_DEPLOYMENT_NAME
