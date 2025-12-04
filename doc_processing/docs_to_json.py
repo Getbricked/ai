@@ -21,6 +21,17 @@ def convert_to_json_and_upload(local_path):
         container_client.create_container()
         print(f"✅ Successfully created container '{CONTAINER_NAME}'.")
 
+    # Get list of existing blobs
+    print("Fetching existing documents from blob storage...")
+    existing_blobs = set()
+    try:
+        blob_list = container_client.list_blobs()
+        for blob in blob_list:
+            existing_blobs.add(blob.name)
+        print(f"Found {len(existing_blobs)} existing documents in storage.")
+    except Exception as e:
+        print(f"Warning: Could not fetch existing blobs: {e}")
+
     for filename in os.listdir(local_path):
         file_path = os.path.join(local_path, filename)
         base_id = filename.replace(".", "_")  # Generate base ID from filename
@@ -70,6 +81,12 @@ def convert_to_json_and_upload(local_path):
                 # Process each sentence
                 for idx, sentence in enumerate(sentences, start=1):
                     doc_id = f"{base_id}_{idx}"
+                    blob_name = f"doc-{doc_id}.json"
+
+                    # Skip if blob already exists
+                    if blob_name in existing_blobs:
+                        print(f"  Skipping {blob_name} (already exists)")
+                        continue
 
                     json_doc = {
                         "id": doc_id,
@@ -87,10 +104,11 @@ def convert_to_json_and_upload(local_path):
                     json_documents.append(json_doc)
 
                     # Upload to Blob Storage
-                    blob_name = f"doc-{doc_id}.json"
                     blob_client = container_client.get_blob_client(blob_name)
                     blob_data = json.dumps(json_doc)
-                    blob_client.upload_blob(blob_data, overwrite=True)
+                    blob_client.upload_blob(
+                        blob_data, overwrite=False
+                    )  # Changed to False
                     size = len(blob_data.encode("utf-8"))
                     total_size += size
                     print(f"  Uploaded {blob_name} ({size} bytes)")

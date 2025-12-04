@@ -50,19 +50,10 @@ search_client = SearchClient(
     credential=search_credential,
 )
 
-documents = load_json_documents_from_blob(blob_connection_string, CONTAINER_NAME)
-
-logger.info(f"Loaded {len(documents)} documents")
-
-doc_to_upload = map_documents_for_search(documents)
-
-logger.info(f"Mapped {len(doc_to_upload)} documents for upload")
-logger.info(f"Sample document: {doc_to_upload[0] if doc_to_upload else 'No documents'}")
-
-upload_documents_to_search(search_client, doc_to_upload)
+input_text = "father"
 
 query_vector = get_openai_embedding(
-    "Collaboration security",
+    input_text,
     EMBEDDING_DEPLOYMENT_NAME,
     embed_endpoint,
     embed_api_key,
