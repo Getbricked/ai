@@ -12,6 +12,8 @@ from _config import (
     OPENAI_NAME,
     EMBEDDING_MODEL_NAME,
     EMBEDDING_DEPLOYMENT_NAME,
+    GPT_MODEL_NAME,
+    GPT_DEPLOYMENT_NAME,
     SEARCH_NAME,
     INDEX_NAME,
     STORAGE_RG_NAME,
@@ -19,9 +21,9 @@ from _config import (
 )
 
 from _utils import get_subscription_id, get_search_admin_key, logger
-from azure_setup.text_embedding import (
+from azure_setup.openai_service import (
     create_openai_resource,
-    deploy_embedding_model,
+    deploy_model,
 )
 
 from azure_setup.resource_group import create_resource_group
@@ -59,13 +61,28 @@ def deploy():
 
     try:
         create_openai_resource(cognitive_client, RG_NAME, OPENAI_NAME, LOCATION)
-        deploy_embedding_model(
+
+        # Text Embedding model deployment
+        deploy_model(
             cognitive_client,
             RG_NAME,
             OPENAI_NAME,
             EMBEDDING_MODEL_NAME,
             EMBEDDING_DEPLOYMENT_NAME,
+            version="1",
         )
+
+        # GPT model deployment
+        deploy_model(
+            cognitive_client,
+            RG_NAME,
+            OPENAI_NAME,
+            GPT_MODEL_NAME,
+            GPT_DEPLOYMENT_NAME,
+            version="2024-07-18",
+            capacity=10,
+        )
+
         logger.info("Embedding model deployed successfully.")
 
         create_search_service(search_client, RG_NAME, SEARCH_NAME, LOCATION)

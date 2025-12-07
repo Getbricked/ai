@@ -51,6 +51,6 @@ logger.info(f"Loaded {len(documents)} documents")
 doc_to_upload = map_documents_for_search(documents)
 
 logger.info(f"Mapped {len(doc_to_upload)} documents for upload")
-logger.info(f"Sample document: {doc_to_upload[0] if doc_to_upload else 'No documents'}")
+# logger.info(f"Sample document: {doc_to_upload[0] if doc_to_upload else 'No documents'}")
 
 upload_documents_to_search(search_client, doc_to_upload)

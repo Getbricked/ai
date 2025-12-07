@@ -10,17 +10,14 @@ from _config import (
     RG_NAME,
     LOCATION,
     OPENAI_NAME,
-    EMBEDDING_MODEL_NAME,
     EMBEDDING_DEPLOYMENT_NAME,
+    GPT_DEPLOYMENT_NAME,
     SEARCH_NAME,
-    INDEX_NAME,
-    STORAGE_RG_NAME,
-    STORAGE_NAME,
 )
 
 from _utils import get_subscription_id, logger
-from azure_setup.text_embedding import (
-    delete_embedding_deployment,
+from azure_setup.openai_service import (
+    delete_deployment,
     delete_openai_resource,
     purge_openai_resource,
 )
@@ -46,18 +43,18 @@ def delete():
     try:
         logger.info("Deleting resources...")
 
-        delete_embedding_deployment(
+        # Embedding deployment cleanup
+        delete_deployment(
             cognitive_client, RG_NAME, OPENAI_NAME, EMBEDDING_DEPLOYMENT_NAME
         )
+
+        # GPT deployment cleanup
+        delete_deployment(cognitive_client, RG_NAME, OPENAI_NAME, GPT_DEPLOYMENT_NAME)
 
         delete_openai_resource(cognitive_client, RG_NAME, OPENAI_NAME)
         purge_openai_resource(cognitive_client, RG_NAME, OPENAI_NAME, LOCATION)
         delete_search_service(search_client, RG_NAME, SEARCH_NAME)
         delete_resource_group(resource_client, RG_NAME)
-
-        # Storage cleanup (incase need to reset storage)
-        # delete_storage_account(storage_client, STORAGE_RG_NAME, STORAGE_NAME)
-        # delete_resource_group(resource_client, STORAGE_RG_NAME)
 
         logger.info("All resources deleted as per DELETE flag.")
 

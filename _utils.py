@@ -130,3 +130,18 @@ def get_openai_embedding(text, embedding_name, endpoint, api_key):
         client.embeddings.create(model=embedding_name, input=text).data[0].embedding
     )
     return embedding
+
+
+def get_openai_completion(messages, model_name, endpoint, api_key):
+    if not endpoint or not api_key:
+        logger.error("Failed to retrieve Azure OpenAI credentials.")
+        return None
+
+    client = AzureOpenAI(
+        azure_endpoint=endpoint,
+        api_key=api_key,
+        api_version="2024-02-15-preview",
+    )
+
+    response = client.chat.completions.create(model=model_name, messages=messages)
+    return response.choices[0].message.content

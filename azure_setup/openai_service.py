@@ -32,9 +32,27 @@ def create_openai_resource(cognitive_client, rg_name, openai_name, location):
         sys.exit(1)
 
 
-def deploy_embedding_model(
-    cognitive_client, rg_name, openai_name, model_name, deployment_name
+def deploy_model(
+    cognitive_client,
+    rg_name,
+    openai_name,
+    model_name,
+    deployment_name,
+    version="1",
+    capacity=1,
 ):
+    """
+    Deploy a model to Azure OpenAI service.
+
+    Args:
+        cognitive_client: Azure Cognitive Services client
+        rg_name: Resource group name
+        openai_name: OpenAI resource name
+        model_name: Model name (e.g., 'text-embedding-3-small', 'gpt-35-turbo')
+        deployment_name: Name for the deployment
+        version: Model version (default "1" for embeddings, use "0613" for gpt-35-turbo)
+        capacity: Capacity in thousands of tokens per minute (default: 1)
+    """
     try:
         deployment = cognitive_client.deployments.begin_create_or_update(
             rg_name,
@@ -42,13 +60,19 @@ def deploy_embedding_model(
             deployment_name,
             {
                 "properties": {
-                    "model": {"format": "OpenAI", "name": model_name, "version": "1"}
+                    "model": {
+                        "format": "OpenAI",
+                        "name": model_name,
+                        "version": version,
+                    }
                 },
-                "sku": {"name": "Standard", "capacity": 1},
+                "sku": {"name": "Standard", "capacity": capacity},
             },
         ).result()
 
-        logger.info(f"Model '{model_name}' deployed as '{deployment_name}'.")
+        logger.info(
+            f"Model '{model_name}' (version {version}) deployed as '{deployment_name}'."
+        )
 
         return deployment
 
@@ -59,9 +83,7 @@ def deploy_embedding_model(
         sys.exit(1)
 
 
-def delete_embedding_deployment(
-    cognitive_client, rg_name, openai_name, deployment_name
-):
+def delete_deployment(cognitive_client, rg_name, openai_name, deployment_name):
     try:
         cognitive_client.deployments.begin_delete(
             rg_name, openai_name, deployment_name
