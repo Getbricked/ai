@@ -1,0 +1,4 @@
+ID: T1596
+Title: Search Open Technical Databases
+URL: https://attack.mitre.org/techniques/T1596
+Adversaries may search freely available technical databases for information about victims that can be used during targeting. Information about victims may be available in online databases and repositories, such as registrations of domains/certificates as well as public collections of network data/artifacts gathered from traffic and/or scans. [1] [2] [3] [4] [5] [6] [7] Adversaries may search in different open databases depending on what information they seek to gather. Information from these sources may reveal opportunities for other forms of reconnaissance (ex: Phishing for Information or Search Open Websites/Domains ), establishing operational resources (ex: Acquire Infrastructure or Compromise Infrastructure ), and/or initial access (ex: External Remote Services or Trusted Relationship ).

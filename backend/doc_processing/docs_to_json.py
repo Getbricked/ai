@@ -72,14 +72,21 @@ def convert_to_json_and_upload(local_path):
                 continue
 
             if content:
-                # Split content into sentences
-                sentences = re.split(r"(?<=[.!?])\s+", content)
-                sentences = [s.strip() for s in sentences if s.strip()]
+                # Split content into paragraphs (prefer blank-line boundaries)
+                normalized = content.replace("\r\n", "\n")
+                paragraphs = [
+                    p.strip() for p in re.split(r"\n\s*\n+", normalized) if p.strip()
+                ]
+                # Fallback: split on single newlines if no blank-line paragraphs
+                if not paragraphs:
+                    paragraphs = [
+                        p.strip() for p in normalized.split("\n") if p.strip()
+                    ]
 
-                print(f"Processing {filename}: {len(sentences)} sentences found")
+                print(f"Processing {filename}: {len(paragraphs)} paragraphs found")
 
-                # Process each sentence
-                for idx, sentence in enumerate(sentences, start=1):
+                # Process each paragraph
+                for idx, paragraph in enumerate(paragraphs, start=1):
                     doc_id = f"{base_id}_{idx}"
                     blob_name = f"doc-{doc_id}.json"
 
@@ -90,11 +97,11 @@ def convert_to_json_and_upload(local_path):
 
                     json_doc = {
                         "id": doc_id,
-                        "content": sentence,
+                        "content": paragraph,
                         "category": category,
                         "source": source,
                         "contentVector": get_openai_embedding(
-                            sentence,
+                            paragraph,
                             EMBEDDING_DEPLOYMENT_NAME,
                             embed_endpoint,
                             embed_api_key,

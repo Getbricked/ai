@@ -1,0 +1,4 @@
+ID: T1021.006
+Title: Remote Services:Windows Remote Management
+URL: https://attack.mitre.org/techniques/T1021/006
+Adversaries may use Valid Accounts to interact with remote systems using Windows Remote Management (WinRM). The adversary may then perform actions as the logged-on user. WinRM is the name of both a Windows service and a protocol that allows a user to interact with a remote system (e.g., run an executable, modify the Registry, modify services). [1] It may be called with the winrm command or by any number of programs such as PowerShell. [2] WinRM can be used as a method of remotely interacting with Windows Management Instrumentation . [3]

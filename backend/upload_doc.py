@@ -20,12 +20,15 @@ from _credentials import (
 from _utils import logger
 from azure.search.documents import SearchClient
 from azure.core.credentials import AzureKeyCredential
+from pathlib import Path
 from _utils import (
     get_search_admin_key,
 )
 
-
 convert_to_json_and_upload("docs/")
+
+for txt_file in Path("scraping/MITRE/").rglob("*.txt"):
+    convert_to_json_and_upload(str(txt_file.parent))
 
 admin_key = get_search_admin_key(
     credential,
