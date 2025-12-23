@@ -40,7 +40,7 @@ search_client = SearchClient(
     credential=search_credential,
 )
 
-input_text = "Can you tell me about malware?"  # Example query
+input_text = "cybersecurity"  # Example query
 
 print(f"Searching for: {input_text}")
 
@@ -56,13 +56,13 @@ query_vector = get_openai_embedding(
 results = search_index(search_client, vector=query_vector, top_k=100)
 
 # Check if we have relevant results from vector search
-if not results or not any(hit["score"] > 0.4 for hit in results):
+if not results or not any(hit["score"] > 0.55 for hit in results):
     print("No relevant vector search results found. Falling back to keyword search...")
 
 # 3. Construct Context
 context = ""
 for hit in results:
-    if hit["score"] > 0.5:  # Filter by relevance
+    if hit["score"] > 0.55:  # Filter by relevance
         logger.info(
             f"Document: {hit['document'].get('source', 'Unknown')} (Content: {hit['document'].get('content', '')[:100]}...) Score: {hit['score']}"
         )

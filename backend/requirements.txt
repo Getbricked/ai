@@ -19,3 +19,7 @@ openai
 # Document Processing Libraries
 PyPDF2
 python-docx
+
+# Web API
+fastapi
+uvicorn
