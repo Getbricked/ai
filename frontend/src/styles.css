@@ -308,20 +308,25 @@ body {
 .composer-inner {
     max-width: 800px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 10px;
+    position: relative;
+    display: flex;
 }
 
 .composer textarea {
     resize: none;
     min-height: 48px;
-    max-height: 160px;
+    max-height: 300px;
     padding: 12px 14px;
+    padding-right: 50px;
     border-radius: 20px;
     border: 1px solid #1f2937;
     background: #0f1115;
     color: #e5e7eb;
+    overflow: hidden;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    font-size: 15px;
+    line-height: 1.55;
+    flex: 1;
 }
 
 .composer textarea:focus {
@@ -331,14 +336,21 @@ body {
 }
 
 .composer .send {
-    padding: 0 18px;
-    border-radius: 20px;
-    border: 1px solid #374151;
+    position: absolute;
+    right: 4px;
+    bottom: 4px;
+    padding: 8px 14px;
+    border-radius: 16px;
+    border: none;
     background: #003dc0;
     color: #e5e7eb;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.15s ease;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .composer .send:disabled {

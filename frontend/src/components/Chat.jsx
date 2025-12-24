@@ -8,6 +8,7 @@ export default function Chat() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
     const listRef = useRef(null)
+    const textareaRef = useRef(null)
     const suggestions = [
         'What are the key cybersecurity threats today?',
         'Explain zero trust architecture',
@@ -45,6 +46,14 @@ export default function Chat() {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault()
             handleSend()
+        }
+    }
+
+    const handleInputChange = (e) => {
+        setInput(e.target.value)
+        if (textareaRef.current) {
+            textareaRef.current.style.height = 'auto'
+            textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px'
         }
     }
 
@@ -106,11 +115,12 @@ export default function Chat() {
                 <div className="composer">
                     <div className="composer-inner">
                         <textarea
+                            ref={textareaRef}
                             placeholder="Ask anything about cybersecurity"
                             value={input}
-                            onChange={(e) => setInput(e.target.value)}
+                            onChange={handleInputChange}
                             onKeyDown={handleKeyDown}
-                            rows={3}
+                            rows={1}
                         />
                         <button className="send" disabled={loading || !input.trim()} onClick={handleSend}>
                             ➤
