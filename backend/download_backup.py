@@ -98,6 +98,14 @@ def save_all_json(download_dir: str, prefix: Optional[str] = None) -> str:
     saved_count = 0
     for name in blob_names:
         print(f"Saving '{name}'...")
+        local_path = os.path.join(download_dir, *name.split("/"))
+        os.makedirs(os.path.dirname(local_path), exist_ok=True)
+
+        # Skip if already saved locally
+        if os.path.exists(local_path):
+            print(f"Skipping '{name}' (already exists).")
+            continue
+
         obj = download_json_blob(name)
 
         # Ensure nested folders are created to mirror blob paths

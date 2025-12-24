@@ -126,3 +126,106 @@ def convert_to_json_and_upload(local_path):
 
     print(f"Total uploaded: {total_size / 1024:.2f} KB")
     return json_documents
+
+
+def upload_backup(local_path):
+    total_size = 0
+
+    print(f"Checking if container '{CONTAINER_NAME}' exists...")
+    if not container_client.exists():
+        print(f"Container '{CONTAINER_NAME}' does not exist. Creating it now...")
+        container_client.create_container()
+        print(f"✅ Successfully created container '{CONTAINER_NAME}'.")
+    else:
+        print(f"✅ Container '{CONTAINER_NAME}' already exists. No action taken.")
+
+    existing_blobs = set()
+    try:
+        for blob in container_client.list_blobs():
+            existing_blobs.add(blob.name)
+        print(f"Found {len(existing_blobs)} existing documents in storage.")
+    except Exception as e:
+        print(f"Warning: Could not fetch existing blobs: {e}")
+
+    for filename in os.listdir(local_path):
+        if not filename.endswith(".json"):
+            continue
+
+        file_path = os.path.join(local_path, filename)
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+
+            doc_id = data.get("id") or filename.replace(".", "_")
+            blob_name = f"doc-{doc_id}.json"
+
+            if blob_name in existing_blobs:
+                print(f"Skipping {blob_name} (already exists)")
+                continue
+
+            blob_data = json.dumps(
+                {
+                    "id": doc_id,
+                    "content": data.get("content", ""),
+                    "category": data.get("category", "Unknown"),
+                    "source": data.get("source", "Local Storage"),
+                }
+            )
+
+            blob_client = container_client.get_blob_client(blob_name)
+            blob_client.upload_blob(blob_data, overwrite=False)
+            size = len(blob_data.encode("utf-8"))
+            total_size += size
+            print(f"Uploaded {blob_name} ({size} bytes)")
+
+        except Exception as e:
+            print(f"Error processing {filename}: {e}")
+
+    print(f"Total uploaded: {total_size / 1024:.2f} KB")
+    return total_size
+
+
+def upload_raw_json_files(local_path, overwrite=False):
+    """Upload existing .json files directly to blob storage."""
+    total_size = 0
+
+    print(f"Checking if container '{CONTAINER_NAME}' exists...")
+    if not container_client.exists():
+        print(f"Container '{CONTAINER_NAME}' does not exist. Creating it now...")
+        container_client.create_container()
+        print(f"✅ Successfully created container '{CONTAINER_NAME}'.")
+    else:
+        print(f"✅ Container '{CONTAINER_NAME}' already exists. No action taken.")
+
+    existing_blobs = set()
+    try:
+        for blob in container_client.list_blobs():
+            existing_blobs.add(blob.name)
+        print(f"Found {len(existing_blobs)} existing documents in storage.")
+    except Exception as e:
+        print(f"Warning: Could not fetch existing blobs: {e}")
+
+    for filename in os.listdir(local_path):
+        if not filename.lower().endswith(".json"):
+            continue
+
+        blob_name = filename  # keep original name
+        file_path = os.path.join(local_path, filename)
+
+        if not overwrite and blob_name in existing_blobs:
+            print(f"Skipping {blob_name} (already exists)")
+            continue
+
+        try:
+            with open(file_path, "rb") as f:
+                data = f.read()
+
+            blob_client = container_client.get_blob_client(blob_name)
+            blob_client.upload_blob(data, overwrite=overwrite)
+            total_size += len(data)
+            print(f"Uploaded {blob_name} ({len(data)} bytes)")
+        except Exception as e:
+            print(f"Error uploading {filename}: {e}")
+
+    print(f"Total uploaded: {total_size / 1024:.2f} KB")
+    return total_size

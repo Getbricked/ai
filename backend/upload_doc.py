@@ -1,4 +1,4 @@
-from doc_processing.docs_to_json import convert_to_json_and_upload
+from doc_processing.docs_to_json import convert_to_json_and_upload, upload_backup
 from search_query.search_query import (
     map_documents_for_search,
     upload_documents_to_search,
@@ -25,8 +25,11 @@ from _utils import (
     get_search_admin_key,
 )
 
-convert_to_json_and_upload("docs/")
+# Upload backup first
+upload_backup("backup/")
 
+# Upload all documents again to check if there are new ones
+convert_to_json_and_upload("docs/")
 for txt_file in Path("scraping/MITRE/").rglob("*.txt"):
     convert_to_json_and_upload(str(txt_file.parent))
 
