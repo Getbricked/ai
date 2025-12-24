@@ -1,6 +1,5 @@
 from doc_processing.docs_to_json import convert_to_json_and_upload, upload_backup
 from search_query.search_query import (
-    map_documents_for_search,
     upload_documents_to_search,
     load_json_documents_from_blob,
 )
@@ -51,12 +50,24 @@ search_client = SearchClient(
 )
 
 documents = load_json_documents_from_blob(blob_connection_string, CONTAINER_NAME)
-
 logger.info(f"Loaded {len(documents)} documents")
 
-doc_to_upload = map_documents_for_search(documents)
+# Skip mapping entirely if documents are already in correct format
+# Just validate required fields
+doc_to_upload = [
+    doc
+    for doc in documents
+    if doc.get("id") and doc.get("content") and doc.get("content_vector")
+]
 
-logger.info(f"Mapped {len(doc_to_upload)} documents for upload")
-# logger.info(f"Sample document: {doc_to_upload[0] if doc_to_upload else 'No documents'}")
+logger.info(
+    f"Validated {len(doc_to_upload)} documents for upload (skipped {len(documents) - len(doc_to_upload)})"
+)
 
-upload_documents_to_search(search_client, doc_to_upload)
+# Fast parallel upload with optimized settings
+upload_documents_to_search(
+    search_client,
+    doc_to_upload,
+    batch_size=1000,  # Max allowed by Azure Search
+    max_workers=8,  # Increase for faster uploads (adjust based on rate limits)
+)
