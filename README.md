@@ -1,5 +1,8 @@
 # Utilizing Azure OpenAI for Intelligent Question Answering (Specialized for Cybersecurity)
 
+![alt text](screenshot/pic1.png)
+![alt text](screenshot/pic2.png)
+
 This repo contains a Gemini‑inspired React frontend and a FastAPI backend that uses Azure OpenAI + Azure AI Search to answer cybersecurity questions grounded in your documents.
 
 ## Overview

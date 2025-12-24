@@ -12,7 +12,7 @@ export default function Chat() {
     const suggestions = [
         'What are the key cybersecurity threats today?',
         'Explain zero trust architecture',
-        'Best practices for securing cloud workloads',
+        'How to secure a home network?',
         'How to prevent phishing attacks?'
     ]
 

@@ -186,3 +186,4 @@ npm-debug.log
 yarn-error.log
 .npm
 .eslintcache
+.vite/
