@@ -1,4 +1,0 @@
-ID: T1589.003
-Title: Gather Victim Identity Information:Employee Names
-URL: https://attack.mitre.org/techniques/T1589/003
-Adversaries may gather employee names that can be used during targeting. Employee names be used to derive email addresses as well as to help guide other reconnaissance efforts and/or craft more-believable lures. Adversaries may easily gather employee names, since they may be readily available and exposed via online or other accessible data sets (ex: Social Media or Search Victim-Owned Websites ). [1] Gathering this information may reveal opportunities for other forms of reconnaissance (ex: Search Open Websites/Domains or Phishing for Information ), establishing operational resources (ex: Compromise Accounts ), and/or initial access (ex: Phishing or Valid Accounts ).

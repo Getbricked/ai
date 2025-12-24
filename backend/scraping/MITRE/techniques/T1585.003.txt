@@ -1,4 +1,0 @@
-ID: T1585.003
-Title: Establish Accounts:Cloud Accounts
-URL: https://attack.mitre.org/techniques/T1585/003
-Adversaries may create accounts with cloud providers that can be used during targeting. Adversaries can use cloud accounts to further their operations, including leveraging cloud storage services such as Dropbox, MEGA, Microsoft OneDrive, or AWS S3 buckets for Exfiltration to Cloud Storage or to Upload Tool s. Cloud accounts can also be used in the acquisition of infrastructure, such as Virtual Private Server s or Serverless infrastructure. Establishing cloud accounts may allow adversaries to develop sophisticated capabilities without managing their own servers. [1] Creating Cloud Accounts may also require adversaries to establish Email Accounts to register with the cloud provider.

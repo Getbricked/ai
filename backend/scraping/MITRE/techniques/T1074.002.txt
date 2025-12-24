@@ -1,4 +1,0 @@
-ID: T1074.002
-Title: Data Staged:Remote Data Staging
-URL: https://attack.mitre.org/techniques/T1074/002
-Adversaries may stage data collected from multiple systems in a central location or directory on one system prior to Exfiltration. Data may be kept in separate files or combined into one file through techniques such as Archive Collected Data . Interactive command shells may be used, and common functionality within cmd and bash may be used to copy data into a staging location. In cloud environments, adversaries may stage data within a particular instance or virtual machine before exfiltration. An adversary may Create Cloud Instance and stage data in that instance. [1] By staging data on one system prior to Exfiltration, adversaries can minimize the number of connections made to their C2 server and better evade detection.

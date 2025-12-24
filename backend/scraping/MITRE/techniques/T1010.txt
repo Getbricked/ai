@@ -1,4 +1,0 @@
-ID: T1010
-Title: Application Window Discovery
-URL: https://attack.mitre.org/techniques/T1010
-Adversaries may attempt to get a listing of open application windows. Window listings could convey information about how the system is used. [1] For example, information about application windows could be used identify potential data to collect as well as identifying security tooling ( Security Software Discovery ) to evade. [2] Adversaries typically abuse system features for this type of enumeration. For example, they may gather information through native system features such as Command and Scripting Interpreter commands and Native API functions.

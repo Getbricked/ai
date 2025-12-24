@@ -1,4 +1,0 @@
-ID: T1003
-Title: OS Credential Dumping
-URL: https://attack.mitre.org/techniques/T1003
-Adversaries may attempt to dump credentials to obtain account login and credential material, normally in the form of a hash or a clear text password. Credentials can be obtained from OS caches, memory, or structures. [1] Credentials can then be used to perform Lateral Movement and access restricted information. Several of the tools mentioned in associated sub-techniques may be used by both adversaries and professional security testers. Additional custom tools likely exist as well.

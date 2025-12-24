@@ -1,4 +1,0 @@
-ID: T1008
-Title: Fallback Channels
-URL: https://attack.mitre.org/techniques/T1008
-Adversaries may use fallback or alternate communication channels if the primary channel is compromised or inaccessible in order to maintain reliable command and control and to avoid data transfer thresholds.

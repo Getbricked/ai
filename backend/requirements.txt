@@ -23,8 +23,3 @@ python-docx
 # Web API
 fastapi
 uvicorn
-
-# Scraping / Feeds
-feedparser
-requests
-beautifulsoup4
