@@ -1,4 +1,4 @@
-from doc_processing.docs_to_json import convert_to_json_and_upload
+from doc_processing.docs_to_json import convert_to_json_and_upload, upload_backup
 from search_query.search_query import (
     map_documents_for_search,
     upload_documents_to_search,
@@ -13,6 +13,8 @@ from _config import (
     SEARCH_NAME,
     RG_NAME,
 )
+
+from pathlib import Path
 from _credentials import (
     subscription_id,
     credential,
@@ -24,8 +26,22 @@ from _utils import (
     get_search_admin_key,
 )
 
+# Quick upload
+upload_backup("backup/")
 
-convert_to_json_and_upload("docs/")
+# Use for new documents!
+# convert_to_json_and_upload("docs/")
+
+# Process MITRE directories (collect unique parent directories to avoid duplicates)
+# mitre_dirs = set()
+# for txt_file in Path("scraping/MITRE/").rglob("*.txt"):
+#     mitre_dirs.add(str(txt_file.parent))
+
+# for mitre_dir in mitre_dirs:
+#     print(f"\n{'='*60}")
+#     print(f"Processing directory: {mitre_dir}")
+#     print(f"{'='*60}")
+#     convert_to_json_and_upload(mitre_dir)
 
 admin_key = get_search_admin_key(
     credential,

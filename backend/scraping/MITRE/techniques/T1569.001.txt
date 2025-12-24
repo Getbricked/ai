@@ -1,0 +1,4 @@
+ID: T1569.001
+Title: System Services:Launchctl
+URL: https://attack.mitre.org/techniques/T1569/001
+Adversaries may abuse launchctl to execute commands or programs. Launchctl interfaces with launchd, the service management framework for macOS. Launchctl supports taking subcommands on the command-line, interactively, or even redirected from standard input. [1] Adversaries use launchctl to execute commands and programs as Launch Agent s or Launch Daemon s. Common subcommands include: launchctl load , launchctl unload , and launchctl start . Adversaries can use scripts or manually run the commands launchctl load -w "%s/Library/LaunchAgents/%s" or /bin/launchctl load to execute Launch Agent s or Launch Daemon s. [2] [3]

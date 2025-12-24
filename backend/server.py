@@ -125,6 +125,8 @@ def chat(req: QueryRequest):
                 "content": (
                     "You are a cybersecurity specialist. Use the provided context to "
                     "answer the user's question. Do not use information outside the context."
+                    " If the context is blank, respond with 'I don't know.'"
+                    "If there is a link attached to the answer, format it with markdown and put at the end of the sentence as [More info](link)."
                 ),
             },
             {

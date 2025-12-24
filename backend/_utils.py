@@ -132,6 +132,37 @@ def get_openai_embedding(text, embedding_name, endpoint, api_key):
     return embedding
 
 
+def get_openai_embeddings_batch(
+    texts, embedding_name, endpoint, api_key, max_batch_size=50
+):
+    """Fetch embeddings for a list of texts in batches to reduce round-trips."""
+
+    if not endpoint or not api_key:
+        logger.error("Failed to retrieve Azure OpenAI credentials.")
+        return []
+
+    client = AzureOpenAI(
+        azure_endpoint=endpoint,
+        api_key=api_key,
+        api_version="2023-05-15",
+    )
+
+    embeddings = []
+    for i in range(0, len(texts), max_batch_size):
+        chunk = texts[i : i + max_batch_size]
+        try:
+            response = client.embeddings.create(model=embedding_name, input=chunk)
+            # Ensure order matches input order
+            ordered = sorted(response.data, key=lambda x: x.index)
+            embeddings.extend([item.embedding for item in ordered])
+        except Exception as exc:  # noqa: BLE001
+            logger.error("Batch embedding request failed: %s", exc)
+            # Pad failures with None to keep alignment
+            embeddings.extend([None] * len(chunk))
+
+    return embeddings
+
+
 def get_openai_completion(messages, model_name, endpoint, api_key):
     if not endpoint or not api_key:
         logger.error("Failed to retrieve Azure OpenAI credentials.")

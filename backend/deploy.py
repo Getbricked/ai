@@ -70,6 +70,7 @@ def deploy():
             EMBEDDING_MODEL_NAME,
             EMBEDDING_DEPLOYMENT_NAME,
             version="1",
+            capacity=350,  # Max
         )
 
         # GPT model deployment
@@ -80,7 +81,7 @@ def deploy():
             GPT_MODEL_NAME,
             GPT_DEPLOYMENT_NAME,
             version="2024-07-18",
-            capacity=10,
+            capacity=200,  # Max
         )
 
         logger.info("Embedding model deployed successfully.")
