@@ -1,0 +1,4 @@
+ID: T1005
+Title: Data from Local System
+URL: https://attack.mitre.org/techniques/T1005
+Adversaries may search local system sources, such as file systems, configuration files, local databases, virtual machine files, or process memory, to find files of interest and sensitive data prior to Exfiltration. Adversaries may do this using a Command and Scripting Interpreter , such as cmd as well as a Network Device CLI , which have functionality to interact with the file system to gather information. [1] Adversaries may also use Automated Collection on the local system.

@@ -1,0 +1,97 @@
+
+An overview of cybersecurity
+Cybersecurity is a set of processes, best practices, and technology solutions that help you protect critical systems, data, and network from digital attacks.
+Key takeaways
+
+    Cybersecurity is the practice of protecting your critical systems, data, and networks from digital attacks.
+    As data has proliferated and more people work and connect from anywhere, bad actors have developed sophisticated methods for gaining access to resources and data.
+    An effective cybersecurity program includes people, processes, and technology solutions to reduce the risk of business disruption, data theft, financial loss, and reputational damage from an attack.
+    Cybersecurity is essential for safeguarding against unauthorized access, data breaches, and other cyber threat. 
+
+Understanding cybersecurity
+What is cybersecurity?
+As data has proliferated and more people work and connect from anywhere, bad actors have responded by developing a broad array of expertise and skills. Every year the number of cyberattacks increases as adversaries continue to evolve their tactics, techniques, and procedures (TTP) and scale their operations.
+
+This ever-evolving threat landscape necessitates that organizations create a dynamic, ongoing cybersecurity program to stay resilient and adapt to emerging risks. An effective cybersecurity program includes people, processes, and technology solutions to reduce the risk of business disruption, data theft, financial loss, and reputational damage from an attack.
+Types of cybersecurity threats
+Bad actors continuously evolve their TTPs to evade detection and exploit vulnerabilities using a myriad of attack methods, including:
+Malware—like viruses, worms, ransomware, spyware
+Malware is a catchall term for any malicious software, including worms, ransomware, spyware, and viruses. It is designed to cause harm to computers or networks by altering or deleting files, extracting sensitive data like passwords and account numbers, or sending malicious emails or traffic. Malware may be installed by an attacker who gains access to the network, but often, individuals unwittingly deploy malware on their devices or company network after clicking on a bad link or downloading an infected attachment.
+
+Malware is often used to establish a foothold in a network, creating a backdoor that lets cyberattackers move laterally within the system. It can also be used to steal data or encrypt files in ransomware attacks.
+Phishing and social engineering attacks
+In social engineering, attackers take advantage of people’s trust to dupe them into handing over account information or downloading malware. In these attacks, bad actors masquerade as a known brand, coworker, or friend and use psychological techniques such as creating a sense of urgency to get people to do what they want.
+
+Phishing is a type of social engineering that uses emails, text messages, or voicemails that appear to be from a reputable source and ask users to click on a link that requires them to login—allowing the attacker to steal their credentials. Some phishing campaigns are sent to a huge number of people in the hope that one person will click. Other campaigns, called spear phishing, are more targeted and focus on a single person. For example, an adversary might pretend to be a job seeker to trick a recruiter into downloading an infected resume. More recently, AI has been used in phishing scams to make them more personalized, effective, and efficient, which makes them harder to detect.
+Ransomware
+Ransomware, also known as cyber extortion, is a type of malware that encrypts a victim's data and demands payment (often in cryptocurrency) to restore access. Cyber extortion can have devastating financial and reputational consequences for businesses and individuals.
+
+There are two main types of ransomware attacks: commodity-based ransomware and human-operated ransomware. Commodity-based attacks are typically automated and indiscriminate, targeting a wide range of victims using mass-distributed malware. In contrast, human-operated ransomware is a more targeted approach where attackers manually infiltrate and navigate networks, often spending weeks in systems to maximize the impact and potential payout of the attack.
+Identity threats
+Identity threats involve malicious efforts to steal or misuse personal or organizational identities that allow the attacker to access sensitive information or move laterally within the network. Brute force attacks are attempts to guess passwords by trying many combinations. Credential theft occurs when attackers steal login details, often through phishing, allowing them to login as an authorized user and access accounts and sensitive inform.
+Business email compromise
+Business email compromise is a type of is a type of phishing attack where an attacker compromises the email of a legitimate business or trusted partner and sends phishing emails posing as a senior executive attempting to trick employees into transferring money or sensitive data to them.
+Denial-of-Service (DoS) and Distributed Denial-of-Service (DDoS) attacks
+A DoS attack seeks to overwhelm a system or network, making it unavailable to users. DDoS attacks use multiple devices to flood a target with traffic, causing service interruptions or complete shutdowns.
+Advance persistent threats (APTs)
+APTs involve attackers gaining unauthorized access to a network and remaining undetected for extended periods. ATPs are also known as multistage attacks, and are often carried out by nation-state actors or established threat actor groups. Their goal is to steal data or sabotage the system over time, often targeting governments or large corporations. ATPs employ multiple other types of attacks—including phishing, malware, identity attacks—to gain access. Human-operated ransomware is a common type of APT.
+Insider threats
+Insider threats come from individuals within an organization who either accidentally or maliciously compromise security. These threats may arise from disgruntled employees or those with access to sensitive information. This can include an employee downloading data to share with a competitor or accidentally sending sensitive data without encryption over a compromised channel.
+Threat actors
+Who are we defending against?
+Understanding the motivations and profiles of attackers is essential in developing effective cybersecurity defenses. Some of the key adversaries in today’s threat landscape include:
+
+Nation-state sponsored actors
+A nation-state sponsored actor is a group or individual that is supported by a government to conduct cyberattacks against other countries, organizations, or individuals. State-sponsored cyberattackers often have vast resources and sophisticated tools at their disposal. Their motivations can range from espionage to destabilizing infrastructure, with attacks often targeting governments, critical infrastructure, and corporations. Nation-state sponsored actors are typically the most well-resourced and effective type of attacker. They sometimes sell their tooling to smaller groups.
+
+Ransomware groups
+These organized criminal groups deploy ransomware to extort businesses for financial gain. They are typically leading sophisticated, multistage hands-on-keyboard attacks that steal data and disrupt business operations, demanding hefty ransom payments in exchange for decryption keys.
+
+Cyber mercenaries/private sector offensive actors
+Cyber mercenaries are hackers for hire who offer their services to governments, corporations, or criminal organizations. They conduct espionage, sabotage, or other malicious activities on behalf of their clients.
+Frameworks and standards
+Cybersecurity frameworks and standards
+Organizations rely on well-established frameworks and standards to guide their cybersecurity efforts. Some of the most widely adopted frameworks include:
+ 
+
+    NIST Cybersecurity Framework: Developed by the National Institute of Standards and Technology (NIST), this framework provides guidelines for managing and reducing cybersecurity risk.
+    ISO/IEC 27001: A global standard for managing information security that outlines a systematic approach to securing sensitive data.
+    CIS Controls: The Center for Internet Security's critical security controls offer a set of best practices for defending against cyber threats. 
+
+Importance of compliance and regulatory requirements:
+Regulatory bodies mandate certain security measures for organizations handling sensitive data. Non-compliance can result in legal consequences and fines. Adhering to well-established frameworks helps ensure organizations protect customer data and avoid regulatory penalties.
+
+Choosing the right framework for your organization:
+Selecting the right cybersecurity framework depends on an organization's size, industry, and regulatory environment. Organizations should consider their risk tolerance, compliance requirements, and security needs and choose a framework that aligns with their goals.
+Tools and technologies
+Cybersecurity tools and technologies
+To defend against modern cyber threats, organizations need a multi-layered defense strategy that employs various tools and technologies, including:
+
+Endpoint Protection and antivirus software
+Endpoint protection software secures individual devices (laptops, smartphones, etc.) against malware, ransomware, and other threats. Antivirus software scans for and removes malicious software from devices.
+
+Identity and Access Management (IAM) Solutions
+IAM solutions help organizations control who has access to critical information and systems, ensuring that only authorized individuals can access sensitive resources.
+
+Firewalls and Intrusion Detection and Prevention Systems (IDPS)
+Firewalls act as the first line of defense, monitoring and controlling incoming and outgoing network traffic. IDPS systems detect and prevent intrusions by analyzing network traffic for signs of malicious activity.
+
+Cloud security
+Cloud security encompasses the technologies, procedures, policies, and controls that help you protect your cloud-based systems and data.
+
+Collaboration security
+Collaboration security is a framework of tools and practices designed to protect the exchange of information and workflows within digital workspaces like messaging apps, shared documents, and video conferencing platforms. It aims to safeguard against unauthorized access, data leaks, and cyber threats while enabling seamless collaboration among team members. Effective collaboration security ensures that employees can work together securely from anywhere, maintaining compliance and protecting sensitive information.
+
+Encryption and data protection tools
+Encryption is the process of encoding data to prevent unauthorized access. Strong encryption is essential for protecting sensitive data, both in transit and at rest.
+
+Security Information and Event Management (SIEM) Systems
+SIEM systems collect and analyze security data from across an organization’s IT infrastructure, providing real-time insights into potential threats and helping with incident response.
+
+Extended detection and response (XDR)
+Extended detection and response, often abbreviated as XDR, is a unified security incident platform that uses AI and automation. It provides organizations with a holistic, efficient way to protect against and respond to advanced cyberattacks.
+
+Unified SecOps solution
+A Unified SecOps solution provides all the tools a security operations center needs to protect their organization. At minimum, a security operations platform should include an Extended Detection and Response (XDR), Security Information and Event Management (SIEM), Security Orchestration and Automated Response (SOAR), and some type of posture solution. While new, GenAI is also becoming an increasingly important component to the platform.
+Best practices
+Strategies and policies for cybersecurity

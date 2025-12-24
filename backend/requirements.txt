@@ -1,0 +1,25 @@
+# Credentials
+azure-identity
+
+# Azure Management Libraries
+azure-mgmt-resource
+azure-mgmt-consumption
+azure-mgmt-subscription
+azure-mgmt-storage 
+azure-mgmt-cognitiveservices 
+azure-mgmt-search
+
+# Azure Data Libraries
+azure-search-documents
+azure-storage-blob
+
+# OpenAI Libraries
+openai
+
+# Document Processing Libraries
+PyPDF2
+python-docx
+
+# Web API
+fastapi
+uvicorn

@@ -1,0 +1,4 @@
+ID: T1567.003
+Title: Exfiltration Over Web Service:Exfiltration to Text Storage Sites
+URL: https://attack.mitre.org/techniques/T1567/003
+Adversaries may exfiltrate data to text storage sites instead of their primary command and control channel. Text storage sites, such as pastebin[.]com , are commonly used by developers to share code and other information. Text storage sites are often used to host malicious code for C2 communication (e.g., Stage Capabilities ), but adversaries may also use these sites to exfiltrate collected data. Furthermore, paid features and encryption options may allow adversaries to conceal and store data more securely. [1] Note: This is distinct from Exfiltration to Code Repository , which highlight access to code repositories via APIs.

@@ -1,0 +1,4 @@
+ID: T1007
+Title: System Service Discovery
+URL: https://attack.mitre.org/techniques/T1007
+Adversaries may try to gather information about registered local system services. Adversaries may obtain information about services using tools as well as OS utility commands such as sc query , tasklist /svc , systemctl --type=service , and net start . Adversaries may also gather information about schedule tasks via commands such as schtasks on Windows or crontab -l on Linux and macOS. [1] [2] [3] [4] Adversaries may use the information from System Service Discovery during automated discovery to shape follow-on behaviors, including whether or not the adversary fully infects the target and/or attempts specific actions.

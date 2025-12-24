@@ -1,0 +1,28 @@
+TA0027 - Initial Access - https://attack.mitre.org/tactics/TA0027 - The adversary is trying to get into your device.
+
+TA0041 - Execution - https://attack.mitre.org/tactics/TA0041 - The adversary is trying to run malicious code.
+
+TA0028 - Persistence - https://attack.mitre.org/tactics/TA0028 - The adversary is trying to maintain their foothold.
+
+TA0029 - Privilege Escalation - https://attack.mitre.org/tactics/TA0029 - The adversary is trying to gain higher-level permissions.
+
+TA0030 - Defense Evasion - https://attack.mitre.org/tactics/TA0030 - The adversary is trying to avoid being detected.
+
+TA0031 - Credential Access - https://attack.mitre.org/tactics/TA0031 - The adversary is trying to steal account names, passwords, or other secrets that enable access to resources.
+
+TA0032 - Discovery - https://attack.mitre.org/tactics/TA0032 - The adversary is trying to figure out your environment.
+
+TA0033 - Lateral Movement - https://attack.mitre.org/tactics/TA0033 - The adversary is trying to move through your environment.
+
+TA0035 - Collection - https://attack.mitre.org/tactics/TA0035 - The adversary is trying to gather data of interest to their goal.
+
+TA0037 - Command and Control - https://attack.mitre.org/tactics/TA0037 - The adversary is trying to communicate with compromised devices to control them.
+
+TA0036 - Exfiltration - https://attack.mitre.org/tactics/TA0036 - The adversary is trying to steal data.
+
+TA0034 - Impact - https://attack.mitre.org/tactics/TA0034 - The adversary is trying to manipulate, interrupt, or destroy your devices and data.
+
+TA0038 - Network Effects - https://attack.mitre.org/tactics/TA0038 - The adversary is trying to intercept or manipulate network traffic to or from a device.
+
+TA0039 - Remote Service Effects - https://attack.mitre.org/tactics/TA0039 - The adversary is trying to control or monitor the device using remote services.
+
