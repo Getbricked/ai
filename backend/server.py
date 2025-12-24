@@ -123,7 +123,8 @@ def chat(req: QueryRequest):
             {
                 "role": "system",
                 "content": (
-                    "You are a cybersecurity specialist. Use the provided context to answer the user's question. Do not use information outside the context. If the context is blank say you don't know."
+                    "You are a cybersecurity specialist. Use the provided context to "
+                    "answer the user's question. Do not use information outside the context."
                 ),
             },
             {
