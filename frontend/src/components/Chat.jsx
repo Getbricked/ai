@@ -28,6 +28,20 @@ export default function Chat() {
         setSavedSessions(sessions)
     }, [])
 
+    // On page reload/close, persist current session locally only
+    useEffect(() => {
+        const handleBeforeUnload = () => {
+            if (messages.length > 0 && sessionId) {
+                const sessionObject = createSessionObject(sessionId, messages)
+                // Fire-and-forget; beforeunload cannot await async work
+                saveSession(sessionObject)
+            }
+        }
+
+        window.addEventListener('beforeunload', handleBeforeUnload)
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload)
+    }, [messages, sessionId])
+
     useEffect(() => {
         if (!listRef.current) return
         listRef.current.scrollTop = listRef.current.scrollHeight
@@ -70,11 +84,18 @@ export default function Chat() {
         }
     }
 
-    const handleNewChat = () => {
+    const handleNewChat = async () => {
         // Save current session if it has messages
         if (messages.length > 0 && sessionId) {
             const sessionObject = createSessionObject(sessionId, messages)
             saveSession(sessionObject)
+
+            // Also save to backend (disk, i.e. frontend/sessions)
+            try {
+                await saveSessionToDisk(sessionObject)
+            } catch (err) {
+                console.error('Failed to save session on new chat:', err)
+            }
 
             // Update saved sessions list
             const updatedSessions = loadAllSessions()
