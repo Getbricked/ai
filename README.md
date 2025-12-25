@@ -106,7 +106,7 @@ Plain‑text responses are displayed directly.
 	- `backend/_config.py`, `backend/_credentials.py`, `backend/_utils.py` — configuration, credentials, helpers
 	- `backend/deploy.py` — creates resources and model deployments
 	- `backend/upload_doc.py` — converts docs to JSON, uploads to blob, indexes Search
-	- `backend/search_and_answer.py` — sample pipeline test
+	- `backend/testing/` — sample pipeline test
 	- `backend/azure_setup/` — resource creation helpers
 
 ## Troubleshooting
