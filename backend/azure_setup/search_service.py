@@ -23,7 +23,15 @@ from _utils import logger
 
 
 def create_search_service(search_client, rg_name, search_name, location):
-    """Creates or updates an Azure AI Search service."""
+    """
+    Create or update an Azure AI Search service.
+
+    Args:
+        search_client: Azure Search service client
+        rg_name: Resource group name
+        search_name: Search service name
+        location: Azure region location
+    """
     try:
         logger.info(f"Creating or updating search service '{search_name}'...")
         poller = search_client.services.begin_create_or_update(
@@ -55,8 +63,14 @@ def create_search_service(search_client, rg_name, search_name, location):
 
 def create_search_index(admin_key: str, search_name: str, index_name: str):
     """
-    Creates a semantic-enabled search index with vector search support.
+    Create a semantic-enabled search index with vector search support.
+
     Vector search is the primary search method, with semantic ranking as optional reranking.
+
+    Args:
+        admin_key: Azure Search admin API key
+        search_name: Search service name
+        index_name: Name of the index to create
     """
     print(f"Attempting to create semantic index '{index_name}'...")
 
@@ -151,7 +165,14 @@ def create_search_index(admin_key: str, search_name: str, index_name: str):
 
 
 def delete_search_service(search_client, rg_name, search_name):
-    """Deletes the search service."""
+    """
+    Delete an Azure AI Search service.
+
+    Args:
+        search_client: Azure Search service client
+        rg_name: Resource group name
+        search_name: Search service name
+    """
     try:
         logger.info(f"Deleting search service '{search_name}'...")
         search_client.services.delete(rg_name, search_name)

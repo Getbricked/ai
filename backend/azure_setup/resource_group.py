@@ -6,6 +6,14 @@ from _utils import logger
 
 
 def create_resource_group(resource_client, rg_name, location):
+    """
+    Create or update an Azure resource group.
+
+    Args:
+        resource_client: Azure resource management client
+        rg_name: Resource group name
+        location: Azure region location
+    """
     try:
         rg_result = resource_client.resource_groups.create_or_update(
             rg_name, {"location": location}
@@ -20,6 +28,13 @@ def create_resource_group(resource_client, rg_name, location):
 
 
 def delete_resource_group(resource_client, rg_name):
+    """
+    Delete an Azure resource group.
+
+    Args:
+        resource_client: Azure resource management client
+        rg_name: Resource group name
+    """
     try:
         delete_async_operation = resource_client.resource_groups.begin_delete(rg_name)
         delete_async_operation.result()

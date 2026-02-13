@@ -175,7 +175,7 @@ def chat(req: QueryRequest):
         results = search_index(search_client, vector=query_vector, top_k=25)
 
         # 3) Build context from relevant hits; fallback if none
-        threshold = 0.55
+        threshold = 0.6
         context_parts = []
         for hit in results:
             score = hit.get("score") or 0.0
@@ -194,7 +194,7 @@ def chat(req: QueryRequest):
             keyword_hits = search_index(
                 search_client,
                 query_text=question,
-                top_k=20,
+                top_k=1000,
                 select=["content", "source"],
             )
             for hit in keyword_hits:
@@ -212,7 +212,7 @@ def chat(req: QueryRequest):
                 "role": "system",
                 "content": (
                     "You are a cybersecurity specialist. Use the provided context to "
-                    "answer the user's question. Do not use information outside the context."
+                    "answer the user's question. Do not use your own database to answer!."
                     "If there is a link attached to the answer, format it with markdown and put at the end of the sentence as [More info](link)."
                 ),
             },
