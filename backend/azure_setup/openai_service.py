@@ -9,6 +9,15 @@ from _utils import logger
 
 
 def create_openai_resource(cognitive_client, rg_name, openai_name, location):
+    """
+    Create an Azure OpenAI resource.
+
+    Args:
+        cognitive_client: Azure Cognitive Services client
+        rg_name: Resource group name
+        openai_name: OpenAI resource name
+        location: Azure region location
+    """
     try:
         resource = cognitive_client.accounts.begin_create(
             rg_name,
@@ -48,9 +57,9 @@ def deploy_model(
         cognitive_client: Azure Cognitive Services client
         rg_name: Resource group name
         openai_name: OpenAI resource name
-        model_name: Model name (e.g., 'text-embedding-3-small', 'gpt-35-turbo')
+        model_name: Model name (e.g., 'text-embedding-3-small', 'gpt-4o-mini')
         deployment_name: Name for the deployment
-        version: Model version (default "1" for embeddings, use "0613" for gpt-35-turbo)
+        version: Model version (default "1" for embeddings, use "2024-07-18" for gpt-4o-mini)
         capacity: Capacity in thousands of tokens per minute (default: 1)
     """
     try:
@@ -84,6 +93,15 @@ def deploy_model(
 
 
 def delete_deployment(cognitive_client, rg_name, openai_name, deployment_name):
+    """
+    Delete a deployment from Azure OpenAI service.
+
+    Args:
+        cognitive_client: Azure Cognitive Services client
+        rg_name: Resource group name
+        openai_name: OpenAI resource name
+        deployment_name: Name of the deployment to delete
+    """
     try:
         cognitive_client.deployments.begin_delete(
             rg_name, openai_name, deployment_name
@@ -97,6 +115,14 @@ def delete_deployment(cognitive_client, rg_name, openai_name, deployment_name):
 
 
 def delete_openai_resource(cognitive_client, rg_name, openai_name):
+    """
+    Delete an Azure OpenAI resource.
+
+    Args:
+        cognitive_client: Azure Cognitive Services client
+        rg_name: Resource group name
+        openai_name: OpenAI resource name
+    """
     try:
         cognitive_client.accounts.begin_delete(rg_name, openai_name).result()
         logger.info(f"Azure OpenAI resource '{openai_name}' deleted.")
@@ -108,7 +134,15 @@ def delete_openai_resource(cognitive_client, rg_name, openai_name):
 
 
 def purge_openai_resource(cognitive_client, rg_name, openai_name, location):
-    """Purges a soft-deleted Azure OpenAI resource."""
+    """
+    Purge a soft-deleted Azure OpenAI resource.
+
+    Args:
+        cognitive_client: Azure Cognitive Services client
+        rg_name: Resource group name
+        openai_name: OpenAI resource name
+        location: Azure region location
+    """
     logger.info(
         f"Attempting to purge resource '{openai_name}' in location '{location}'..."
     )
