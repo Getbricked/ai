@@ -172,7 +172,7 @@ def chat(req: QueryRequest):
         )
 
         # 2) Vector search
-        results = search_index(search_client, vector=query_vector, top_k=25)
+        results = search_index(search_client, vector=query_vector, top_k=100)
 
         # 3) Build context from relevant hits; fallback if none
         threshold = 0.6
@@ -194,7 +194,7 @@ def chat(req: QueryRequest):
             keyword_hits = search_index(
                 search_client,
                 query_text=question,
-                top_k=1000,
+                top_k=100,
                 select=["content", "source"],
             )
             for hit in keyword_hits:
