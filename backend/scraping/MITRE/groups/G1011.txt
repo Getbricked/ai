@@ -1,0 +1,4 @@
+ID: G1011
+Title: EXOTIC LILY
+URL: https://attack.mitre.org/groups/G1011
+EXOTIC LILY is a financially motivated group that has been closely linked with Wizard Spider and the deployment of ransomware including Conti and Diavol . EXOTIC LILY may be acting as an initial access broker for other malicious actors, and has targeted a wide range of industries including IT, cybersecurity, and healthcare since at least September 2021. [1]

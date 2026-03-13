@@ -1,0 +1,4 @@
+ID: G0037
+Title: FIN6
+URL: https://attack.mitre.org/groups/G0037
+FIN6 is a cyber crime group that has stolen payment card data and sold it for profit on underground marketplaces. This group has aggressively targeted and compromised point of sale (PoS) systems in the hospitality and retail sectors. [1] [2]

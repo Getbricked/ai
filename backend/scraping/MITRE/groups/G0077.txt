@@ -1,0 +1,4 @@
+ID: G0077
+Title: Leafminer
+URL: https://attack.mitre.org/groups/G0077
+Leafminer is an Iranian threat group that has targeted government organizations and business entities in the Middle East since at least early 2017. [1]

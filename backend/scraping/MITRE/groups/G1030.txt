@@ -1,0 +1,4 @@
+ID: G1030
+Title: Agrius
+URL: https://attack.mitre.org/groups/G1030
+Agrius is an Iranian threat actor active since 2020 notable for a series of ransomware and wiper operations in the Middle East, with an emphasis on Israeli targets. [1] [2] Public reporting has linked Agrius to Iran's Ministry of Intelligence and Security (MOIS). [3]

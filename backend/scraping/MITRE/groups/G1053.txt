@@ -1,0 +1,4 @@
+ID: G1053
+Title: Storm-0501
+URL: https://attack.mitre.org/groups/G1053
+Storm-0501 is a financially motivated cyber criminal group that uses commodity and open-source tools to conduct ransomware operations. Storm-0501 has been active since 2021 and has previously been affiliated with Sabbath Ransomware and other Ransomware-as-a-Service (RaaS) variants such as Hive, BlackCat , Hunters International, LockBit 3.0 , and Embargo ransomware. [1] [2] [3] [4]

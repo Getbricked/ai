@@ -1,0 +1,4 @@
+ID: G0036
+Title: GCMAN
+URL: https://attack.mitre.org/groups/G0036
+GCMAN is a threat group that focuses on targeting banks for the purpose of transferring money to e-currency services. [1]

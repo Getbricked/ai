@@ -1,0 +1,4 @@
+ID: G0127
+Title: TA551
+URL: https://attack.mitre.org/groups/G0127
+TA551 is a financially-motivated threat group that has been active since at least 2018. [1] The group has primarily targeted English, German, Italian, and Japanese speakers through email-based malware distribution campaigns. [2]

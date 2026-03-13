@@ -1,0 +1,4 @@
+ID: G0068
+Title: PLATINUM
+URL: https://attack.mitre.org/groups/G0068
+PLATINUM is an activity group that has targeted victims since at least 2009. The group has focused on targets associated with governments and related organizations in South and Southeast Asia. [1]

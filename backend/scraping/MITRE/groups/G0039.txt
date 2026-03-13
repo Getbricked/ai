@@ -1,0 +1,4 @@
+ID: G0039
+Title: Suckfly
+URL: https://attack.mitre.org/groups/G0039
+Suckfly is a China-based threat group that has been active since at least 2014. [1]

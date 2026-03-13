@@ -1,0 +1,4 @@
+ID: G0066
+Title: Elderwood
+URL: https://attack.mitre.org/groups/G0066
+Elderwood is a suspected Chinese cyber espionage group that was reportedly responsible for the 2009 Google intrusion known as Operation Aurora. [1] The group has targeted defense organizations, supply chain manufacturers, human rights and nongovernmental organizations (NGOs), and IT service providers. [2] [3]

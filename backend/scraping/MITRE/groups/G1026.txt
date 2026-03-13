@@ -1,0 +1,4 @@
+ID: G1026
+Title: Malteiro
+URL: https://attack.mitre.org/groups/G1026
+Malteiro is a financially motivated criminal group that is likely based in Brazil and has been active since at least November 2019. The group operates and distributes the Mispadu banking trojan via a Malware-as-a-Service (MaaS) business model. Malteiro mainly targets victims throughout Latin America (particularly Mexico) and Europe (particularly Spain and Portugal). [1]

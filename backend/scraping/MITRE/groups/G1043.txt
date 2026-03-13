@@ -1,0 +1,4 @@
+ID: G1043
+Title: BlackByte
+URL: https://attack.mitre.org/groups/G1043
+BlackByte is a ransomware threat actor operating since at least 2021. BlackByte is associated with several versions of ransomware also labeled BlackByte Ransomware . BlackByte ransomware operations initially used a common encryption key allowing for the development of a universal decryptor, but subsequent versions such as BlackByte 2.0 Ransomware use more robust encryption mechanisms. BlackByte is notable for operations targeting critical infrastructure entities among other targets across North America. [1] [2] [3] [4] [5]

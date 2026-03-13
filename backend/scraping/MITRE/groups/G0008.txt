@@ -1,0 +1,4 @@
+ID: G0008
+Title: Carbanak
+URL: https://attack.mitre.org/groups/G0008
+Carbanak is a cybercriminal group that has used Carbanak malware to target financial institutions since at least 2013. Carbanak may be linked to groups tracked separately as Cobalt Group and FIN7 that have also used Carbanak malware. [1] [2] [3] [4] [5]

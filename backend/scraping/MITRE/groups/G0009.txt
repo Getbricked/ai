@@ -1,0 +1,4 @@
+ID: G0009
+Title: Deep Panda
+URL: https://attack.mitre.org/groups/G0009
+Deep Panda is a suspected Chinese threat group known to target many industries, including government, defense, financial, and telecommunications. [1] The intrusion into healthcare company Anthem has been attributed to Deep Panda . [2] This group is also known as Shell Crew, WebMasters, KungFu Kittens, and PinkPanther. [3] Deep Panda also appears to be known as Black Vine based on the attribution of both group names to the Anthem intrusion. [4] Some analysts track Deep Panda and APT19 as the same group, but it is unclear from open source information if the groups are the same. [5]

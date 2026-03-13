@@ -1,0 +1,4 @@
+ID: G0011
+Title: PittyTiger
+URL: https://attack.mitre.org/groups/G0011
+PittyTiger is a threat group believed to operate out of China that uses multiple different types of malware to maintain command and control. [1] [2]

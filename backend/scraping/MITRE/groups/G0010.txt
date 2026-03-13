@@ -1,0 +1,4 @@
+ID: G0010
+Title: Turla
+URL: https://attack.mitre.org/groups/G0010
+Turla is a cyber espionage threat group that has been attributed to Russia's Federal Security Service (FSB). They have compromised victims in over 50 countries since at least 2004, spanning a range of industries including government, embassies, military, education, research and pharmaceutical companies. Turla is known for conducting watering hole and spearphishing campaigns, and leveraging in-house tools and malware, such as Uroburos . [1] [2] [3] [4] [5]

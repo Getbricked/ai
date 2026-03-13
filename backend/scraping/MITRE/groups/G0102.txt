@@ -1,0 +1,4 @@
+ID: G0102
+Title: Wizard Spider
+URL: https://attack.mitre.org/groups/G0102
+Wizard Spider is a Russia-based financially motivated threat group originally known for the creation and deployment of TrickBot since at least 2016. Wizard Spider possesses a diverse arsenal of tools and has conducted ransomware campaigns against a variety of organizations, ranging from major corporations to hospitals. [1] [2] [3]

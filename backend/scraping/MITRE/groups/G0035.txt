@@ -1,0 +1,4 @@
+ID: G0035
+Title: Dragonfly
+URL: https://attack.mitre.org/groups/G0035
+Dragonfly is a cyber espionage group that has been attributed to Russia's Federal Security Service (FSB) Center 16. [1] [2] Active since at least 2010, Dragonfly has targeted defense and aviation companies, government entities, companies related to industrial control systems, and critical infrastructure sectors worldwide through supply chain, spearphishing, and drive-by compromise attacks. [3] [4] [5] [6] [7] [8] [9]

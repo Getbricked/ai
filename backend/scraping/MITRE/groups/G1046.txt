@@ -1,0 +1,4 @@
+ID: G1046
+Title: Storm-1811
+URL: https://attack.mitre.org/groups/G1046
+Storm-1811 is a financially-motivated entity linked to Black Basta ransomware deployment. Storm-1811 is notable for unique phishing and social engineering mechanisms for initial access, such as overloading victim email inboxes with non-malicious spam to prompt a fake "help desk" interaction leading to the deployment of adversary tools and capabilities. [1] [2] [3] [4]

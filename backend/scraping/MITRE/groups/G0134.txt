@@ -1,0 +1,4 @@
+ID: G0134
+Title: Transparent Tribe
+URL: https://attack.mitre.org/groups/G0134
+Transparent Tribe is a suspected Pakistan-based threat group that has been active since at least 2013, primarily targeting diplomatic, defense, and research organizations in India and Afghanistan. [1] [2] [3]

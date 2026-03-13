@@ -1,0 +1,4 @@
+ID: G1004
+Title: LAPSUS$
+URL: https://attack.mitre.org/groups/G1004
+LAPSUS$ is cyber criminal threat group that has been active since at least mid-2021. LAPSUS$ specializes in large-scale social engineering and extortion operations, including destructive attacks without the use of ransomware. The group has targeted organizations globally, including in the government, manufacturing, higher education, energy, healthcare, technology, telecommunications, and media sectors. [1] [2] [3]

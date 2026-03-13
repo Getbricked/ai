@@ -1,0 +1,4 @@
+ID: G1020
+Title: Mustard Tempest
+URL: https://attack.mitre.org/groups/G1020
+Mustard Tempest is an initial access broker that has operated the SocGholish distribution network since at least 2017. Mustard Tempest has partnered with Indrik Spider to provide access for the download of additional malware including LockBit, WastedLocker , and remote access tools. [1] [2] [3] [4]

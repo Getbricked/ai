@@ -1,0 +1,4 @@
+ID: G0130
+Title: Ajax Security Team
+URL: https://attack.mitre.org/groups/G0130
+Ajax Security Team is a group that has been active since at least 2010 and believed to be operating out of Iran. By 2014 Ajax Security Team transitioned from website defacement operations to malware-based cyber espionage campaigns targeting the US defense industrial base and Iranian users of anti-censorship technologies. [1]

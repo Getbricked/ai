@@ -1,0 +1,4 @@
+ID: G0070
+Title: Dark Caracal
+URL: https://attack.mitre.org/groups/G0070
+Dark Caracal is threat group that has been attributed to the Lebanese General Directorate of General Security (GDGS) and has operated since at least 2012. [1]

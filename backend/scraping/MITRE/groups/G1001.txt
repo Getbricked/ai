@@ -1,0 +1,4 @@
+ID: G1001
+Title: HEXANE
+URL: https://attack.mitre.org/groups/G1001
+HEXANE is a cyber espionage threat group that has targeted oil & gas, telecommunications, aviation, and internet service provider organizations since at least 2017. Targeted companies have been located in the Middle East and Africa, including Israel, Saudi Arabia, Kuwait, Morocco, and Tunisia. HEXANE 's TTPs appear similar to APT33 and OilRig but due to differences in victims and tools it is tracked as a separate entity. [1] [2] [3] [4]

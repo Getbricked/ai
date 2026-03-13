@@ -1,0 +1,4 @@
+ID: G0023
+Title: APT16
+URL: https://attack.mitre.org/groups/G0023
+APT16 is a China-based threat group that has launched spearphishing campaigns targeting Japanese and Taiwanese organizations. [1]

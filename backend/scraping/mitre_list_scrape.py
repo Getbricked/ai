@@ -188,36 +188,63 @@ def collect_mitre_enterprise_techniques(
     return results
 
 
-def collect_mitre_mobile_tactics(
+# Maps category name -> _scrape_listing_table kwargs (excluding limit)
+_MITRE_LISTING_CONFIGS: dict = {
+    "mobile_tactics": {
+        "url": MITRE_MOBILE_TACTICS_URL,
+        "id_regex": r"^TA\d{4}$",
+        "href_prefix": "/tactics/",
+        "href_extract_regex": r"/tactics/(TA\d{4})/?",
+    },
+    "ics_tactics": {
+        "url": MITRE_ICS_TACTICS_URL,
+        "id_regex": r"^TA\d{4}$",
+        "href_prefix": "/tactics/",
+        "href_extract_regex": r"/tactics/(TA\d{4})/?",
+    },
+    "groups": {
+        "url": MITRE_GROUPS_URL,
+        "id_regex": r"^G\d{4}$",
+        "href_prefix": "/groups/",
+        "href_extract_regex": r"/groups/(G\d{4})/?",
+    },
+    "mitigations_enterprise": {
+        "url": MITRE_MITIGATIONS_ENTERPRISE_URL,
+        "id_regex": r"^M\d{4}$",
+        "href_prefix": "/mitigations/",
+        "href_extract_regex": r"/mitigations/(M\d{4})/?",
+    },
+    "mitigations_mobile": {
+        "url": MITRE_MITIGATIONS_MOBILE_URL,
+        "id_regex": r"^M\d{4}$",
+        "href_prefix": "/mitigations/",
+        "href_extract_regex": r"/mitigations/(M\d{4})/?",
+    },
+    "mitigations_ics": {
+        "url": MITRE_MITIGATIONS_ICS_URL,
+        "id_regex": r"^M\d{4}$",
+        "href_prefix": "/mitigations/",
+        "href_extract_regex": r"/mitigations/(M\d{4})/?",
+    },
+}
+
+
+def collect_mitre(
+    category: str,
     limit: Optional[int] = None,
 ) -> List[Tuple[str, str, str, str]]:
     """
-    Scrape MITRE ATT&CK Mobile tactics listing and return a list of
-    (tactic_id, tactic_name, url, description) tuples. Tactic IDs are like TA0001.
-    """
-    return _scrape_listing_table(
-        url=MITRE_MOBILE_TACTICS_URL,
-        id_regex=r"^TA\d{4}$",
-        href_prefix="/tactics/",
-        href_extract_regex=r"/tactics/(TA\d{4})/?",
-        limit=limit,
-    )
+    Scrape a MITRE ATT&CK listing page and return a list of
+    (id, name, url, description) tuples.
 
-
-def collect_mitre_ics_tactics(
-    limit: Optional[int] = None,
-) -> List[Tuple[str, str, str, str]]:
+    Valid categories: 'mobile_tactics', 'ics_tactics', 'groups',
+                      'mitigations_enterprise', 'mitigations_mobile', 'mitigations_ics'
     """
-    Scrape MITRE ATT&CK ICS tactics listing and return a list of
-    (tactic_id, tactic_name, url, description) tuples. Tactic IDs are like TA0001.
-    """
-    return _scrape_listing_table(
-        url=MITRE_ICS_TACTICS_URL,
-        id_regex=r"^TA\d{4}$",
-        href_prefix="/tactics/",
-        href_extract_regex=r"/tactics/(TA\d{4})/?",
-        limit=limit,
-    )
+    if category not in _MITRE_LISTING_CONFIGS:
+        raise ValueError(
+            f"Unknown category '{category}'. Valid options: {list(_MITRE_LISTING_CONFIGS)}"
+        )
+    return _scrape_listing_table(**_MITRE_LISTING_CONFIGS[category], limit=limit)
 
 
 def write_mitre_output(entries: List[Tuple[str, str, str]], output_path: str) -> None:
@@ -226,126 +253,38 @@ def write_mitre_output(entries: List[Tuple[str, str, str]], output_path: str) ->
         f.write("\n".join(lines))
 
 
-def collect_mitre_groups(
-    limit: Optional[int] = None,
-) -> List[Tuple[str, str, str, str]]:
-    """
-    Scrape MITRE ATT&CK Groups listing and return a list of
-    (group_id, group_name, url, description) tuples. Group IDs are like G0001.
-    """
-    return _scrape_listing_table(
-        url=MITRE_GROUPS_URL,
-        id_regex=r"^G\d{4}$",
-        href_prefix="/groups/",
-        href_extract_regex=r"/groups/(G\d{4})/?",
-        limit=limit,
-    )
-
-
-def collect_mitre_mitigations_enterprise(
-    limit: Optional[int] = None,
-) -> List[Tuple[str, str, str, str]]:
-    """
-    Scrape MITRE ATT&CK Enterprise mitigations listing and return a list of
-    (mitigation_id, mitigation_name, url, description) tuples. Mitigation IDs are like M1047.
-    """
-    return _scrape_listing_table(
-        url=MITRE_MITIGATIONS_ENTERPRISE_URL,
-        id_regex=r"^M\d{4}$",
-        href_prefix="/mitigations/",
-        href_extract_regex=r"/mitigations/(M\d{4})/?",
-        limit=limit,
-    )
-
-
-def collect_mitre_mitigations_mobile(
-    limit: Optional[int] = None,
-) -> List[Tuple[str, str, str, str]]:
-    """
-    Scrape MITRE ATT&CK Mobile mitigations listing and return a list of
-    (mitigation_id, mitigation_name, url, description) tuples. Mitigation IDs are like M1047.
-    """
-    return _scrape_listing_table(
-        url=MITRE_MITIGATIONS_MOBILE_URL,
-        id_regex=r"^M\d{4}$",
-        href_prefix="/mitigations/",
-        href_extract_regex=r"/mitigations/(M\d{4})/?",
-        limit=limit,
-    )
-
-
-def collect_mitre_mitigations_ics(
-    limit: Optional[int] = None,
-) -> List[Tuple[str, str, str, str]]:
-    """
-    Scrape MITRE ATT&CK ICS mitigations listing and return a list of
-    (mitigation_id, mitigation_name, url, description) tuples. Mitigation IDs are like M1047.
-    """
-    return _scrape_listing_table(
-        url=MITRE_MITIGATIONS_ICS_URL,
-        id_regex=r"^M\d{4}$",
-        href_prefix="/mitigations/",
-        href_extract_regex=r"/mitigations/(M\d{4})/?",
-        limit=limit,
-    )
-
-
 def main():
     here = os.path.dirname(os.path.abspath(__file__))
-    output_path = os.path.join(here, "mitre_enterprise_techniques.txt")
-    groups_output_path = os.path.join(here, "MITRE/mitre_groups.txt")
-    mobile_tactics_output_path = os.path.join(here, "MITRE/mitre_mobile_tactics.txt")
-    ics_tactics_output_path = os.path.join(here, "MITRE/mitre_ics_tactics.txt")
+    output_path = os.path.join(here, "list/mitre_enterprise_techniques.txt")
+    groups_output_path = os.path.join(here, "list/mitre_groups.txt")
+    mobile_tactics_output_path = os.path.join(here, "list/mitre_mobile_tactics.txt")
+    ics_tactics_output_path = os.path.join(here, "list/mitre_ics_tactics.txt")
     mitigations_enterprise_output_path = os.path.join(
-        here, "MITRE/mitre_mitigations_enterprise.txt"
+        here, "list/mitre_mitigations_enterprise.txt"
     )
     mitigations_mobile_output_path = os.path.join(
-        here, "MITRE/mitre_mitigations_mobile.txt"
+        here, "list/mitre_mitigations_mobile.txt"
     )
-    mitigations_ics_output_path = os.path.join(here, "MITRE/mitre_mitigations_ics.txt")
+    mitigations_ics_output_path = os.path.join(here, "list/mitre_mitigations_ics.txt")
 
     entries = collect_mitre_enterprise_techniques()
     write_mitre_output(entries, output_path)
     print(f"Wrote {len(entries)} lines to: {output_path}")
 
-    groups = collect_mitre_groups()
-    # Write as: ID - Name - URL - Description (one per line)
-    with open(groups_output_path, "w", encoding="utf-8") as gf:
-        for gid, name, url, desc in groups:
-            gf.write(f"{gid} - {name} - {url} - {desc}\n\n")
-    print(f"Wrote {len(groups)} lines to: {groups_output_path}")
-
-    mobile_tactics = collect_mitre_mobile_tactics()
-    with open(mobile_tactics_output_path, "w", encoding="utf-8") as mf:
-        for tid, name, url, desc in mobile_tactics:
-            mf.write(f"{tid} - {name} - {url} - {desc}\n\n")
-    print(f"Wrote {len(mobile_tactics)} lines to: {mobile_tactics_output_path}")
-
-    ics_tactics = collect_mitre_ics_tactics()
-    with open(ics_tactics_output_path, "w", encoding="utf-8") as tf:
-        for tid, name, url, desc in ics_tactics:
-            tf.write(f"{tid} - {name} - {url} - {desc}\n\n")
-    print(f"Wrote {len(ics_tactics)} lines to: {ics_tactics_output_path}")
-
-    mitigations_enterprise = collect_mitre_mitigations_enterprise()
-    with open(mitigations_enterprise_output_path, "w", encoding="utf-8") as ef:
-        for mid, name, url, desc in mitigations_enterprise:
-            ef.write(f"{mid} - {name} - {url} - {desc}\n\n")
-    print(
-        f"Wrote {len(mitigations_enterprise)} lines to: {mitigations_enterprise_output_path}"
-    )
-
-    mitigations_mobile = collect_mitre_mitigations_mobile()
-    with open(mitigations_mobile_output_path, "w", encoding="utf-8") as mf2:
-        for mid, name, url, desc in mitigations_mobile:
-            mf2.write(f"{mid} - {name} - {url} - {desc}\n\n")
-    print(f"Wrote {len(mitigations_mobile)} lines to: {mitigations_mobile_output_path}")
-
-    mitigations_ics = collect_mitre_mitigations_ics()
-    with open(mitigations_ics_output_path, "w", encoding="utf-8") as if2:
-        for mid, name, url, desc in mitigations_ics:
-            if2.write(f"{mid} - {name} - {url} - {desc}\n\n")
-    print(f"Wrote {len(mitigations_ics)} lines to: {mitigations_ics_output_path}")
+    listing_jobs = [
+        ("groups", groups_output_path),
+        ("mobile_tactics", mobile_tactics_output_path),
+        ("ics_tactics", ics_tactics_output_path),
+        ("mitigations_enterprise", mitigations_enterprise_output_path),
+        ("mitigations_mobile", mitigations_mobile_output_path),
+        ("mitigations_ics", mitigations_ics_output_path),
+    ]
+    for category, out_path in listing_jobs:
+        items = collect_mitre(category)
+        with open(out_path, "w", encoding="utf-8") as fh:
+            for item_id, name, url, desc in items:
+                fh.write(f"{item_id} - {name} - {url} - {desc}\n\n")
+        print(f"Wrote {len(items)} lines to: {out_path}")
 
 
 if __name__ == "__main__":

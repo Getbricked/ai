@@ -1,0 +1,4 @@
+ID: G0005
+Title: APT12
+URL: https://attack.mitre.org/groups/G0005
+APT12 is a threat group that has been attributed to China. The group has targeted a variety of victims including but not limited to media outlets, high-tech companies, and multiple governments. [1]

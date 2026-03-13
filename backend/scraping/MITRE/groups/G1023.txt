@@ -1,0 +1,4 @@
+ID: G1023
+Title: APT5
+URL: https://attack.mitre.org/groups/G1023
+APT5 is a China-based espionage actor that has been active since at least 2007 primarily targeting the telecommunications, aerospace, and defense industries throughout the U.S., Europe, and Asia. APT5 has displayed advanced tradecraft and significant interest in compromising networking devices and their underlying software including through the use of zero-day exploits. [1] [2] [3] [4] [5] [6]

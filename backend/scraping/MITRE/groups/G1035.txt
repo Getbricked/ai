@@ -1,0 +1,4 @@
+ID: G1035
+Title: Winter Vivern
+URL: https://attack.mitre.org/groups/G1035
+Winter Vivern is a group linked to Russian and Belorussian interests active since at least 2020 targeting various European government and NGO entities, along with sporadic targeting of Indian and US victims. The group leverages a combination of document-based phishing activity and server-side exploitation for initial access, leveraging adversary-controlled and -created infrastructure for follow-on command and control. [1] [2] [3] [4] [5]

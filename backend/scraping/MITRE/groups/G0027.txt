@@ -1,0 +1,4 @@
+ID: G0027
+Title: Threat Group-3390
+URL: https://attack.mitre.org/groups/G0027
+Threat Group-3390 is a Chinese threat group that has extensively used strategic Web compromises to target victims. [1] The group has been active since at least 2010 and has targeted organizations in the aerospace, government, defense, technology, energy, manufacturing and gambling/betting sectors. [2] [3] [4]

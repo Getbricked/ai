@@ -1,0 +1,4 @@
+ID: G0121
+Title: Sidewinder
+URL: https://attack.mitre.org/groups/G0121
+Sidewinder is a suspected Indian threat actor group that has been active since at least 2012. They have been observed targeting government, military, and business entities throughout Asia, primarily focusing on Pakistan, China, Nepal, and Afghanistan. [1] [2] [3]

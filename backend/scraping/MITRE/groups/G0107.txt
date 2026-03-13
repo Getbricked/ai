@@ -1,0 +1,4 @@
+ID: G0107
+Title: Whitefly
+URL: https://attack.mitre.org/groups/G0107
+Whitefly is a cyber espionage group that has been operating since at least 2017. The group has targeted organizations based mostly in Singapore across a wide variety of sectors, and is primarily interested in stealing large amounts of sensitive information. The group has been linked to an attack against Singapore’s largest public health organization, SingHealth. [1]

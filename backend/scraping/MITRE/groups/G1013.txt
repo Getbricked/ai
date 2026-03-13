@@ -1,0 +1,4 @@
+ID: G1013
+Title: Metador
+URL: https://attack.mitre.org/groups/G1013
+Metador is a suspected cyber espionage group that was first reported in September 2022. Metador has targeted a limited number of telecommunication companies, internet service providers, and universities in the Middle East and Africa. Security researchers named the group Metador based on the "I am meta" string in one of the group's malware samples and the expectation of Spanish-language responses from C2 servers. [1]

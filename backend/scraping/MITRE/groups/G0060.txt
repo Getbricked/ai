@@ -1,0 +1,4 @@
+ID: G0060
+Title: BRONZE BUTLER
+URL: https://attack.mitre.org/groups/G0060
+BRONZE BUTLER is a cyber espionage group with likely Chinese origins that has been active since at least 2008. The group primarily targets Japanese organizations, particularly those in government, biotechnology, electronics manufacturing, and industrial chemistry. [1] [2] [3]

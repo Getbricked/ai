@@ -1,0 +1,4 @@
+ID: G1032
+Title: INC Ransom
+URL: https://attack.mitre.org/groups/G1032
+INC Ransom is a ransomware and data extortion threat group associated with the deployment of INC Ransomware that has been active since at least July 2023. INC Ransom has targeted organizations worldwide most commonly in the industrial, healthcare, and education sectors in the US and Europe. [1] [2] [3] [4]

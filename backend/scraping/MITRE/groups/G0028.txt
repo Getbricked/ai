@@ -1,0 +1,4 @@
+ID: G0028
+Title: Threat Group-1314
+URL: https://attack.mitre.org/groups/G0028
+Threat Group-1314 is an unattributed threat group that has used compromised credentials to log into a victim's remote access infrastructure. [1]

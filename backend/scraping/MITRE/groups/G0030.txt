@@ -1,0 +1,4 @@
+ID: G0030
+Title: Lotus Blossom
+URL: https://attack.mitre.org/groups/G0030
+Lotus Blossom is a long-standing threat group largely targeting various entities in Asia since at least 2009. In addition to government and related targets, Lotus Blossom has also targeted entities such as digital certificate issuers. [1] [2] [3]

@@ -1,0 +1,4 @@
+ID: G0018
+Title: admin@338
+URL: https://attack.mitre.org/groups/G0018
+admin@338 is a China-based cyber threat group. It has previously used newsworthy events as lures to deliver malware and has primarily targeted organizations involved in financial, economic, and trade policy, typically using publicly available RATs such as PoisonIvy , as well as some non-public backdoors. [1]

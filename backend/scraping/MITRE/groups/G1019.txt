@@ -1,0 +1,4 @@
+ID: G1019
+Title: MoustachedBouncer
+URL: https://attack.mitre.org/groups/G1019
+MoustachedBouncer is a cyberespionage group that has been active since at least 2014 targeting foreign embassies in Belarus. [1]

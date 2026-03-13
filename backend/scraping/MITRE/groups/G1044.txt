@@ -1,0 +1,4 @@
+ID: G1044
+Title: APT42
+URL: https://attack.mitre.org/groups/G1044
+APT42 is an Iranian-sponsored threat group that conducts cyber espionage and surveillance. [1] The group primarily focuses on targets in the Middle East region, but has targeted a variety of industries and countries since at least 2015. [1] APT42 starts cyber operations through spearphishing emails and/or the PINEFLOWER Android malware, then monitors and collects information from the compromised systems and devices. [1] Finally, APT42 exfiltrates data using native features and open-source tools. [2] APT42 activities have been linked to Magic Hound by other commercial vendors. While there are behavior and software overlaps between Magic Hound and APT42 , they appear to be distinct entities and are tracked as separate entities by their originating vendor.

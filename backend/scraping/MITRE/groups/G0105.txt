@@ -1,0 +1,4 @@
+ID: G0105
+Title: DarkVishnya
+URL: https://attack.mitre.org/groups/G0105
+DarkVishnya is a financially motivated threat actor targeting financial institutions in Eastern Europe. In 2017-2018 the group attacked at least 8 banks in this region. [1]

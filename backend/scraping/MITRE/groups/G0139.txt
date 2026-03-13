@@ -1,0 +1,4 @@
+ID: G0139
+Title: TeamTNT
+URL: https://attack.mitre.org/groups/G0139
+TeamTNT is a threat group that has primarily targeted cloud and containerized environments. The group as been active since at least October 2019 and has mainly focused its efforts on leveraging cloud and container resources to deploy cryptocurrency miners in victim environments. [1] [2] [3] [4] [5] [6] [7] [8] [9]

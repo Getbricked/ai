@@ -1,0 +1,4 @@
+ID: G0090
+Title: WIRTE
+URL: https://attack.mitre.org/groups/G0090
+WIRTE is a threat group that has been active since at least August 2018. WIRTE has targeted government, diplomatic, financial, military, legal, and technology organizations in the Middle East and Europe. [1] [2]

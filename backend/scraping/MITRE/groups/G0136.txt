@@ -1,0 +1,4 @@
+ID: G0136
+Title: IndigoZebra
+URL: https://attack.mitre.org/groups/G0136
+IndigoZebra is a suspected Chinese cyber espionage group that has been targeting Central Asian governments since at least 2014. [1] [2] [3]

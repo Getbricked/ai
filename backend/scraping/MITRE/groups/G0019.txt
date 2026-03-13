@@ -1,0 +1,4 @@
+ID: G0019
+Title: Naikon
+URL: https://attack.mitre.org/groups/G0019
+Naikon is assessed to be a state-sponsored cyber espionage group attributed to the Chinese People’s Liberation Army’s (PLA) Chengdu Military Region Second Technical Reconnaissance Bureau (Military Unit Cover Designator 78020). [1] Active since at least 2010, Naikon has primarily conducted operations against government, military, and civil organizations in Southeast Asia, as well as against international bodies such as the United Nations Development Programme (UNDP) and the Association of Southeast Asian Nations (ASEAN). [1] [2] While Naikon shares some characteristics with APT30 , the two groups do not appear to be exact matches. [3]

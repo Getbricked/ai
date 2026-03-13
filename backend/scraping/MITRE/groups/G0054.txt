@@ -1,0 +1,4 @@
+ID: G0054
+Title: Sowbug
+URL: https://attack.mitre.org/groups/G0054
+Sowbug is a threat group that has conducted targeted attacks against organizations in South America and Southeast Asia, particularly government entities, since at least 2015. [1]

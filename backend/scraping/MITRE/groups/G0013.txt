@@ -1,0 +1,4 @@
+ID: G0013
+Title: APT30
+URL: https://attack.mitre.org/groups/G0013
+APT30 is a threat group suspected to be associated with the Chinese government. While Naikon shares some characteristics with APT30 , the two groups do not appear to be exact matches. [1] [2]

@@ -1,0 +1,4 @@
+ID: G0024
+Title: Putter Panda
+URL: https://attack.mitre.org/groups/G0024
+Putter Panda is a Chinese threat group that has been attributed to Unit 61486 of the 12th Bureau of the PLA’s 3rd General Staff Department (GSD). [1]

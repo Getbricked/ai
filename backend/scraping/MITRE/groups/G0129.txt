@@ -1,0 +1,4 @@
+ID: G0129
+Title: Mustang Panda
+URL: https://attack.mitre.org/groups/G0129
+Mustang Panda is a China-based cyber espionage threat actor that has been conducting operations since at least 2012. Mustang Panda has been known to use tailored phishing lures and decoy documents to deliver malicious payloads. Mustang Panda has targeted government, diplomatic, and non-governmental organizations, including think tanks, religious institutions, and research entities, across the United States, Europe, and Asia, with notable activity in Russia, Mongolia, Myanmar, Pakistan, and Vietnam. [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13]

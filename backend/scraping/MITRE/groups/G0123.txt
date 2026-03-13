@@ -1,0 +1,4 @@
+ID: G0123
+Title: Volatile Cedar
+URL: https://attack.mitre.org/groups/G0123
+Volatile Cedar is a Lebanese threat group that has targeted individuals, companies, and institutions worldwide. Volatile Cedar has been operating since 2012 and is motivated by political and ideological interests. [1] [2]

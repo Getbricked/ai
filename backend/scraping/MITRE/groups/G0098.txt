@@ -1,0 +1,4 @@
+ID: G0098
+Title: BlackTech
+URL: https://attack.mitre.org/groups/G0098
+BlackTech is a suspected Chinese cyber espionage group that has primarily targeted organizations in East Asia--particularly Taiwan, Japan, and Hong Kong--and the US since at least 2013. BlackTech has used a combination of custom malware, dual-use tools, and living off the land tactics to compromise media, construction, engineering, electronics, and financial company networks. [1] [2] [3]

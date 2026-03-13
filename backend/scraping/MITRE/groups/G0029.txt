@@ -1,0 +1,4 @@
+ID: G0029
+Title: Scarlet Mimic
+URL: https://attack.mitre.org/groups/G0029
+Scarlet Mimic is a threat group that has targeted minority rights activists. This group has not been directly linked to a government source, but the group's motivations appear to overlap with those of the Chinese government. While there is some overlap between IP addresses used by Scarlet Mimic and Putter Panda , it has not been concluded that the groups are the same. [1]
