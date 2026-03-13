@@ -1,0 +1,4 @@
+ID: G0025
+Title: APT17
+URL: https://attack.mitre.org/groups/G0025
+APT17 is a China-based threat group that has conducted network intrusions against U.S. government entities, the defense industry, law firms, information technology companies, mining companies, and non-government organizations. [1]

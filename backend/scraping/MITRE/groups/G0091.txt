@@ -1,0 +1,4 @@
+ID: G0091
+Title: Silence
+URL: https://attack.mitre.org/groups/G0091
+Silence is a financially motivated threat actor targeting financial institutions in different countries. The group was first seen in June 2016. Their main targets reside in Russia, Ukraine, Belarus, Azerbaijan, Poland and Kazakhstan. They compromised various banking systems, including the Russian Central Bank's Automated Workstation Client, ATMs, and card processing. [1] [2]

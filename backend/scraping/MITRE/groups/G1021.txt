@@ -1,0 +1,4 @@
+ID: G1021
+Title: Cinnamon Tempest
+URL: https://attack.mitre.org/groups/G1021
+Cinnamon Tempest is a China-based threat group that has been active since at least 2021 deploying multiple strains of ransomware based on the leaked Babuk source code. Cinnamon Tempest does not operate their ransomware on an affiliate model or purchase access but appears to act independently in all stages of the attack lifecycle. Based on victimology, the short lifespan of each ransomware variant, and use of malware attributed to government-sponsored threat groups, Cinnamon Tempest may be motivated by intellectual property theft or cyberespionage rather than financial gain. [1] [2] [3] [4]

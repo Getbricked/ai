@@ -1,0 +1,4 @@
+ID: G0075
+Title: Rancor
+URL: https://attack.mitre.org/groups/G0075
+Rancor is a threat group that has led targeted campaigns against the South East Asia region. Rancor uses politically-motivated lures to entice victims to open malicious documents. [1]

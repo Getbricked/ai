@@ -1,0 +1,4 @@
+ID: G0052
+Title: CopyKittens
+URL: https://attack.mitre.org/groups/G0052
+CopyKittens is an Iranian cyber espionage group that has been operating since at least 2013. It has targeted countries including Israel, Saudi Arabia, Turkey, the U.S., Jordan, and Germany. The group is responsible for the campaign known as Operation Wilted Tulip. [1] [2] [3]

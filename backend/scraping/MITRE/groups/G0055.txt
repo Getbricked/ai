@@ -1,0 +1,4 @@
+ID: G0055
+Title: NEODYMIUM
+URL: https://attack.mitre.org/groups/G0055
+NEODYMIUM is an activity group that conducted a campaign in May 2016 and has heavily targeted Turkish victims. The group has demonstrated similarity to another activity group called PROMETHIUM due to overlapping victim and campaign characteristics. [1] [2] NEODYMIUM is reportedly associated closely with BlackOasis operations, but evidence that the group names are aliases has not been identified. [3]

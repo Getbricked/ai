@@ -1,0 +1,4 @@
+ID: G0021
+Title: Molerats
+URL: https://attack.mitre.org/groups/G0021
+Molerats is an Arabic-speaking, politically-motivated threat group that has been operating since 2012. The group's victims have primarily been in the Middle East, Europe, and the United States. [1] [2] [3] [4]

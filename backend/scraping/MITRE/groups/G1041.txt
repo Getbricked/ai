@@ -1,0 +1,4 @@
+ID: G1041
+Title: Sea Turtle
+URL: https://attack.mitre.org/groups/G1041
+Sea Turtle is a Türkiye-linked threat actor active since at least 2017 performing espionage and service provider compromise operations against victims in Asia, Europe, and North America. Sea Turtle is notable for targeting registrars managing ccTLDs and complex DNS-based intrusions where the threat actor compromised DNS providers to hijack DNS resolution for ultimate victims, enabling Sea Turtle to spoof log in portals and other applications for credential collection. [1] [2] [3] [4]

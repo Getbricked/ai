@@ -1,0 +1,4 @@
+ID: G0131
+Title: Tonto Team
+URL: https://attack.mitre.org/groups/G0131
+Tonto Team is a suspected Chinese state-sponsored cyber espionage threat group that has primarily targeted South Korea, Japan, Taiwan, and the United States since at least 2009; by 2020 they expanded operations to include other Asian as well as Eastern European countries. Tonto Team has targeted government, military, energy, mining, financial, education, healthcare, and technology organizations, including through the Heartbeat Campaign (2009-2012) and Operation Bitter Biscuit (2017). [1] [2] [3] [4] [5] [6]

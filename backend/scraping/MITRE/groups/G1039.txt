@@ -1,0 +1,4 @@
+ID: G1039
+Title: RedCurl
+URL: https://attack.mitre.org/groups/G1039
+RedCurl is a threat actor active since 2018 notable for corporate espionage targeting a variety of locations, including Ukraine, Canada and the United Kingdom, and a variety of industries, including but not limited to travel agencies, insurance companies, and banks. [1] RedCurl is allegedly a Russian-speaking threat actor. [1] [2] The group’s operations typically start with spearphishing emails to gain initial access, then the group executes discovery and collection commands and scripts to find corporate data. The group concludes operations by exfiltrating files to the C2 servers.

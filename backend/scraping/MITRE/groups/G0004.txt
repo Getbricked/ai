@@ -1,0 +1,4 @@
+ID: G0004
+Title: Ke3chang
+URL: https://attack.mitre.org/groups/G0004
+Ke3chang is a threat group attributed to actors operating out of China. Ke3chang has targeted oil, government, diplomatic, military, and NGOs in Central and South America, the Caribbean, Europe, and North America since at least 2010. [1] [2] [3] [4]

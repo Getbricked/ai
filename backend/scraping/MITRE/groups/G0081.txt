@@ -1,0 +1,4 @@
+ID: G0081
+Title: Tropic Trooper
+URL: https://attack.mitre.org/groups/G0081
+Tropic Trooper is an unaffiliated threat group that has led targeted campaigns against targets in Taiwan, the Philippines, and Hong Kong. Tropic Trooper focuses on targeting government, healthcare, transportation, and high-tech industries and has been active since 2011. [1] [2] [3]

@@ -1,0 +1,4 @@
+ID: G0108
+Title: Blue Mockingbird
+URL: https://attack.mitre.org/groups/G0108
+Blue Mockingbird is a cluster of observed activity involving Monero cryptocurrency-mining payloads in dynamic-link library (DLL) form on Windows systems. The earliest observed Blue Mockingbird tools were created in December 2019. [1]

@@ -1,0 +1,4 @@
+ID: G0106
+Title: Rocke
+URL: https://attack.mitre.org/groups/G0106
+Rocke is an alleged Chinese-speaking adversary whose primary objective appeared to be cryptojacking, or stealing victim system resources for the purposes of mining cryptocurrency. The name Rocke comes from the email address "rocke@live.cn" used to create the wallet which held collected cryptocurrency. Researchers have detected overlaps between Rocke and the Iron Cybercrime Group, though this attribution has not been confirmed. [1]

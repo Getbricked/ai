@@ -1,0 +1,4 @@
+ID: G1038
+Title: TA578
+URL: https://attack.mitre.org/groups/G1038
+TA578 is a threat actor that has used contact forms and email to initiate communications with victims and to distribute malware including Latrodectus , IcedID , and Bumblebee . [1] [2]

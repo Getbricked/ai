@@ -1,0 +1,4 @@
+ID: G0126
+Title: Higaisa
+URL: https://attack.mitre.org/groups/G0126
+Higaisa is a threat group suspected to have South Korean origins. Higaisa has targeted government, public, and trade organizations in North Korea; however, they have also carried out attacks in China, Japan, Russia, Poland, and other nations. Higaisa was first disclosed in early 2019 but is assessed to have operated as early as 2009. [1] [2] [3]

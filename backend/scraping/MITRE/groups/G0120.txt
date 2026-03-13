@@ -1,0 +1,4 @@
+ID: G0120
+Title: Evilnum
+URL: https://attack.mitre.org/groups/G0120
+Evilnum is a financially motivated threat group that has been active since at least 2018. [1]

@@ -1,0 +1,4 @@
+ID: G0124
+Title: Windigo
+URL: https://attack.mitre.org/groups/G0124
+The Windigo group has been operating since at least 2011, compromising thousands of Linux and Unix servers using the Ebury SSH backdoor to create a spam botnet. Despite law enforcement intervention against the creators, Windigo operators continued updating Ebury through 2019. [1] [2]

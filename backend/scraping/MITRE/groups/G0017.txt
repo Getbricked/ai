@@ -1,0 +1,4 @@
+ID: G0017
+Title: DragonOK
+URL: https://attack.mitre.org/groups/G0017
+DragonOK is a threat group that has targeted Japanese organizations with phishing emails. Due to overlapping TTPs, including similar custom tools, DragonOK is thought to have a direct or indirect relationship with the threat group Moafee . [1] It is known to use a variety of malware, including Sysget/HelloBridge, PlugX, PoisonIvy, FormerFirstRat, NFlog, and NewCT. [2]

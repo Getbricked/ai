@@ -1,0 +1,4 @@
+ID: G0065
+Title: Leviathan
+URL: https://attack.mitre.org/groups/G0065
+Leviathan is a Chinese state-sponsored cyber espionage group that has been attributed to the Ministry of State Security's (MSS) Hainan State Security Department and an affiliated front company. [1] Active since at least 2009, Leviathan has targeted the following sectors: academia, aerospace/aviation, biomedical, defense industrial base, government, healthcare, manufacturing, maritime, and transportation across the US, Canada, Australia, Europe, the Middle East, and Southeast Asia. [1] [2] [3] [4]

@@ -1,0 +1,4 @@
+ID: G0142
+Title: Confucius
+URL: https://attack.mitre.org/groups/G0142
+Confucius is a cyber espionage group that has primarily targeted military personnel, high-profile personalities, business persons, and government organizations in South Asia since at least 2013. Security researchers have noted similarities between Confucius and Patchwork , particularly in their respective custom malware code and targets. [1] [2] [3]

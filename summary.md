@@ -220,7 +220,36 @@ The main automation logic is encapsulated in backend/deploy.py and the helper fu
 
 Once deploy.py has run successfully, the environment is ready for document ingestion and for serving online queries.
 
-### 4.4 Configuration Management and Secrets Handling
+### 4.4 Automated Teardown (Delete All Deployment Resources)
+
+Infrastructure automation in this project also includes an automated teardown path to delete all deployed resources when resetting environments, cleaning up test deployments, or controlling cloud costs.
+
+The main cleanup workflow is implemented in backend/delete.py and performs these steps:
+
+1. Authenticate using DefaultAzureCredential and discover the active subscription.
+2. Delete Azure OpenAI deployments (EMBEDDING_DEPLOYMENT_NAME and GPT_DEPLOYMENT_NAME).
+3. Delete and purge the Azure OpenAI account (OPENAI_NAME) to fully remove soft-deleted artifacts.
+4. Delete the Azure AI Search service (SEARCH_NAME).
+5. Delete the primary resource group (RG_NAME), removing all remaining resources under it.
+
+For storage teardown, backend/storage_reset.py provides a dedicated reset routine that deletes the storage account (STORAGE_NAME) and then deletes the storage resource group (STORAGE_RG_NAME).
+
+Together, these scripts provide full lifecycle automation: create with deploy.py and remove with delete.py/storage_reset.py.
+
+```python
+def delete():
+   credential = DefaultAzureCredential()
+   subscription_id = get_subscription_id(credential)
+
+   delete_deployment(cognitive_client, RG_NAME, OPENAI_NAME, EMBEDDING_DEPLOYMENT_NAME)
+   delete_deployment(cognitive_client, RG_NAME, OPENAI_NAME, GPT_DEPLOYMENT_NAME)
+   delete_openai_resource(cognitive_client, RG_NAME, OPENAI_NAME)
+   purge_openai_resource(cognitive_client, RG_NAME, OPENAI_NAME, LOCATION)
+   delete_search_service(search_client, RG_NAME, SEARCH_NAME)
+   delete_resource_group(resource_client, RG_NAME)
+```
+
+### 4.5 Configuration Management and Secrets Handling
 
 Configuration for the automated infrastructure is centralized in backend/_config.py, which contains logical names for resource groups, services, model deployments, and storage accounts. Sensitive information (such as service principal secrets or keys) is not hard-coded in the repository. Instead:
 
@@ -230,11 +259,11 @@ Configuration for the automated infrastructure is centralized in backend/_config
 
 This design reduces the risk of accidental key exposure and supports deployment across multiple environments (development, staging, production) with different configuration values.
 
-### 4.5 Summary
+### 4.6 Summary
 
-Infrastructure automation is achieved using Azure's Python SDKs and a set of deployment scripts that provision OpenAI, Search, and Storage resources from code. Centralized configuration and secure credential handling contribute to a reproducible and secure DevOps pipeline for the system.
+Infrastructure automation is achieved using Azure's Python SDKs and a set of deployment and teardown scripts that provision OpenAI, Search, and Storage resources from code and can automatically delete them when needed. Centralized configuration and secure credential handling contribute to a reproducible and secure DevOps pipeline for the system.
 
-### 4.6 Code Snippets
+### 4.7 Code Snippets
 
 The deployment and credential-management logic is implemented as follows.
 
@@ -269,6 +298,19 @@ def get_blob_service_connection_string(credential, subscription_id, rg_name, sto
       f"AccountKey={account_key};"
       f"EndpointSuffix=core.windows.net"
    )
+```
+
+```python
+def delete():
+   credential = DefaultAzureCredential()
+   subscription_id = get_subscription_id(credential)
+
+   delete_deployment(cognitive_client, RG_NAME, OPENAI_NAME, EMBEDDING_DEPLOYMENT_NAME)
+   delete_deployment(cognitive_client, RG_NAME, OPENAI_NAME, GPT_DEPLOYMENT_NAME)
+   delete_openai_resource(cognitive_client, RG_NAME, OPENAI_NAME)
+   purge_openai_resource(cognitive_client, RG_NAME, OPENAI_NAME, LOCATION)
+   delete_search_service(search_client, RG_NAME, SEARCH_NAME)
+   delete_resource_group(resource_client, RG_NAME)
 ```
 
 ## Chapter 5: Data Preparation for the Cybersecurity Domain

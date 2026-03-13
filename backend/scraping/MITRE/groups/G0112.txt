@@ -1,0 +1,4 @@
+ID: G0112
+Title: Windshift
+URL: https://attack.mitre.org/groups/G0112
+Windshift is a threat group that has been active since at least 2017, targeting specific individuals for surveillance in government departments and critical infrastructure across the Middle East. [1] [2] [3]

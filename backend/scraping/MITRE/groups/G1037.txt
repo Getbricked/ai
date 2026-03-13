@@ -1,0 +1,4 @@
+ID: G1037
+Title: TA577
+URL: https://attack.mitre.org/groups/G1037
+TA577 is an initial access broker (IAB) that has distributed QakBot and Pikabot , and was among the first observed groups distributing Latrodectus in 2023. [1]

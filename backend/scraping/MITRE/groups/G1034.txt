@@ -1,0 +1,4 @@
+ID: G1034
+Title: Daggerfly
+URL: https://attack.mitre.org/groups/G1034
+Daggerfly is a People's Republic of China-linked APT entity active since at least 2012. Daggerfly has targeted individuals, government and NGO entities, and telecommunication companies in Asia and Africa. Daggerfly is associated with exclusive use of MgBot malware and is noted for several potential supply chain infection campaigns. [1] [2] [3] [4]

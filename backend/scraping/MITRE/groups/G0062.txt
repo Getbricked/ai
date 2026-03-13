@@ -1,0 +1,4 @@
+ID: G0062
+Title: TA459
+URL: https://attack.mitre.org/groups/G0062
+TA459 is a threat group believed to operate out of China that has targeted countries including Russia, Belarus, Mongolia, and others. [1]

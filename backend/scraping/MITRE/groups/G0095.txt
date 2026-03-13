@@ -1,0 +1,4 @@
+ID: G0095
+Title: Machete
+URL: https://attack.mitre.org/groups/G0095
+Machete is a suspected Spanish-speaking cyber espionage group that has been active since at least 2010. It has primarily focused its operations within Latin America, with a particular emphasis on Venezuela, but also in the US, Europe, Russia, and parts of Asia. Machete generally targets high-profile organizations such as government institutions, intelligence services, and military units, as well as telecommunications and power companies. [1] [2] [3] [4]

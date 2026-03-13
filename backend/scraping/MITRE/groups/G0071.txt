@@ -1,0 +1,4 @@
+ID: G0071
+Title: Orangeworm
+URL: https://attack.mitre.org/groups/G0071
+Orangeworm is a group that has targeted organizations in the healthcare sector in the United States, Europe, and Asia since at least 2015, likely for the purpose of corporate espionage. [1] Reverse engineering of Kwampirs , directly associated with Orangeworm activity, indicates significant functional and development overlaps with Shamoon . [2]

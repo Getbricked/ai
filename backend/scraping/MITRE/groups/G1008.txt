@@ -1,0 +1,4 @@
+ID: G1008
+Title: SideCopy
+URL: https://attack.mitre.org/groups/G1008
+SideCopy is a Pakistani threat group that has primarily targeted South Asian countries, including Indian and Afghani government personnel, since at least 2019. SideCopy 's name comes from its infection chain that tries to mimic that of Sidewinder , a suspected Indian threat group. [1]

@@ -1,0 +1,4 @@
+ID: G0020
+Title: Equation
+URL: https://attack.mitre.org/groups/G0020
+Equation is a sophisticated threat group that employs multiple remote access tools. The group is known to use zero-day exploits and has developed the capability to overwrite the firmware of hard disk drives. [1]

@@ -1,0 +1,4 @@
+ID: G0103
+Title: Mofang
+URL: https://attack.mitre.org/groups/G0103
+Mofang is a likely China-based cyber espionage group, named for its frequent practice of imitating a victim's infrastructure. This adversary has been observed since at least May 2012 conducting focused attacks against government and critical infrastructure in Myanmar, as well as several other countries and sectors including military, automobile, and weapons industries. [1]

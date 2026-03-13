@@ -1,0 +1,4 @@
+ID: G1012
+Title: CURIUM
+URL: https://attack.mitre.org/groups/G1012
+CURIUM is an Iranian threat group, first reported in September 2019 and active since at least July 2018, targeting IT service providers in the Middle East. [1] CURIUM has since invested in building relationships with potential targets via social media over a period of months to establish trust and confidence before sending malware. Security researchers note CURIUM has demonstrated great patience and persistence by chatting with potential targets daily and sending benign files to help lower their security consciousness. [2]

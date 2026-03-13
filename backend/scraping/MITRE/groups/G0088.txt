@@ -1,0 +1,4 @@
+ID: G0088
+Title: TEMP.Veles
+URL: https://attack.mitre.org/groups/G0088
+TEMP.Veles is a Russia-based threat group that has targeted critical infrastructure. The group has been observed utilizing TRITON , a malware framework designed to manipulate industrial safety systems. [1] [2] [3]

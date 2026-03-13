@@ -1,0 +1,4 @@
+ID: G1016
+Title: FIN13
+URL: https://attack.mitre.org/groups/G1016
+FIN13 is a financially motivated cyber threat group that has targeted the financial, retail, and hospitality industries in Mexico and Latin America, as early as 2016. FIN13 achieves its objectives by stealing intellectual property, financial data, mergers and acquisition information, or PII. [1] [2]

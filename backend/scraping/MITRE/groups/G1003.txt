@@ -1,0 +1,4 @@
+ID: G1003
+Title: Ember Bear
+URL: https://attack.mitre.org/groups/G1003
+Ember Bear is a Russian state-sponsored cyber espionage group that has been active since at least 2020, linked to Russia's General Staff Main Intelligence Directorate (GRU) 161st Specialist Training Center (Unit 29155). [1] Ember Bear has primarily focused operations against Ukrainian government and telecommunication entities, but has also operated against critical infrastructure entities in Europe and the Americas. [2] Ember Bear conducted the WhisperGate destructive wiper attacks against Ukraine in early 2022. [3] [4] [1] There is some confusion as to whether Ember Bear overlaps with another Russian-linked entity referred to as Saint Bear . At present available evidence strongly suggests these are distinct activities with different behavioral profiles. [2] [5]

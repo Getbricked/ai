@@ -1,0 +1,4 @@
+ID: G0133
+Title: Nomadic Octopus
+URL: https://attack.mitre.org/groups/G0133
+Nomadic Octopus is a Russian-speaking cyber espionage threat group that has primarily targeted Central Asia, including local governments, diplomatic missions, and individuals, since at least 2014. Nomadic Octopus has been observed conducting campaigns involving Android and Windows malware, mainly using the Delphi programming language, and building custom variants. [1] [2] [3]
