@@ -259,11 +259,98 @@ Configuration for the automated infrastructure is centralized in backend/_config
 
 This design reduces the risk of accidental key exposure and supports deployment across multiple environments (development, staging, production) with different configuration values.
 
-### 4.6 Summary
+### 4.6 Batch Operation in the Ingestion Pipeline
+
+Before summarizing this chapter, it is important to explain the batch operation pattern used in the data ingestion flow.
+
+In this project, batch operation means grouping many items into one API call or one processing cycle instead of sending one request per item. The implementation appears in two key places:
+
+- **Batch embedding generation**: `get_openai_embeddings_batch` in `backend/_utils.py` sends a list of texts per request (`input=chunk`) and loops with a configurable `max_batch_size`.
+- **Batch upload loop**: `backend/doc_processing/docs_to_json.py` processes paragraphs in groups (`upload_batch_size = 50`) and uploads them in a batched loop with progress reporting.
+
+Why we use batch operation:
+
+- Reduce network round-trips and per-request overhead.
+- Improve throughput when processing many document chunks.
+- Better align with API quota/rate-limit behavior by controlling request volume.
+- Keep output order stable by sorting embedding response items by index, which helps maintain chunk-to-embedding alignment.
+- Improve failure handling by isolating failures per chunk and continuing the overall pipeline.
+
+Comparison of results with and without batch operation:
+
+| Aspect | With batch operation | Without batch operation |
+|---|---|---|
+| API calls for embeddings | About `ceil(N / B)` calls for `N` texts and batch size `B` | `N` calls (one call per text) |
+| End-to-end ingestion time | Typically lower for large datasets due to fewer round-trips | Typically higher because call overhead repeats for every item |
+| Throughput | Higher and more stable for bulk ingestion | Lower, especially as dataset size grows |
+| Rate-limit pressure pattern | Fewer, larger calls; easier to tune with `max_batch_size` | Many small calls; can trigger frequent throttling overhead |
+| Error impact | A failed batch affects only that chunk; pipeline continues with placeholders (`None`) | A failed single call affects one item, but frequent retries can increase total runtime |
+| Implementation complexity | Slightly higher (chunking, alignment, progress tracking) | Simpler logic but weaker scalability |
+
+In this codebase specifically, batching is most beneficial during offline document preparation and indexing, where the same workflow must handle many paragraphs/documents in sequence.
+
+Sources used for this section:
+
+1. Project code:
+    - `backend/_utils.py` (`get_openai_embeddings_batch`, batch loop and response ordering).
+    - `backend/doc_processing/docs_to_json.py` ("Phase 2: Generating embeddings in batches", `max_batch_size=16`, and upload loop with `upload_batch_size=50`).
+    - `backend/search_query/search_query.py` (`upload_documents_to_search`, list upload pattern to Azure AI Search).
+2. Microsoft documentation:
+    - Azure OpenAI embeddings guidance: supports array inputs in one request and states array-size/token constraints.
+    - Azure AI Search Python `SearchClient` documentation: `upload_documents(documents: List[Dict])` and `index_documents(batch: IndexDocumentsBatch)` define list/batch document operations.
+3. OpenAI developer documentation:
+    - Embeddings guide describing embedding vectors, token-based usage, and examples using list-style `input`.
+
+Batch operation code snippet:
+
+```python
+# 1) Batch embedding generation
+def get_openai_embeddings_batch(
+    texts, embedding_name, endpoint, api_key, max_batch_size=50
+):
+    client = AzureOpenAI(
+        azure_endpoint=endpoint,
+        api_key=api_key,
+        api_version="2023-05-15",
+    )
+
+    embeddings = []
+    for i in range(0, len(texts), max_batch_size):
+        chunk = texts[i : i + max_batch_size]
+        response = client.embeddings.create(model=embedding_name, input=chunk)
+        ordered = sorted(response.data, key=lambda x: x.index)
+        embeddings.extend([item.embedding for item in ordered])
+
+    return embeddings
+
+
+# 2) Batched upload loop
+upload_batch_size = 50
+for i in range(0, len(paragraphs_to_process), upload_batch_size):
+    batch = paragraphs_to_process[i : i + upload_batch_size]
+    batch_embeddings = embeddings[i : i + upload_batch_size]
+
+    for para_data, embedding in zip(batch, batch_embeddings):
+        if embedding is None:
+            continue
+
+        json_doc = {
+            "id": para_data["doc_id"],
+            "content": para_data["content"],
+            "category": para_data["category"],
+            "source": para_data["source"],
+            "contentVector": embedding,
+        }
+
+        blob_client = container_client.get_blob_client(para_data["blob_name"])
+        blob_client.upload_blob(json.dumps(json_doc), overwrite=False)
+```
+
+### 4.7 Summary
 
 Infrastructure automation is achieved using Azure's Python SDKs and a set of deployment and teardown scripts that provision OpenAI, Search, and Storage resources from code and can automatically delete them when needed. Centralized configuration and secure credential handling contribute to a reproducible and secure DevOps pipeline for the system.
 
-### 4.7 Code Snippets
+### 4.8 Code Snippets
 
 The deployment and credential-management logic is implemented as follows.
 
@@ -313,6 +400,29 @@ def delete():
    delete_resource_group(resource_client, RG_NAME)
 ```
 
+### 4.9 Source Citations for Section 4.6
+
+The following sources were used to write Section 4.6 (Batch Operation in the Ingestion Pipeline):
+
+1. Local project code (primary evidence)
+    - backend/_utils.py, line 135: get_openai_embeddings_batch definition.
+    - backend/_utils.py, line 154: embeddings call with list input (`input=chunk`).
+    - backend/doc_processing/docs_to_json.py, line 119: embedding batch size (`max_batch_size=16`).
+    - backend/doc_processing/docs_to_json.py, line 125: upload batch size (`upload_batch_size = 50`).
+    - backend/search_query/search_query.py, line 137: Azure Search list upload (`upload_documents(documents=documents)`).
+
+2. Microsoft documentation
+    - Azure OpenAI embeddings guide (array-input limits and token constraints):
+      https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/embeddings
+    - Azure AI Search Python SearchClient API (batch/list document operations):
+      https://learn.microsoft.com/en-us/python/api/azure-search-documents/azure.search.documents.searchclient
+
+3. OpenAI documentation
+    - OpenAI embeddings guide (embedding usage and list-style input examples):
+      https://developers.openai.com/api/docs/guides/embeddings
+
+Access date for online sources: March 25, 2026.
+
 ## Chapter 5: Data Preparation for the Cybersecurity Domain
 
 ### 5.1 Introduction
@@ -329,6 +439,247 @@ The system is designed to ingest cybersecurity materials from multiple types of 
 - Content scraped or downloaded from specialized forums and Q&A platforms relevant to cybersecurity (e.g., professional discussion boards or curated security communities).
 
 In the implementation, raw text files and processed JSON documents are placed under backend/docs and backup/doc_*.json. These files represent the cybersecurity corpus that the system later uses to answer questions.
+
+The primary automated data collection workflow targets the MITRE ATT&CK knowledge base and is implemented across two Python scripts: `mitre_list_scrape.py` and `link_scrape.py`. The pipeline operates in two distinct phases: first collecting a catalogue of URLs from MITRE listing pages, and then visiting each of those URLs to extract the actual content.
+
+#### 5.2.1 Phase 1 — Collecting the Link Catalogue
+
+The first script, `mitre_list_scrape.py`, is responsible for discovering all the individual resource URLs from MITRE ATT&CK's high-level listing pages. Rather than hard-coding URLs, the script dynamically scrapes MITRE's own table-based index pages for each data category.
+
+The script defines the root listing URLs as constants:
+
+```python
+MITRE_ENTERPRISE_URL = "https://attack.mitre.org/techniques/enterprise/"
+MITRE_GROUPS_URL     = "https://attack.mitre.org/groups/"
+MITRE_ICS_TACTICS_URL    = "https://attack.mitre.org/tactics/ics/"
+MITRE_MOBILE_TACTICS_URL = "https://attack.mitre.org/tactics/mobile/"
+MITRE_MITIGATIONS_ENTERPRISE_URL = "https://attack.mitre.org/mitigations/enterprise/"
+MITRE_MITIGATIONS_MOBILE_URL     = "https://attack.mitre.org/mitigations/mobile/"
+MITRE_MITIGATIONS_ICS_URL        = "https://attack.mitre.org/mitigations/ics/"
+```
+
+A generic helper function `_scrape_listing_table` handles the table-parsing logic shared across all categories. It fetches the listing page, parses the HTML with BeautifulSoup, and iterates over every table row. For each row it first tries to match the ID pattern (e.g., `G\d{4}` for groups) in the first cell; if that fails it searches for any anchor whose `href` matches the expected path prefix. The dual approach makes the scraper resilient to minor layout changes.
+
+```python
+def _scrape_listing_table(url, id_regex, href_prefix, href_extract_regex, limit=None):
+    soup = BeautifulSoup(requests.get(url, timeout=30).text, "html.parser")
+    results = []
+    for tr in soup.find_all("tr"):
+        tds = tr.find_all("td")
+        if not tds:
+            continue
+        first = tds[0].get_text(strip=True)
+        if re.match(id_regex, first):                          # primary: ID in first cell
+            item_id  = first
+            name     = tds[1].get_text(strip=True)
+            item_url = f"https://attack.mitre.org{tds[1].find('a')['href']}"
+            desc     = max([td.get_text(" ", strip=True) for td in tds[2:]], key=len, default="")
+        else:                                                  # fallback: match any link
+            a = tr.find("a", href=True)
+            if not (a and href_prefix in a["href"]):
+                continue
+            m = re.search(href_extract_regex, a["href"])
+            item_id, item_url = (m.group(1) if m else None), f"https://attack.mitre.org{a['href']}"
+            name = tds[1].get_text(" ", strip=True) if len(tds) > 1 else ""
+            desc = ""
+        if item_id and name and item_url:
+            results.append((item_id, name, item_url, desc))
+    return results
+```
+
+For enterprise techniques, a dedicated function `collect_mitre_enterprise_techniques` handles the additional complexity of sub-techniques. MITRE's techniques table uses a two-row pattern: a parent technique row (e.g., `T1548`) followed by sub-technique rows whose second cell contains a dot-prefixed sub-code (e.g., `.001`). The scraper tracks the most recently seen parent ID and concatenates it with the sub-code to produce composite identifiers such as `T1548.001`.
+
+```python
+def collect_mitre_enterprise_techniques(limit=None):
+    resp = requests.get(MITRE_ENTERPRISE_URL, timeout=30)
+    soup = BeautifulSoup(resp.text, "html.parser")
+    results = []
+    current_tech_id = None
+
+    for table in soup.find_all("table"):
+        for tr in table.find_all("tr"):
+            tds = tr.find_all("td")
+            if not tds:
+                continue
+            id_text = tds[0].get_text(strip=True)
+
+            if re.match(r"^T\d+$", id_text):           # parent technique
+                name = tds[1].get_text(strip=True)
+                url  = f"https://attack.mitre.org/techniques/{id_text}/"
+                results.append((id_text, name, url))
+                current_tech_id = id_text
+
+            elif len(tds) >= 3 and re.match(r"^\.\d{3}$", tds[1].get_text(strip=True)):
+                sub_id   = f"{current_tech_id}{tds[1].get_text(strip=True)}"
+                sub_name = tds[2].get_text(strip=True)
+                sub_url  = f"https://attack.mitre.org/techniques/{current_tech_id}/{tds[1].get_text(strip=True)[1:]}/"
+                results.append((sub_id, sub_name, sub_url))
+    return results
+```
+
+Once all entries are collected, the `main` function writes each category to a plain-text file under `backend/scraping/list/`. Each line in these files follows the format `ID - Name - URL` (with an optional description field for listing categories):
+
+```
+G0018 - admin@338 - https://attack.mitre.org/groups/G0018 - admin@338 is a China-based cyber threat group...
+G1030 - Agrius    - https://attack.mitre.org/groups/G1030 - Agrius is an Iranian threat actor active since 2020...
+```
+
+```python
+def write_mitre_output(entries, output_path):
+    lines = [f"{tid} - {name} - {url}" for tid, name, url in entries]
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+```
+
+The `main` function executes all collection jobs and writes the following output files:
+
+```python
+entries = collect_mitre_enterprise_techniques()
+write_mitre_output(entries, "list/mitre_enterprise_techniques.txt")
+
+for category, out_path in [
+    ("groups",                   "list/mitre_groups.txt"),
+    ("mobile_tactics",           "list/mitre_mobile_tactics.txt"),
+    ("ics_tactics",              "list/mitre_ics_tactics.txt"),
+    ("mitigations_enterprise",   "list/mitre_mitigations_enterprise.txt"),
+    ("mitigations_mobile",       "list/mitre_mitigations_mobile.txt"),
+    ("mitigations_ics",          "list/mitre_mitigations_ics.txt"),
+]:
+    items = collect_mitre(category)
+    with open(out_path, "w", encoding="utf-8") as fh:
+        for item_id, name, url, desc in items:
+            fh.write(f"{item_id} - {name} - {url} - {desc}\n\n")
+```
+
+At the end of Phase 1 the `list/` folder contains fully populated text files enumerating every technique, group, tactic, and mitigation in the MITRE ATT&CK knowledge base, each paired with its canonical URL. Those files serve as the input manifest for Phase 2.
+
+#### 5.2.2 Phase 2 — Scraping Page Content from Each URL
+
+The second script, `link_scrape.py`, reads the link catalogue produced in Phase 1 and visits every individual URL to download and extract the human-readable content from that page. This is where the actual cybersecurity text that will eventually be embedded and indexed is collected.
+
+**Step 1 — Parsing the link catalogue.** The function `parse_links_from_docs` reads a Phase 1 output file line by line. It expects the `ID - Name - URL` format but also implements a regex fallback that locates any HTTP URL anywhere in a line and derives the technique identifier from the URL path. This makes the parser tolerant of minor formatting variations.
+
+```python
+def parse_links_from_docs(path: str) -> List[Tuple[str, str]]:
+    links = []
+    with open(path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("Source:") or line.startswith("Terms:"):
+                continue
+            parts = [p.strip() for p in line.split(" - ")]
+            if len(parts) >= 3 and parts[2].startswith("http"):
+                links.append((parts[0], parts[2]))          # (ID, URL)
+            else:
+                m = re.search(r"https?://\S+", line)
+                if m:
+                    url  = m.group(0)
+                    tid  = derive_id_from_url(url)           # parse ID from path
+                    links.append((tid, url))
+    return links
+
+def derive_id_from_url(url: str) -> str:
+    # Handles /techniques/T1548/ and /techniques/T1548/001/
+    m = re.search(r"/techniques/(T\d+)(?:/(\d{3})/?)?", url)
+    if not m:
+        return "unknown"
+    base, sub = m.group(1), m.group(2)
+    return f"{base}.{sub}" if sub else base
+```
+
+**Step 2 — Fetching each page.** For every `(technique_id, url)` pair produced by the parser, the `fetch_page` function issues an HTTP GET request with a browser-like `User-Agent` header to avoid being blocked. A 30-second timeout prevents the pipeline from stalling on unresponsive hosts.
+
+```python
+def fetch_page(url: str) -> str:
+    resp = requests.get(
+        url,
+        timeout=30,
+        headers={"User-Agent": "Mozilla/5.0 (compatible; scraper/1.0)"},
+    )
+    resp.raise_for_status()
+    return resp.text
+```
+
+**Step 3 — Extracting title and body text.** The `extract_title_and_paragraphs` function parses the raw HTML with BeautifulSoup and applies a two-level extraction strategy:
+
+1. **Preferred path**: it looks for the CSS selector `.col-md-8 .description-body`, which is the main article container on MITRE ATT&CK pages. If found, the entire inner text is returned as a single block, preserving the complete description without truncation.
+2. **Fallback path**: if the preferred container is absent, the function falls back to collecting all `<p>` tags found inside `<main>` (or the body root), filtering out cookie-banner noise.
+
+```python
+def extract_title_and_paragraphs(html: str) -> Tuple[str, List[str]]:
+    soup = BeautifulSoup(html, "html.parser")
+
+    # Title: prefer <h1>, fallback to <title>
+    h1 = soup.find("h1")
+    title = h1.get_text(strip=True) if h1 else soup.find("title").get_text(strip=True)
+
+    # Preferred container — MITRE ATT&CK article body
+    container = soup.select_one(".col-md-8 .description-body")
+    if container:
+        return title, [container.get_text(" ", strip=True)]
+
+    # Fallback: collect <p> tags from the main content area
+    main = soup.find("main") or soup.find("div", attrs={"role": "main"}) or soup
+    paragraphs = []
+    for p in main.find_all("p"):
+        txt = p.get_text(" ", strip=True)
+        if txt and not ("cookies" in txt.lower() and "privacy" in txt.lower()):
+            paragraphs.append(txt)
+    return title, paragraphs
+```
+
+**Step 4 — Saving the output.** The extracted content is written to a per-resource `.txt` file inside `backend/scraping/MITRE/techniques/` (or the equivalent sub-folder). Each file contains a small header block followed by the body text, normalized to remove redundant whitespace.
+
+```python
+def write_txt(technique_id, title, url, paragraphs, out_dir) -> str:
+    os.makedirs(out_dir, exist_ok=True)
+    path = os.path.join(out_dir, f"{technique_id}.txt")
+    header = [
+        f"ID: {technique_id}",
+        f"Title: {title}",
+        f"URL: {url}",
+    ]
+    body = " ".join(re.sub(r"\s+", " ", p).strip() for p in paragraphs) or "(no summary)"
+    with open(path, "w", encoding="utf-8") as f:
+        f.write("\n".join(header) + "\n" + body + "\n")
+    return path
+```
+
+**Step 5 — Orchestrating the full run.** The `run` function ties all steps together: it parses the link catalogue, iterates over every entry, fetches the page, extracts content, and writes the output file. Failures for individual pages are caught and logged without interrupting the rest of the run, so a single network error or missing page does not abort the entire collection job.
+
+```python
+def run(input_file: str, out_dir: str, limit: int = None):
+    links = parse_links_from_docs(input_file)
+    count = 0
+    for technique_id, url in links:
+        try:
+            html      = fetch_page(url)
+            title, paragraphs = extract_title_and_paragraphs(html)
+            path      = write_txt(technique_id, title, url, paragraphs, out_dir)
+            print(f"Saved: {path}")
+            count += 1
+            if limit and count >= limit:
+                break
+        except Exception as e:
+            print(f"Failed for {technique_id} {url}: {e}")
+    print(f"Total saved: {count}")
+```
+
+The script is also exposed as a command-line tool, allowing the input file, output directory, and page limit to be overridden without editing the source:
+
+```bash
+python link_scrape.py --input list/mitre_enterprise_techniques.txt \
+                      --out   MITRE/techniques \
+                      --limit 50
+```
+
+#### 5.2.3 End-to-End Summary
+
+The complete two-phase scraping pipeline can be summarized as follows:
+
+1. Run `mitre_list_scrape.py` → scrapes MITRE ATT&CK listing pages → writes `list/*.txt` files containing `ID - Name - URL` lines for every technique, group, tactic, and mitigation.
+2. Run `link_scrape.py` for each list file → reads each URL → fetches the individual MITRE page → extracts the title and description body → writes a per-resource `.txt` file to `MITRE/techniques/` or `MITRE/groups/`.
+3. The resulting `.txt` files in the `MITRE/` sub-folders are then treated as raw cybersecurity documents and fed into the preprocessing, chunking, and field-mapping pipeline described in sections 5.3, 5.4, and 5.5.
 
 ### 5.3 Preprocessing
 
@@ -352,11 +703,55 @@ Each chunk is then converted into a dense vector representation using Azure Open
 
 The resulting vectors are stored in the Azure AI Search index alongside the original text and metadata. This enables hybrid search that combines vector similarity with traditional keyword filtering.
 
-### 5.5 Summary
+### 5.5 Field Mapping in Detail
+
+Field mapping is the transformation stage that aligns the internal JSON document schema with the Azure AI Search index schema before document upload. In this project, the mapping is implemented in `map_documents_for_search` and functions as an explicit interface between preprocessing outputs and index-ingestion inputs.
+
+The function defines a mapping dictionary in which each source key from the input document is associated with a target key required by the index payload. The default mapping is as follows:
+
+| Source field | Target field |
+|---|---|
+| `id` | `id` |
+| `content` | `content` |
+| `contentVector` | `content_vector` |
+| `source` | `source` |
+| `category` | `category` |
+
+Accordingly, the function reads values from the original document structure and rewrites them into the index-aligned structure. The mapping from `contentVector` to `content_vector` is a critical case because vector-field naming conventions in the index may differ from those used in upstream JSON files.
+
+The transformation is implemented through a dictionary comprehension:
+
+```python
+doc_to_upload = {target: doc.get(source) for source, target in field_mapping.items()}
+```
+
+After transformation, the function applies a required-field validation step:
+
+```python
+if not all([
+    doc_to_upload.get("id"),
+    doc_to_upload.get("content"),
+    doc_to_upload.get("content_vector"),
+]):
+    continue
+```
+
+Records that do not contain an identifier, content text, or embedding vector are excluded from upload. This filtering mechanism improves ingestion reliability by preventing incomplete or structurally invalid records from entering the search index.
+
+From an engineering perspective, the field-mapping stage provides several benefits:
+
+- Schema compatibility with Azure AI Search index definitions.
+- Data quality control through early validation of mandatory attributes.
+- Maintainability through centralized key-conversion logic.
+- Extensibility through support for alternative schemas via `field_mapping` overrides.
+
+In summary, field mapping is not merely a syntactic conversion step; it is a structural quality-control mechanism that preserves consistency between document-preparation outputs and index-ingestion requirements.
+
+### 5.6 Summary
 
 This chapter has highlighted how cybersecurity-specific documents are collected, cleaned, chunked, and embedded before indexing. Careful data preparation ensures that the retrieval-augmented generation pipeline can surface precise and contextually rich passages when users query the system about vulnerabilities, attack groups, or defensive measures.
 
-### 5.6 Code Snippets
+### 5.7 Code Snippets
 
 The ingestion and indexing pipeline is implemented with explicit loading, mapping, and upload stages.
 
@@ -394,53 +789,57 @@ def map_documents_for_search(documents, field_mapping=None):
 
 ### 6.1 Introduction
 
-This chapter describes the implementation of the backend and frontend components of the system. Particular emphasis is placed on the Python backend logic that connects to Azure OpenAI and Azure AI Search, as well as on the hybrid search and prompt-engineering strategies used to produce cybersecurity-aware answers.
+This chapter presents the implementation of the proposed cybersecurity question-answering system. The discussion focuses on how the design presented in earlier chapters is operationalized in software, with emphasis on backend orchestration, semantic retrieval, prompt construction, and frontend interaction. The objective is to document the implementation decisions that enable reliable, context-grounded responses in a production-oriented web architecture.
 
 ### 6.2 Backend Logic (Python)
 
 #### 6.2.1 Connecting to Azure OpenAI
 
-The backend uses the AzureOpenAI client from the openai Python package, configured with an Azure endpoint and API key. Utility functions in _utils.py encapsulate this logic:
+The backend integrates Azure OpenAI through the `AzureOpenAI` client provided by the `openai` Python package. To improve modularity and reduce configuration duplication, credential retrieval and model invocation are encapsulated in reusable utility functions in `backend/_utils.py`.
 
-- get_azure_openai_credentials retrieves the endpoint and key for the Azure OpenAI resource using CognitiveServicesManagementClient.
-- get_openai_embedding creates an embeddings client and calls client.embeddings.create with the configured embedding deployment.
-- get_openai_completion creates a chat completions client and calls client.chat.completions.create with a list of messages.
+- `get_azure_openai_credentials` retrieves the endpoint and key for the Azure OpenAI resource through `CognitiveServicesManagementClient`.
+- `get_openai_embedding` invokes the embeddings endpoint for query-vector generation.
+- `get_openai_completion` invokes the chat completions endpoint for final answer generation.
 
-These helpers are used in server.py to embed user questions and generate chat-style responses.
+These utilities are called by `backend/server.py` during request processing, thereby separating infrastructure-level concerns (credentials and endpoints) from application-level logic (retrieval and response construction).
 
 #### 6.2.2 Search Algorithm (Hybrid Search)
 
-The retrieval step uses a hybrid strategy that first relies on vector similarity and then falls back to keyword search if necessary:
+The retrieval pipeline implements a hybrid search strategy that combines semantic matching and lexical fallback. This approach is designed to preserve robustness across heterogeneous cybersecurity queries, including queries with technical identifiers, abbreviations, and domain-specific terminology.
+
+The retrieval workflow is implemented as follows:
 
 1. The user question is embedded via get_openai_embedding.
-2. The vector is passed to search_index (in backend/search_query/search_query.py), which executes a vector search on the Azure AI Search index and returns the top-k most similar chunks along with their scores.
-3. The backend applies a similarity threshold (e.g., 0.55). Only results above this threshold are included as context.
-4. If no results pass the threshold, the backend performs a keyword search using the raw question text, selecting the most relevant content and source fields.
+2. The embedding vector is sent to `search_index` (`backend/search_query/search_query.py`) to perform vector retrieval against Azure AI Search.
+3. Returned results are filtered by a similarity threshold (for example, approximately 0.55 to 0.60 depending on runtime configuration).
+4. If no vector results satisfy the threshold, the backend performs a keyword-based search using the raw question text.
+5. Retrieved passages and metadata are aggregated into a context block used for answer generation.
 
-This hybrid approach balances semantic understanding from vector embeddings with robustness in cases where keyword matching is more effective.
+This design improves retrieval coverage: vector search captures semantic similarity, whereas keyword fallback mitigates cases in which exact lexical cues are more informative than embedding proximity.
 
 #### 6.2.3 System Instructions and Persona
 
-In this implementation, prompting is explicitly structured to enforce a cybersecurity persona and context-grounded generation. The backend does not use a generic prompt; it builds the final `messages` payload with four deliberate components:
+Prompt construction is implemented as a deterministic procedure rather than as ad hoc free-form prompting. The backend constructs the `messages` payload to enforce domain specialization, response grounding, and multi-turn continuity.
 
-1. **Fixed system instruction (persona + constraints)**
-   - The model is instructed to act as a cybersecurity specialist.
-   - It is explicitly constrained to use only retrieved context.
-   - It is instructed to format attached links as Markdown (`[More info](link)`).
+The procedure contains four components:
+
+1. **System instruction (persona and constraints)**
+    - The model is instructed to act as a cybersecurity specialist.
+    - The model is constrained to answer from retrieved context rather than unsupported prior knowledge.
+    - Link formatting is standardized in Markdown form.
 
 2. **Conversation history injection**
-   - Previous user/assistant turns from `sessions[session_id]` are appended before the current query, enabling multi-turn continuity.
+    - Prior user and assistant turns from `sessions[session_id]` are appended to preserve conversational state.
 
-3. **Grounded user message template**
-   - The current question is not sent alone. It is wrapped as:
-    `Context:\n{context}\n\nQuestion: {question}`
-   - This forces the model to condition its answer on retrieved passages.
+3. **Grounded user-message template**
+    - The incoming query is wrapped as `Context:\n{context}\n\nQuestion: {question}`.
+    - This template explicitly conditions generation on retrieved evidence.
 
 4. **Retrieval-to-prompt coupling**
-   - Context is assembled from search hits above a relevance threshold (`score > 0.6`) using `content` and `source` fields.
-   - If no high-scoring vector hits are found, the backend falls back to keyword search and still populates context before completion.
+    - Context is assembled from high-relevance search results using `content` and `source` fields.
+    - Keyword fallback is applied when vector retrieval is insufficient, ensuring context availability prior to completion calls.
 
-The exact prompt construction logic used in `server.py` is shown below:
+The core prompt-construction implementation in `server.py` is shown below:
 
 ```python
 messages = [
@@ -465,26 +864,28 @@ messages.append(
 )
 ```
 
-This design operationalizes prompt engineering as a deterministic pipeline rather than an ad hoc instruction, which improves reproducibility and reduces unsupported model outputs.
+This implementation provides reproducibility and reduces unsupported outputs by enforcing a consistent retrieval-to-generation pathway.
 
 ### 6.3 Frontend Prototype
 
-The frontend is implemented as a React single-page application created with Vite. Key elements include:
+The frontend is implemented as a Vite + React single-page application that provides the user-facing conversational interface. Its role is to capture queries, display grounded responses, and manage local conversation state.
 
-- App composition: main.jsx initializes the React root and renders App.jsx, which in turn renders the Chat component inside the main application layout.
-- Chat component: Chat.jsx manages local state for messages, input, loading status, the current session identifier, and saved sessions. It integrates with the API client (client.js) to call /api/new-session and /api/chat, and with session utilities (sessions.js) to persist conversation histories locally.
-- Message rendering: Message.jsx uses ReactMarkdown with remark-gfm and rehype-highlight to display model outputs with proper formatting for lists, tables, and code examples. External links are opened in a new tab.
-- Session sidebar: SessionSidebar.jsx displays previously saved sessions, allows switching between them, and supports deletion. The layout also includes suggestion chips for common cybersecurity questions, easing onboarding for new users.
+The primary implementation elements are:
 
-Although the frontend is relatively lightweight, it provides all functionality required to demonstrate the end-to-end system: entering queries, viewing responses, and managing conversations.
+- **Application composition**: `main.jsx` initializes the React root and renders `App.jsx`, which hosts `Chat.jsx` as the principal interactive view.
+- **Chat orchestration**: `Chat.jsx` manages message state, input state, loading/error indicators, and session identifiers. It interacts with `client.js` for backend communication and with `sessions.js` for client-side persistence.
+- **Response rendering**: `Message.jsx` renders assistant output through `ReactMarkdown` with `remark-gfm` and `rehype-highlight`, enabling structured responses (lists, tables, and code blocks).
+- **Session management UI**: `SessionSidebar.jsx` supports session listing, loading, and deletion, thereby improving multi-turn usability.
+
+Although lightweight in architecture, the frontend is functionally complete for prototype validation: it supports query submission, grounded response visualization, and iterative dialogue management.
 
 ### 6.4 Summary
 
-This chapter has summarized the main implementation details of the backend and frontend. The backend encapsulates connections to Azure OpenAI and Azure AI Search, implements hybrid retrieval, and applies cybersecurity-oriented prompt engineering. The frontend exposes a chat interface that interacts with these services and manages user sessions.
+This chapter has documented the software implementation of the proposed system. The backend integrates Azure OpenAI and Azure AI Search, executes a hybrid semantic retrieval process, and applies a structured prompt-construction strategy for context-grounded generation. The frontend operationalizes these services through a session-aware conversational interface. Together, these components implement the end-to-end RAG workflow defined in the system design.
 
 ### 6.5 Code Snippets
 
-The following excerpts show the concrete backend and frontend implementation used by the prototype.
+The following excerpts illustrate representative frontend implementation logic used in the prototype.
 
 ```jsx
 const handleSend = async () => {

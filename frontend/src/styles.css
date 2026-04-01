@@ -312,6 +312,34 @@ body {
     font-size: 12px;
 }
 
+.health-badge {
+    margin-left: auto;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 6px 10px;
+    border: 1px solid;
+    white-space: nowrap;
+}
+
+.health-badge.online {
+    color: #86efac;
+    border-color: #166534;
+    background: rgba(22, 101, 52, 0.2);
+}
+
+.health-badge.offline {
+    color: #fca5a5;
+    border-color: #991b1b;
+    background: rgba(153, 27, 27, 0.2);
+}
+
+.health-badge.checking {
+    color: #fde68a;
+    border-color: #92400e;
+    background: rgba(146, 64, 14, 0.2);
+}
+
 .messages {
     flex: 1;
     padding: 24px;
@@ -695,6 +723,11 @@ body {
 
     .messages {
         padding: 12px;
+    }
+
+    .health-badge {
+        font-size: 11px;
+        padding: 5px 8px;
     }
 
     .composer {

@@ -1,5 +1,34 @@
 const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
 
+export async function checkHealth() {
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), 5000)
+
+  try {
+    const res = await fetch(`${baseURL}/health`, {
+      method: 'GET',
+      signal: controller.signal
+    })
+
+    if (!res.ok) {
+      return { ok: false, status: `HTTP ${res.status}` }
+    }
+
+    const data = await res.json().catch(() => ({}))
+    return {
+      ok: data?.status ? data.status === 'ok' : true,
+      status: data?.status || 'ok'
+    }
+  } catch (error) {
+    return {
+      ok: false,
+      status: error?.name === 'AbortError' ? 'timeout' : 'unreachable'
+    }
+  } finally {
+    clearTimeout(timeoutId)
+  }
+}
+
 export async function createNewSession() {
   const url = `${baseURL}/api/new-session`
   const res = await fetch(url, {
