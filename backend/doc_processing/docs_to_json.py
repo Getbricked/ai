@@ -120,7 +120,7 @@ def convert_to_json_and_upload(local_path):
         EMBEDDING_DEPLOYMENT_NAME,
         embed_endpoint,
         embed_api_key,
-        max_batch_size=1,
+        max_batch_size=16,
     )
     embed_time = time.perf_counter() - embed_start_time
     print(f"✅ Generated {len(embeddings)} embeddings\n")
@@ -129,7 +129,7 @@ def convert_to_json_and_upload(local_path):
     print(f"⬆️  Phase 3: Uploading documents to blob storage...")
     upload_phase_start_time = time.perf_counter()
     upload_time = 0.0
-    upload_batch_size = 1
+    upload_batch_size = 50
 
     for i in range(0, len(paragraphs_to_process), upload_batch_size):
         batch = paragraphs_to_process[i : i + upload_batch_size]
