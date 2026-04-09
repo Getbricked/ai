@@ -18,3 +18,7 @@ INDEX_NAME = "my-text-index"
 STORAGE_RG_NAME = "my-storage-rg"
 STORAGE_NAME = "kbstorageex"  # Must be globally unique
 CONTAINER_NAME = "documents"
+
+# STORAGE_RG_NAME = "my-storage-rg-2"
+# STORAGE_NAME = "kbstorageex2"  # Must be globally unique
+# CONTAINER_NAME = "documents2"

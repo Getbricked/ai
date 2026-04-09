@@ -3,12 +3,14 @@ import json
 import PyPDF2
 from docx import Document
 import re
+import time
 from _utils import get_openai_embeddings_batch
 from _credentials import container_client, embed_endpoint, embed_api_key
 from _config import CONTAINER_NAME, EMBEDDING_DEPLOYMENT_NAME
 
 
 def convert_to_json_and_upload(local_path):
+    start_time = time.perf_counter()
     json_documents = []
     total_size = 0
 
@@ -104,25 +106,30 @@ def convert_to_json_and_upload(local_path):
 
     if not paragraphs_to_process:
         print("No new paragraphs to process.")
+        print(f"✅ Total time: {time.perf_counter() - start_time:.2f} seconds")
         return json_documents
 
     print(f"✅ Collected {len(paragraphs_to_process)} paragraphs to process\n")
 
     # Phase 2: Generate embeddings in batches
     print(f"🔄 Phase 2: Generating embeddings in batches...")
+    embed_start_time = time.perf_counter()
     texts = [p["content"] for p in paragraphs_to_process]
     embeddings = get_openai_embeddings_batch(
         texts,
         EMBEDDING_DEPLOYMENT_NAME,
         embed_endpoint,
         embed_api_key,
-        max_batch_size=16,
+        max_batch_size=1,
     )
+    embed_time = time.perf_counter() - embed_start_time
     print(f"✅ Generated {len(embeddings)} embeddings\n")
 
     # Phase 3: Upload documents in batches
     print(f"⬆️  Phase 3: Uploading documents to blob storage...")
-    upload_batch_size = 50
+    upload_phase_start_time = time.perf_counter()
+    upload_time = 0.0
+    upload_batch_size = 1
 
     for i in range(0, len(paragraphs_to_process), upload_batch_size):
         batch = paragraphs_to_process[i : i + upload_batch_size]
@@ -146,7 +153,9 @@ def convert_to_json_and_upload(local_path):
 
                 blob_client = container_client.get_blob_client(para_data["blob_name"])
                 blob_data = json.dumps(json_doc)
+                upload_start_time = time.perf_counter()
                 blob_client.upload_blob(blob_data, overwrite=False)
+                upload_time += time.perf_counter() - upload_start_time
                 size = len(blob_data.encode("utf-8"))
                 total_size += size
                 print(f"  ✓ Uploaded {para_data['blob_name']} ({size} bytes)")
@@ -159,12 +168,20 @@ def convert_to_json_and_upload(local_path):
                 f"  Progress: {min(i + upload_batch_size, len(paragraphs_to_process))}/{len(paragraphs_to_process)}"
             )
 
+    progress_time = time.perf_counter() - upload_phase_start_time - upload_time
+    total_time = time.perf_counter() - start_time
+
     print(f"\n✅ Total uploaded: {total_size / 1024:.2f} KB")
     print(f"✅ Successfully processed {len(json_documents)} documents")
+    print(f"✅ Embed time: {embed_time:.2f} seconds")
+    print(f"✅ Upload time: {upload_time:.2f} seconds")
+    print(f"✅ Progress time: {progress_time:.2f} seconds")
+    print(f"✅ Total time: {total_time:.2f} seconds")
     return json_documents
 
 
 def upload_backup(local_path):
+    start_time = time.perf_counter()
     total_size = 0
 
     print(f"Checking if container '{CONTAINER_NAME}' exists...")
@@ -218,4 +235,5 @@ def upload_backup(local_path):
             print(f"Error processing {filename}: {e}")
 
     print(f"Total uploaded: {total_size / 1024:.2f} KB")
+    print(f"Upload time: {time.perf_counter() - start_time:.2f} seconds")
     return total_size

@@ -64,8 +64,6 @@ allow_origins = [
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allow_origins,
-    # Allow any https://*.devtunnels.ms origin (FastAPI supports regex)
-    allow_origin_regex=r"https://.*\.devtunnels\.ms",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -183,7 +181,6 @@ def chat(req: QueryRequest):
                 doc = hit.get("document", {})
                 content = doc.get("content", "")
                 source = doc.get("source", "")
-                context_parts.append(f"Content: {content}\nSource: {source}\n")
                 context_parts.append(
                     f"Content: {content}\nSource: {source}\nScore: {score}\n"
                 )
@@ -213,7 +210,9 @@ def chat(req: QueryRequest):
                 "content": (
                     "You are a cybersecurity specialist. Use the provided context to "
                     "answer the user's question. Do not use your own database to answer!."
-                    "If there is a link attached to the answer, format it with markdown and put at the end of the sentence as [More info](link)."
+                    "If there is a link attached to the answer, "
+                    "format it with markdown and put at the end of the sentence as "
+                    "[More info](link)."
                 ),
             },
         ]
