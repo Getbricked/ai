@@ -1,0 +1,34 @@
+.health-badge {
+    margin-left: auto;
+    padding: 6px 10px;
+    border: 1px solid;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.health-badge.online {
+    color: #86efac;
+    border-color: #166534;
+    background: rgba(22, 101, 52, 0.2);
+}
+
+.health-badge.offline {
+    color: #fca5a5;
+    border-color: #991b1b;
+    background: rgba(153, 27, 27, 0.2);
+}
+
+.health-badge.checking {
+    color: #fde68a;
+    border-color: #92400e;
+    background: rgba(146, 64, 14, 0.2);
+}
+
+@media (max-width: 640px) {
+    .health-badge {
+        padding: 5px 8px;
+        font-size: 11px;
+    }
+}
