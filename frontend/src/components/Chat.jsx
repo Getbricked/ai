@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { sendMessage, createNewSession } from '../api/client.js'
+import { sendMessage, createNewSession, checkHealth } from '../api/client.js'
 import { loadAllSessions, saveSession, saveSessionToDisk, createSessionObject, getSessionById, deleteSession } from '../api/sessions.js'
 import Message from './Message.jsx'
 import SessionSidebar from './SessionSidebar.jsx'
@@ -13,6 +13,7 @@ export default function Chat() {
     const [savedSessions, setSavedSessions] = useState([])
     const [currentSessionTitle, setCurrentSessionTitle] = useState('New Chat')
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true)
+    const [healthState, setHealthState] = useState('checking')
     const listRef = useRef(null)
     const textareaRef = useRef(null)
     const suggestions = [
@@ -59,6 +60,25 @@ export default function Chat() {
 
     useEffect(() => {
         initializeSession()
+    }, [])
+
+    useEffect(() => {
+        let cancelled = false
+
+        const runHealthCheck = async () => {
+            const health = await checkHealth()
+            if (!cancelled) {
+                setHealthState(health.ok ? 'online' : 'offline')
+            }
+        }
+
+        runHealthCheck()
+        const intervalId = setInterval(runHealthCheck, 30000)
+
+        return () => {
+            cancelled = true
+            clearInterval(intervalId)
+        }
     }, [])
 
     const handleSend = async () => {
@@ -213,6 +233,9 @@ export default function Chat() {
                         <h2>Cybersecurity AI Assistant</h2>
                         <p className="chat-header-subtitle">Ask questions and get answers about cybersecurity</p>
                     </div>
+                    <span className={`health-badge ${healthState}`}>
+                        {healthState === 'online' ? 'Backend online' : healthState === 'offline' ? 'Backend offline' : 'Checking backend'}
+                    </span>
                 </div>
                 <div className="messages" ref={listRef}>
                     <div className="messages-inner">
