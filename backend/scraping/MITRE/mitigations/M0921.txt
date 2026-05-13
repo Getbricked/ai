@@ -1,0 +1,4 @@
+ID: M0921
+Title: Restrict Web-Based Content
+URL: https://attack.mitre.org/mitigations/M0921
+Restrict use of certain websites, block downloads/attachments, block Javascript, restrict browser extensions, etc.

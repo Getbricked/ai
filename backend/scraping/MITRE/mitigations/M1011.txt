@@ -1,0 +1,4 @@
+ID: M1011
+Title: User Guidance
+URL: https://attack.mitre.org/mitigations/M1011
+Describes any guidance or training given to users to set particular configuration settings or avoid specific potentially risky behaviors.

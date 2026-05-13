@@ -120,7 +120,7 @@ def convert_to_json_and_upload(local_path):
         EMBEDDING_DEPLOYMENT_NAME,
         embed_endpoint,
         embed_api_key,
-        max_batch_size=16,
+        max_batch_size=20,
     )
     embed_time = time.perf_counter() - embed_start_time
     print(f"✅ Generated {len(embeddings)} embeddings\n")

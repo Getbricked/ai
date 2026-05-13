@@ -1,0 +1,4 @@
+ID: M0801
+Title: Access Management
+URL: https://attack.mitre.org/mitigations/M0801
+Access Management technologies can be used to enforce authorization polices and decisions, especially when existing field devices do not provide sufficient capabilities to support user identification and authentication. [1] These technologies typically utilize an in-line network device or gateway system to prevent access to unauthenticated users, while also integrating with an authentication service to first verify user credentials. [2]

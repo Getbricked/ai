@@ -1,0 +1,4 @@
+ID: M0811
+Title: Redundancy of Service
+URL: https://attack.mitre.org/mitigations/M0811
+Redundancy could be provided for both critical ICS devices and services, such as back-up devices or hot-standbys.

@@ -1,0 +1,4 @@
+ID: M1010
+Title: Deploy Compromised Device Detection Method
+URL: https://attack.mitre.org/mitigations/M1010
+A variety of methods exist that can be used to enable enterprises to identify compromised (e.g. rooted/jailbroken) devices, whether using security mechanisms built directly into the device, third-party mobile security applications, enterprise mobility management (EMM)/mobile device management (MDM) capabilities, or other methods. Some methods may be trivial to evade while others may be more sophisticated.

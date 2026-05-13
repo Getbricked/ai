@@ -1,0 +1,4 @@
+ID: M0942
+Title: Disable or Remove Feature or Program
+URL: https://attack.mitre.org/mitigations/M0942
+Remove or deny access to unnecessary and potentially vulnerable software to prevent abuse by adversaries.

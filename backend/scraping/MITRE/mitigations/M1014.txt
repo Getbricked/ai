@@ -1,0 +1,4 @@
+ID: M1014
+Title: Interconnection Filtering
+URL: https://attack.mitre.org/mitigations/M1014
+In order to mitigate Signaling System 7 (SS7) exploitation, the Communications, Security, Reliability, and Interoperability Council (CSRIC) describes filtering interconnections between network operators to block inappropriate requests [1] .

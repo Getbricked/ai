@@ -1,0 +1,4 @@
+ID: M1002
+Title: Attestation
+URL: https://attack.mitre.org/mitigations/M1002
+Enable remote attestation capabilities when available (such as Android SafetyNet or Samsung Knox TIMA Attestation) and prohibit devices that fail the attestation from accessing enterprise resources.

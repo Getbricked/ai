@@ -1,0 +1,4 @@
+ID: M0815
+Title: Watchdog Timers
+URL: https://attack.mitre.org/mitigations/M0815
+Utilize watchdog timers to ensure devices can quickly detect whether a system is unresponsive.

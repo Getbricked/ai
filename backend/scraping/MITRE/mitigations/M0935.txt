@@ -1,0 +1,4 @@
+ID: M0935
+Title: Limit Access to Resource Over Network
+URL: https://attack.mitre.org/mitigations/M0935
+Prevent access to file shares, remote access to systems, unnecessary services. Mechanisms to limit access may include use of network concentrators, RDP gateways, etc.

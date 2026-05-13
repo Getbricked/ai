@@ -1,0 +1,4 @@
+ID: M0934
+Title: Limit Hardware Installation
+URL: https://attack.mitre.org/mitigations/M0934
+Block users or groups from installing or using unapproved hardware on systems, including USB devices.

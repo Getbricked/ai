@@ -1,0 +1,4 @@
+ID: M0804
+Title: Human User Authentication
+URL: https://attack.mitre.org/mitigations/M0804
+Require user authentication before allowing access to data or accepting commands to a device. While strong multi-factor authentication is preferable, it is not always feasible within ICS environments. Performing strong user authentication also requires additional security controls and processes which are often the target of related adversarial techniques (e.g., Valid Accounts, Default Credentials). Therefore, associated ATT&CK mitigations should be considered in addition to this, including Multi-factor Authentication , Account Use Policies , Password Policies , User Account Management , Privileged Account Management , and User Account Control .

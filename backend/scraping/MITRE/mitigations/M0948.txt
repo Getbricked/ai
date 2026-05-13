@@ -1,0 +1,4 @@
+ID: M0948
+Title: Application Isolation and Sandboxing
+URL: https://attack.mitre.org/mitigations/M0948
+Restrict the execution of code to a virtual environment on or in-transit to an endpoint system.

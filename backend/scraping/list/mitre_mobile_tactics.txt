@@ -22,7 +22,3 @@ TA0036 - Exfiltration - https://attack.mitre.org/tactics/TA0036 - The adversary 
 
 TA0034 - Impact - https://attack.mitre.org/tactics/TA0034 - The adversary is trying to manipulate, interrupt, or destroy your devices and data.
 
-TA0038 - Network Effects - https://attack.mitre.org/tactics/TA0038 - The adversary is trying to intercept or manipulate network traffic to or from a device.
-
-TA0039 - Remote Service Effects - https://attack.mitre.org/tactics/TA0039 - The adversary is trying to control or monitor the device using remote services.
-

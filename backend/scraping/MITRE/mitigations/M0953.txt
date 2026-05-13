@@ -1,0 +1,4 @@
+ID: M0953
+Title: Data Backup
+URL: https://attack.mitre.org/mitigations/M0953
+Take and store data backups from end user systems and critical servers. Ensure backup and storage systems are hardened and kept separate from the corporate network to prevent compromise. Maintain and exercise incident response plans [1] , including the management of 'gold-copy' back-up images and configurations for key systems to enable quick recovery and response from adversarial activities that impact control, view, or availability.

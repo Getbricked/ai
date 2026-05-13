@@ -1,0 +1,4 @@
+ID: M0951
+Title: Update Software
+URL: https://attack.mitre.org/mitigations/M0951
+Perform regular software updates to mitigate exploitation risk. Software updates may need to be scheduled around operational down times.

@@ -1,0 +1,4 @@
+ID: M0808
+Title: Encrypt Network Traffic
+URL: https://attack.mitre.org/mitigations/M0808
+Utilize strong cryptographic techniques and protocols to prevent eavesdropping on network communications.

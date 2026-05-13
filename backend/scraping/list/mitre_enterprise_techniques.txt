@@ -40,7 +40,7 @@ T1595.001 - Scanning IP Blocks - https://attack.mitre.org/techniques/T1595/001
 T1595.002 - Vulnerability Scanning - https://attack.mitre.org/techniques/T1595/002
 T1595.003 - Wordlist Scanning - https://attack.mitre.org/techniques/T1595/003
 T1557 - Adversary-in-the-Middle - https://attack.mitre.org/techniques/T1557
-T1557.001 - LLMNR/NBT-NS Poisoning and SMB Relay - https://attack.mitre.org/techniques/T1557/001
+T1557.001 - Name Resolution Poisoning and SMB Relay - https://attack.mitre.org/techniques/T1557/001
 T1557.002 - ARP Cache Poisoning - https://attack.mitre.org/techniques/T1557/002
 T1557.003 - DHCP Spoofing - https://attack.mitre.org/techniques/T1557/003
 T1557.004 - Evil Twin - https://attack.mitre.org/techniques/T1557/004
@@ -191,6 +191,17 @@ T1587.003 - Digital Certificates - https://attack.mitre.org/techniques/T1587/003
 T1587.004 - Exploits - https://attack.mitre.org/techniques/T1587/004
 T1652 - Device Driver Discovery - https://attack.mitre.org/techniques/T1652
 T1006 - Direct Volume Access - https://attack.mitre.org/techniques/T1006
+T1686 - Disable or Modify System Firewall - https://attack.mitre.org/techniques/T1686
+T1686.001 - Cloud Firewall - https://attack.mitre.org/techniques/T1686/001
+T1686.002 - Network Device Firewall - https://attack.mitre.org/techniques/T1686/002
+T1686.003 - Windows Host Firewall - https://attack.mitre.org/techniques/T1686/003
+T1685 - Disable or Modify Tools - https://attack.mitre.org/techniques/T1685
+T1685.001 - Disable or Modify Windows Event Log - https://attack.mitre.org/techniques/T1685/001
+T1685.002 - Disable or Modify Cloud Log - https://attack.mitre.org/techniques/T1685/002
+T1685.003 - Modify or Spoof Tool UI - https://attack.mitre.org/techniques/T1685/003
+T1685.004 - Disable or Modify Linux Audit System Log - https://attack.mitre.org/techniques/T1685/004
+T1685.005 - Clear Windows Event Logs - https://attack.mitre.org/techniques/T1685/005
+T1685.006 - Clear Linux or Mac System Logs - https://attack.mitre.org/techniques/T1685/006
 T1561 - Disk Wipe - https://attack.mitre.org/techniques/T1561
 T1561.001 - Disk Content Wipe - https://attack.mitre.org/techniques/T1561/001
 T1561.002 - Disk Structure Wipe - https://attack.mitre.org/techniques/T1561/002
@@ -198,6 +209,7 @@ T1484 - Domain or Tenant Policy Modification - https://attack.mitre.org/techniqu
 T1484.001 - Group Policy Modification - https://attack.mitre.org/techniques/T1484/001
 T1484.002 - Trust Modification - https://attack.mitre.org/techniques/T1484/002
 T1482 - Domain Trust Discovery - https://attack.mitre.org/techniques/T1482
+T1689 - Downgrade Attack - https://attack.mitre.org/techniques/T1689
 T1189 - Drive-by Compromise - https://attack.mitre.org/techniques/T1189
 T1568 - Dynamic Resolution - https://attack.mitre.org/techniques/T1568
 T1568.001 - Fast Flux DNS - https://attack.mitre.org/techniques/T1568/001
@@ -208,7 +220,6 @@ T1114 - Email Collection - https://attack.mitre.org/techniques/T1114
 T1114.001 - Local Email Collection - https://attack.mitre.org/techniques/T1114/001
 T1114.002 - Remote Email Collection - https://attack.mitre.org/techniques/T1114/002
 T1114.003 - Email Forwarding Rule - https://attack.mitre.org/techniques/T1114/003
-T1672 - Email Spoofing - https://attack.mitre.org/techniques/T1672
 T1573 - Encrypted Channel - https://attack.mitre.org/techniques/T1573
 T1573.001 - Symmetric Cryptography - https://attack.mitre.org/techniques/T1573/001
 T1573.002 - Asymmetric Cryptography - https://attack.mitre.org/techniques/T1573/002
@@ -263,15 +274,16 @@ T1567.004 - Exfiltration Over Webhook - https://attack.mitre.org/techniques/T156
 T1190 - Exploit Public-Facing Application - https://attack.mitre.org/techniques/T1190
 T1203 - Exploitation for Client Execution - https://attack.mitre.org/techniques/T1203
 T1212 - Exploitation for Credential Access - https://attack.mitre.org/techniques/T1212
-T1211 - Exploitation for Defense Evasion - https://attack.mitre.org/techniques/T1211
+T1687 - Exploitation for Defense Impairment - https://attack.mitre.org/techniques/T1687
 T1068 - Exploitation for Privilege Escalation - https://attack.mitre.org/techniques/T1068
+T1211 - Exploitation for Stealth - https://attack.mitre.org/techniques/T1211
 T1210 - Exploitation of Remote Services - https://attack.mitre.org/techniques/T1210
 T1133 - External Remote Services - https://attack.mitre.org/techniques/T1133
 T1008 - Fallback Channels - https://attack.mitre.org/techniques/T1008
 T1083 - File and Directory Discovery - https://attack.mitre.org/techniques/T1083
 T1222 - File and Directory Permissions Modification - https://attack.mitre.org/techniques/T1222
-T1222.001 - Windows File and Directory Permissions Modification - https://attack.mitre.org/techniques/T1222/001
-T1222.002 - Linux and Mac File and Directory Permissions Modification - https://attack.mitre.org/techniques/T1222/002
+T1222.001 - Windows Permissions - https://attack.mitre.org/techniques/T1222/001
+T1222.002 - Linux and Mac Permissions - https://attack.mitre.org/techniques/T1222/002
 T1657 - Financial Theft - https://attack.mitre.org/techniques/T1657
 T1495 - Firmware Corruption - https://attack.mitre.org/techniques/T1495
 T1187 - Forced Authentication - https://attack.mitre.org/techniques/T1187
@@ -299,6 +311,9 @@ T1591.001 - Determine Physical Locations - https://attack.mitre.org/techniques/T
 T1591.002 - Business Relationships - https://attack.mitre.org/techniques/T1591/002
 T1591.003 - Identify Business Tempo - https://attack.mitre.org/techniques/T1591/003
 T1591.004 - Identify Roles - https://attack.mitre.org/techniques/T1591/004
+T1683 - Generate Content - https://attack.mitre.org/techniques/T1683
+T1683.001 - Written Content - https://attack.mitre.org/techniques/T1683/001
+T1683.002 - Audio-Visual Content - https://attack.mitre.org/techniques/T1683/002
 T1615 - Group Policy Discovery - https://attack.mitre.org/techniques/T1615
 T1200 - Hardware Additions - https://attack.mitre.org/techniques/T1200
 T1564 - Hide Artifacts - https://attack.mitre.org/techniques/T1564
@@ -330,24 +345,8 @@ T1574.011 - Services Registry Permissions Weakness - https://attack.mitre.org/te
 T1574.012 - COR_PROFILER - https://attack.mitre.org/techniques/T1574/012
 T1574.013 - KernelCallbackTable - https://attack.mitre.org/techniques/T1574/013
 T1574.014 - AppDomainManager - https://attack.mitre.org/techniques/T1574/014
-T1562 - Impair Defenses - https://attack.mitre.org/techniques/T1562
-T1562.001 - Disable or Modify Tools - https://attack.mitre.org/techniques/T1562/001
-T1562.002 - Disable Windows Event Logging - https://attack.mitre.org/techniques/T1562/002
-T1562.003 - Impair Command History Logging - https://attack.mitre.org/techniques/T1562/003
-T1562.004 - Disable or Modify System Firewall - https://attack.mitre.org/techniques/T1562/004
-T1562.006 - Indicator Blocking - https://attack.mitre.org/techniques/T1562/006
-T1562.007 - Disable or Modify Cloud Firewall - https://attack.mitre.org/techniques/T1562/007
-T1562.008 - Disable or Modify Cloud Logs - https://attack.mitre.org/techniques/T1562/008
-T1562.009 - Safe Mode Boot - https://attack.mitre.org/techniques/T1562/009
-T1562.010 - Downgrade Attack - https://attack.mitre.org/techniques/T1562/010
-T1562.011 - Spoof Security Alerting - https://attack.mitre.org/techniques/T1562/011
-T1562.012 - Disable or Modify Linux Audit System - https://attack.mitre.org/techniques/T1562/012
-T1562.013 - Disable or Modify Network Device Firewall - https://attack.mitre.org/techniques/T1562/013
-T1656 - Impersonation - https://attack.mitre.org/techniques/T1656
 T1525 - Implant Internal Image - https://attack.mitre.org/techniques/T1525
 T1070 - Indicator Removal - https://attack.mitre.org/techniques/T1070
-T1070.001 - Clear Windows Event Logs - https://attack.mitre.org/techniques/T1070/001
-T1070.002 - Clear Linux or Mac System Logs - https://attack.mitre.org/techniques/T1070/002
 T1070.003 - Clear Command History - https://attack.mitre.org/techniques/T1070/003
 T1070.004 - File Deletion - https://attack.mitre.org/techniques/T1070/004
 T1070.005 - Network Share Connection Removal - https://attack.mitre.org/techniques/T1070/005
@@ -439,6 +438,7 @@ T1027.014 - Polymorphic Code - https://attack.mitre.org/techniques/T1027/014
 T1027.015 - Compression - https://attack.mitre.org/techniques/T1027/015
 T1027.016 - Junk Code Insertion - https://attack.mitre.org/techniques/T1027/016
 T1027.017 - SVG Smuggling - https://attack.mitre.org/techniques/T1027/017
+T1027.018 - Invisible Unicode - https://attack.mitre.org/techniques/T1027/018
 T1588 - Obtain Capabilities - https://attack.mitre.org/techniques/T1588
 T1588.001 - Malware - https://attack.mitre.org/techniques/T1588/001
 T1588.002 - Tool - https://attack.mitre.org/techniques/T1588/002
@@ -488,6 +488,7 @@ T1542.002 - Component Firmware - https://attack.mitre.org/techniques/T1542/002
 T1542.003 - Bootkit - https://attack.mitre.org/techniques/T1542/003
 T1542.004 - ROMMONkit - https://attack.mitre.org/techniques/T1542/004
 T1542.005 - TFTP Boot - https://attack.mitre.org/techniques/T1542/005
+T1690 - Prevent Command History Logging - https://attack.mitre.org/techniques/T1690
 T1057 - Process Discovery - https://attack.mitre.org/techniques/T1057
 T1055 - Process Injection - https://attack.mitre.org/techniques/T1055
 T1055.001 - Dynamic-link Library Injection - https://attack.mitre.org/techniques/T1055/001
@@ -508,6 +509,7 @@ T1090.001 - Internal Proxy - https://attack.mitre.org/techniques/T1090/001
 T1090.002 - External Proxy - https://attack.mitre.org/techniques/T1090/002
 T1090.003 - Multi-hop Proxy - https://attack.mitre.org/techniques/T1090/003
 T1090.004 - Domain Fronting - https://attack.mitre.org/techniques/T1090/004
+T1682 - Query Public AI Services - https://attack.mitre.org/techniques/T1682
 T1012 - Query Registry - https://attack.mitre.org/techniques/T1012
 T1620 - Reflective Code Loading - https://attack.mitre.org/techniques/T1620
 T1219 - Remote Access Tools - https://attack.mitre.org/techniques/T1219
@@ -535,6 +537,7 @@ T1496.003 - SMS Pumping - https://attack.mitre.org/techniques/T1496/003
 T1496.004 - Cloud Service Hijacking - https://attack.mitre.org/techniques/T1496/004
 T1207 - Rogue Domain Controller - https://attack.mitre.org/techniques/T1207
 T1014 - Rootkit - https://attack.mitre.org/techniques/T1014
+T1688 - Safe Mode Boot - https://attack.mitre.org/techniques/T1688
 T1053 - Scheduled Task/Job - https://attack.mitre.org/techniques/T1053
 T1053.002 - At - https://attack.mitre.org/techniques/T1053/002
 T1053.003 - Cron - https://attack.mitre.org/techniques/T1053/003
@@ -569,6 +572,9 @@ T1505.006 - vSphere Installation Bundles - https://attack.mitre.org/techniques/T
 T1648 - Serverless Execution - https://attack.mitre.org/techniques/T1648
 T1489 - Service Stop - https://attack.mitre.org/techniques/T1489
 T1129 - Shared Modules - https://attack.mitre.org/techniques/T1129
+T1684 - Social Engineering - https://attack.mitre.org/techniques/T1684
+T1684.001 - Impersonation - https://attack.mitre.org/techniques/T1684/001
+T1684.002 - Email Spoofing - https://attack.mitre.org/techniques/T1684/002
 T1072 - Software Deployment Tools - https://attack.mitre.org/techniques/T1072
 T1518 - Software Discovery - https://attack.mitre.org/techniques/T1518
 T1518.001 - Security Software Discovery - https://attack.mitre.org/techniques/T1518/001

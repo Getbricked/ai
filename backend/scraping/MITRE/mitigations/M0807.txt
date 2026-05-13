@@ -1,0 +1,4 @@
+ID: M0807
+Title: Network Allowlists
+URL: https://attack.mitre.org/mitigations/M0807
+Network allowlists can be implemented through either host-based files or system hosts files to specify what connections (e.g., IP address, MAC address, port, protocol) can be made from a device. Allowlist techniques that operate at the application layer (e.g., DNP3, Modbus, HTTP) are addressed in Filter Network Traffic mitigation.

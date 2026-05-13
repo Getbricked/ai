@@ -1,0 +1,4 @@
+ID: M1004
+Title: System Partition Integrity
+URL: https://attack.mitre.org/mitigations/M1004
+Ensure that Android devices being used include and enable the Verified Boot capability, which cryptographically ensures the integrity of the system partition.

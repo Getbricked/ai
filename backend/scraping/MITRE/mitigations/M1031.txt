@@ -1,0 +1,4 @@
+ID: M1031
+Title: Network Intrusion Prevention
+URL: https://attack.mitre.org/mitigations/M1031
+Use intrusion detection signatures to block traffic at network boundaries.

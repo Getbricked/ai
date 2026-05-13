@@ -1,0 +1,4 @@
+ID: M0945
+Title: Code Signing
+URL: https://attack.mitre.org/mitigations/M0945
+Enforce binary and application integrity with digital signature verification to prevent untrusted code from executing.

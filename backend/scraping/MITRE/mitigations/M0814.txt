@@ -1,0 +1,4 @@
+ID: M0814
+Title: Static Network Configuration
+URL: https://attack.mitre.org/mitigations/M0814
+Configure hosts and devices to use static network configurations when possible, protocols that require dynamic discovery/addressing (e.g., ARP, DHCP, DNS) can be used to manipulate network message forwarding and enable various AiTM attacks. This mitigation may not always be usable due to limited device features or challenges introduced with different network configurations.

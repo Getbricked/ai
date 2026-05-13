@@ -1,0 +1,4 @@
+ID: M0802
+Title: Communication Authenticity
+URL: https://attack.mitre.org/mitigations/M0802
+When communicating over an untrusted network, utilize secure network protocols that both authenticate the message sender and can verify its integrity. This can be done either through message authentication codes (MACs) or digital signatures, to detect spoofed network messages and unauthorized connections.

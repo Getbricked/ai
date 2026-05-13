@@ -1,0 +1,4 @@
+ID: M0916
+Title: Vulnerability Scanning
+URL: https://attack.mitre.org/mitigations/M0916
+Vulnerability scanning is used to find potentially exploitable software vulnerabilities to remediate them.

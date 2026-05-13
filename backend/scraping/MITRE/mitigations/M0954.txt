@@ -1,0 +1,4 @@
+ID: M0954
+Title: Software Configuration
+URL: https://attack.mitre.org/mitigations/M0954
+Implement configuration changes to software (other than the operating system) to mitigate security risks associated with how the software operates.

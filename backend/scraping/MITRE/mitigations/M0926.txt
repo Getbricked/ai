@@ -1,0 +1,4 @@
+ID: M0926
+Title: Privileged Account Management
+URL: https://attack.mitre.org/mitigations/M0926
+Manage the creation, modification, use, and permissions associated to privileged accounts, including SYSTEM and root.

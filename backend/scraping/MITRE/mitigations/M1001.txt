@@ -1,0 +1,4 @@
+ID: M1001
+Title: Security Updates
+URL: https://attack.mitre.org/mitigations/M1001
+Install security updates in response to discovered vulnerabilities. Purchase devices with a vendor and/or mobile carrier commitment to provide security updates in a prompt manner for a set period of time. Decommission devices that will no longer receive security updates. Limit or block access to enterprise resources from devices that have not installed recent security updates. On Android devices, access can be controlled based on each device's security patch level. On iOS devices, access can be controlled based on the iOS version.

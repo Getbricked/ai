@@ -1,0 +1,4 @@
+ID: M0950
+Title: Exploit Protection
+URL: https://attack.mitre.org/mitigations/M0950
+Use capabilities to detect and block conditions that may lead to or be indicative of a software exploit occurring.

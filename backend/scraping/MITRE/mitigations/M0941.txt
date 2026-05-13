@@ -1,0 +1,4 @@
+ID: M0941
+Title: Encrypt Sensitive Information
+URL: https://attack.mitre.org/mitigations/M0941
+Protect sensitive data-at-rest with strong encryption.

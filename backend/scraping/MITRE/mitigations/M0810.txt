@@ -1,0 +1,4 @@
+ID: M0810
+Title: Out-of-Band Communications Channel
+URL: https://attack.mitre.org/mitigations/M0810
+Have alternative methods to support communication requirements during communication failures and data integrity attacks. [1] [2]

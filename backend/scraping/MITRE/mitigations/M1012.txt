@@ -1,0 +1,4 @@
+ID: M1012
+Title: Enterprise Policy
+URL: https://attack.mitre.org/mitigations/M1012
+An enterprise mobility management (EMM), also known as mobile device management (MDM), system can be used to provision policies to mobile devices to control aspects of their allowed behavior.

@@ -1,0 +1,4 @@
+ID: M0812
+Title: Safety Instrumented Systems
+URL: https://attack.mitre.org/mitigations/M0812
+Utilize Safety Instrumented Systems (SIS) to provide an additional layer of protection to hazard scenarios that may cause property damage. A SIS will typically include sensors, logic solvers, and a final control element that can be used to automatically respond to an hazardous condition [1] . Ensure that all SISs are segmented from operational networks to prevent them from being targeted by additional adversarial behavior.

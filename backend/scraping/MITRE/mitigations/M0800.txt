@@ -1,0 +1,4 @@
+ID: M0800
+Title: Authorization Enforcement
+URL: https://attack.mitre.org/mitigations/M0800
+The device or system should restrict read, manipulate, or execute privileges to only authenticated users who require access based on approved security policies. Role-based Access Control (RBAC) schemes can help reduce the overhead of assigning permissions to the large number of devices within an ICS. For example, IEC 62351 provides examples of roles used to support common system operations within the electric power sector [1] , while IEEE 1686 defines standard permissions for users of IEDs. [2]

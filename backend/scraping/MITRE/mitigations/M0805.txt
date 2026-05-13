@@ -1,0 +1,4 @@
+ID: M0805
+Title: Mechanical Protection Layers
+URL: https://attack.mitre.org/mitigations/M0805
+Utilize a layered protection design based on physical or mechanical protection systems to prevent damage to property, equipment, human safety, or the environment. Examples include interlocks, rupture disk, release values, etc. [1]

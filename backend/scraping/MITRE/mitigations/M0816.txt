@@ -1,0 +1,4 @@
+ID: M0816
+Title: Mitigation Limited or Not Effective
+URL: https://attack.mitre.org/mitigations/M0816
+This type of attack technique cannot be easily mitigated with preventative controls since it is based on the abuse of system features.

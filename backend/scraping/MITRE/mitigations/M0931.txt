@@ -1,0 +1,4 @@
+ID: M0931
+Title: Network Intrusion Prevention
+URL: https://attack.mitre.org/mitigations/M0931
+Use intrusion detection signatures to block traffic at network boundaries. In industrial control environments, network intrusion prevention should be configured so it will not disrupt protocols and communications responsible for real-time functions related to control or safety.

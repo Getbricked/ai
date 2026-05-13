@@ -1,0 +1,4 @@
+ID: M1003
+Title: Lock Bootloader
+URL: https://attack.mitre.org/mitigations/M1003
+On devices that provide the capability to unlock the bootloader (hence allowing any operating system code to be flashed onto the device), perform periodic checks to ensure that the bootloader is locked.

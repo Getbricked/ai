@@ -1,0 +1,4 @@
+ID: M0928
+Title: Operating System Configuration
+URL: https://attack.mitre.org/mitigations/M0928
+Make configuration changes related to the operating system or a common feature of the operating system that result in system hardening against techniques.

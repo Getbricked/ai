@@ -1,0 +1,4 @@
+ID: M0920
+Title: SSL/TLS Inspection
+URL: https://attack.mitre.org/mitigations/M0920
+Break and inspect SSL/TLS sessions to look at encrypted web traffic for adversary activity.

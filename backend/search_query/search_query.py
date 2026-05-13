@@ -132,20 +132,41 @@ def upload_documents_to_search(
         print("No documents to upload.")
         return False
 
-    print(f"Uploading {len(documents)} documents to index...")
+    max_batch_size = 100
+    print(
+        f"Uploading {len(documents)} documents to index in batches of {max_batch_size}..."
+    )
     try:
-        result = search_client.upload_documents(documents=documents)
-        success = all(r.succeeded for r in result)
+        all_success = True
+        total_uploaded = 0
 
-        if success:
-            print(f"Successfully uploaded all {len(documents)} documents.")
-        else:
-            print("Some documents failed to upload:")
+        for start in range(0, len(documents), max_batch_size):
+            batch = documents[start : start + max_batch_size]
+            batch_number = start // max_batch_size + 1
+            total_batches = (len(documents) + max_batch_size - 1) // max_batch_size
+            print(
+                f"Uploading batch {batch_number}/{total_batches} ({len(batch)} documents)..."
+            )
+
+            result = search_client.upload_documents(documents=batch)
+            batch_success = True
+
             for r in result:
                 if not r.succeeded:
+                    batch_success = False
                     print(f"  - Document {r.key}: {r.error_message}")
 
-        return success
+            if batch_success:
+                total_uploaded += len(batch)
+            else:
+                all_success = False
+
+        if all_success:
+            print(f"Successfully uploaded all {total_uploaded} documents.")
+        else:
+            print(f"Uploaded {total_uploaded} documents with some failures.")
+
+        return all_success
 
     except Exception as e:
         print(f"Error uploading documents: {e}")

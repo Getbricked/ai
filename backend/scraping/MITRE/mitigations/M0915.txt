@@ -1,0 +1,4 @@
+ID: M0915
+Title: Active Directory Configuration
+URL: https://attack.mitre.org/mitigations/M0915
+Configure Active Directory to prevent use of certain techniques; use security identifier (SID) Filtering, etc.

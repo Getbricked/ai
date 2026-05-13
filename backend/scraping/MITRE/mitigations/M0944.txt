@@ -1,0 +1,4 @@
+ID: M0944
+Title: Restrict Library Loading
+URL: https://attack.mitre.org/mitigations/M0944
+Prevent abuse of library loading mechanisms in the operating system and software to load untrusted code by configuring appropriate library loading mechanisms and investigating potential vulnerable software.

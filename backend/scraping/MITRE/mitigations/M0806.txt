@@ -1,0 +1,4 @@
+ID: M0806
+Title: Minimize Wireless Signal Propagation
+URL: https://attack.mitre.org/mitigations/M0806
+Wireless signals frequently propagate outside of organizational boundaries, which provide opportunities for adversaries to monitor or gain unauthorized access to the wireless network. [1] To minimize this threat, organizations should implement measures to detect, understand, and reduce unnecessary RF propagation. [2]

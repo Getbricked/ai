@@ -1,0 +1,4 @@
+ID: M0924
+Title: Restrict Registry Permissions
+URL: https://attack.mitre.org/mitigations/M0924
+Restrict the ability to modify certain hives or keys in the Windows Registry.

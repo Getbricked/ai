@@ -1,0 +1,4 @@
+ID: M0922
+Title: Restrict File and Directory Permissions
+URL: https://attack.mitre.org/mitigations/M0922
+Restrict access by setting directory and file permissions that are not specific to users or privileged accounts.

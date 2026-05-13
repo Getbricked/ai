@@ -1,0 +1,4 @@
+ID: M1006
+Title: Use Recent OS Version
+URL: https://attack.mitre.org/mitigations/M1006
+New mobile operating system versions bring not only patches against discovered vulnerabilities but also often bring security architecture improvements that provide resilience against potential vulnerabilities or weaknesses that have not yet been discovered. They may also bring improvements that block use of observed adversary techniques.

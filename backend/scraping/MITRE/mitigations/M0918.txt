@@ -1,0 +1,4 @@
+ID: M0918
+Title: User Account Management
+URL: https://attack.mitre.org/mitigations/M0918
+Manage the creation, modification, use, and permissions associated to user accounts.

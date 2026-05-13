@@ -1,0 +1,4 @@
+ID: M0946
+Title: Boot Integrity
+URL: https://attack.mitre.org/mitigations/M0946
+Use secure methods to boot a system and verify the integrity of the operating system and loading mechanisms.

@@ -1,0 +1,4 @@
+ID: M0936
+Title: Account Use Policies
+URL: https://attack.mitre.org/mitigations/M0936
+Configure features related to account use like login attempt lockouts, specific login times, etc.

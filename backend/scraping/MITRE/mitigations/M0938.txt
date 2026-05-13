@@ -1,0 +1,4 @@
+ID: M0938
+Title: Execution Prevention
+URL: https://attack.mitre.org/mitigations/M0938
+Block execution of code on a system through application control, and/or script blocking.
