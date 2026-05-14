@@ -185,6 +185,8 @@ def chat(req: QueryRequest):
         )
 
         # 2) If the question contains a security term, also run keyword search
+        seen_ids = set()
+        context_parts = []
         q_lower = question.lower()
         matches = [t for t in SECURITY_TERMS if t and t.lower() in q_lower]
         if matches:
@@ -216,8 +218,6 @@ def chat(req: QueryRequest):
 
         # 4) Build context from high-confidence vector hits
         threshold = 0.6
-        context_parts = []
-        seen_ids = set()
         for hit in vector_results:
             score = hit.get("score") or 0.0
             if score and score > threshold:
