@@ -31,6 +31,21 @@ from _utils import (
 from search_query.search_query import search_index
 
 
+# Load security terms that trigger keyword search when present in a question
+def _load_security_terms() -> list:
+    try:
+        terms_path = Path(__file__).parent / "security_terms.txt"
+        if not terms_path.exists():
+            return []
+        with open(terms_path, "r", encoding="utf-8") as f:
+            return [line.strip() for line in f if line.strip()]
+    except Exception:
+        return []
+
+
+SECURITY_TERMS = _load_security_terms()
+
+
 class QueryRequest(BaseModel):
     question: str
     session_id: str = None
@@ -169,37 +184,55 @@ def chat(req: QueryRequest):
             embed_api_key,
         )
 
-        # 2) Vector search
-        results = search_index(search_client, vector=query_vector, top_k=100)
+        # 2) If the question contains a security term, also run keyword search
+        q_lower = question.lower()
+        matches = [t for t in SECURITY_TERMS if t and t.lower() in q_lower]
+        if matches:
+            try:
+                keyword_results = search_index(
+                    search_client,
+                    query_text=question,
+                    top_k=50,
+                    select=["content", "source"],
+                )
+                for hit in keyword_results:
+                    doc = hit.get("document", {})
+                    doc_id = doc.get("id")
+                    content = doc.get("content", "")
+                    source = doc.get("source", "")
+                    if not content:
+                        continue
+                    if doc_id and doc_id in seen_ids:
+                        continue
+                    context_parts.append(f"Content: {content}\nSource: {source}\n")
+                    if doc_id:
+                        seen_ids.add(doc_id)
+                    print(f"Content: {content}")
+            except Exception as e:
+                print(f"Keyword search failed: {e}")
 
-        # 3) Build context from relevant hits; fallback if none
+        # 3) Vector search
+        vector_results = search_index(search_client, vector=query_vector, top_k=100)
+
+        # 4) Build context from high-confidence vector hits
         threshold = 0.6
         context_parts = []
-        for hit in results:
+        seen_ids = set()
+        for hit in vector_results:
             score = hit.get("score") or 0.0
             if score and score > threshold:
                 doc = hit.get("document", {})
+                doc_id = doc.get("id")
+                if doc_id and doc_id in seen_ids:
+                    continue
                 content = doc.get("content", "")
                 source = doc.get("source", "")
                 context_parts.append(
                     f"Content: {content}\nSource: {source}\nScore: {score}\n"
                 )
+                if doc_id:
+                    seen_ids.add(doc_id)
                 print(f"Content: {content}, Score: {score}")
-
-        # Optional fallback: keyword search when vector yields nothing
-        if not context_parts:
-            keyword_hits = search_index(
-                search_client,
-                query_text=question,
-                top_k=100,
-                select=["content", "source"],
-            )
-            for hit in keyword_hits:
-                doc = hit.get("document", {})
-                content = doc.get("content", "")
-                source = doc.get("source", "")
-                if content:
-                    context_parts.append(f"Content: {content}\nSource: {source}\n")
 
         context = "\n".join(context_parts)
 
@@ -239,6 +272,13 @@ def chat(req: QueryRequest):
         # Store the exchange in session history
         sessions[session_id].append({"role": "user", "content": question})
         sessions[session_id].append({"role": "assistant", "content": answer})
+
+        # Quick check
+        # if not context_parts:
+        #     return {
+        #         "answer": "No relevant documents found. Please provide more detail or allow broader search.",
+        #         "session_id": session_id,
+        #     }
 
         return {"answer": answer, "session_id": session_id}
 
