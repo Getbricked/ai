@@ -1,12 +1,13 @@
 import os
 import uuid
 import json
+import logging
 from datetime import datetime
 from pathlib import Path
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from azure.search.documents import SearchClient
+from azure.search.documents.aio import SearchClient as AsyncSearchClient
 from azure.core.credentials import AzureKeyCredential
 
 from _config import (
@@ -24,11 +25,13 @@ from _credentials import (
 )
 from _utils import (
     get_search_admin_key,
-    get_openai_embedding,
-    get_openai_completion,
+    get_openai_embedding_async,
+    get_openai_completion_async,
 )
 
-from search_query.search_query import search_index
+from search_query.search_query import search_index_async
+
+logger = logging.getLogger(__name__)
 
 
 # Load security terms that trigger keyword search when present in a question
@@ -85,51 +88,58 @@ app.add_middleware(
 )
 
 
-def get_search_client() -> SearchClient:
-    admin_key = get_search_admin_key(
+_search_client = None
+
+
+def _get_search_admin_key():
+    return get_search_admin_key(
         credential,
         subscription_id,
         RG_NAME,
         SEARCH_NAME,
     )
-    search_credential = AzureKeyCredential(admin_key)
-    search_endpoint = f"https://{SEARCH_NAME}.search.windows.net"
-    return SearchClient(
-        endpoint=search_endpoint,
-        index_name=INDEX_NAME,
-        credential=search_credential,
-    )
+
+
+async def get_search_client() -> AsyncSearchClient:
+    global _search_client
+    if _search_client is None:
+        admin_key = _get_search_admin_key()
+        search_credential = AzureKeyCredential(admin_key)
+        search_endpoint = f"https://{SEARCH_NAME}.search.windows.net"
+        _search_client = AsyncSearchClient(
+            endpoint=search_endpoint,
+            index_name=INDEX_NAME,
+            credential=search_credential,
+        )
+    return _search_client
 
 
 def save_session_to_file(session_data: dict) -> bool:
     """Save session as JSON to frontend/sessions folder."""
     try:
-        # Create sessions folder if it doesn't exist
         sessions_dir = Path(__file__).parent.parent / "frontend" / "sessions"
         sessions_dir.mkdir(parents=True, exist_ok=True)
 
-        # Create filename from session ID
         filename = f"session_{session_data['session_id']}.json"
         filepath = sessions_dir / filename
 
-        # Write JSON file
         with open(filepath, "w", encoding="utf-8") as f:
             json.dump(session_data, f, indent=2, ensure_ascii=False)
 
-        print(f"Session saved to {filepath}")
+        logger.info("Session saved to %s", filepath)
         return True
     except Exception as e:
-        print(f"Failed to save session: {e}")
+        logger.error("Failed to save session: %s", e)
         return False
 
 
 @app.get("/health")
-def health():
+async def health():
     return {"status": "ok"}
 
 
 @app.post("/api/new-session", response_model=NewSessionResponse)
-def new_session():
+async def new_session():
     """Create a new chat session with a unique ID."""
     session_id = str(uuid.uuid4())
     sessions[session_id] = []
@@ -137,7 +147,7 @@ def new_session():
 
 
 @app.post("/api/save-session")
-def save_session(req: SaveSessionRequest):
+async def save_session(req: SaveSessionRequest):
     """Save a chat session to disk as JSON."""
     try:
         session_data = {
@@ -158,40 +168,36 @@ def save_session(req: SaveSessionRequest):
 
 
 @app.post("/api/chat")
-def chat(req: QueryRequest):
+async def chat(req: QueryRequest):
     question = (req.question or "").strip()
     if not question:
         raise HTTPException(status_code=400, detail="Missing 'question'")
 
-    # Initialize session if not provided
     session_id = req.session_id
     if not session_id:
         session_id = str(uuid.uuid4())
         sessions[session_id] = []
 
-    # Ensure session exists
     if session_id not in sessions:
         sessions[session_id] = []
 
     try:
-        search_client = get_search_client()
+        search_client = await get_search_client()
 
-        # 1) Embed the question
-        query_vector = get_openai_embedding(
+        query_vector = await get_openai_embedding_async(
             question,
             EMBEDDING_DEPLOYMENT_NAME,
             embed_endpoint,
             embed_api_key,
         )
 
-        # 2) If the question contains a security term, also run keyword search
         seen_ids = set()
         context_parts = []
         q_lower = question.lower()
         matches = [t for t in SECURITY_TERMS if t and t.lower() in q_lower]
         if matches:
             try:
-                keyword_results = search_index(
+                keyword_results = await search_index_async(
                     search_client,
                     query_text=question,
                     top_k=50,
@@ -209,14 +215,13 @@ def chat(req: QueryRequest):
                     context_parts.append(f"Content: {content}\nSource: {source}\n")
                     if doc_id:
                         seen_ids.add(doc_id)
-                    print(f"Content: {content}")
             except Exception as e:
-                print(f"Keyword search failed: {e}")
+                logger.error("Keyword search failed: %s", e)
 
-        # 3) Vector search
-        vector_results = search_index(search_client, vector=query_vector, top_k=100)
+        vector_results = await search_index_async(
+            search_client, vector=query_vector, top_k=100
+        )
 
-        # 4) Build context from high-confidence vector hits
         threshold = 0.6
         for hit in vector_results:
             score = hit.get("score") or 0.0
@@ -232,11 +237,9 @@ def chat(req: QueryRequest):
                 )
                 if doc_id:
                     seen_ids.add(doc_id)
-                print(f"Content: {content}, Score: {score}")
 
         context = "\n".join(context_parts)
 
-        # 4) Compose prompt with conversation history and get completion
         messages = [
             {
                 "role": "system",
@@ -250,11 +253,9 @@ def chat(req: QueryRequest):
             },
         ]
 
-        # Add conversation history to messages
         for msg in sessions[session_id]:
             messages.append(msg)
 
-        # Add current question
         messages.append(
             {
                 "role": "user",
@@ -262,28 +263,19 @@ def chat(req: QueryRequest):
             }
         )
 
-        answer = get_openai_completion(
+        answer = await get_openai_completion_async(
             messages,
             GPT_DEPLOYMENT_NAME,
             embed_endpoint,
             embed_api_key,
         )
 
-        # Store the exchange in session history
         sessions[session_id].append({"role": "user", "content": question})
         sessions[session_id].append({"role": "assistant", "content": answer})
-
-        # Quick check
-        # if not context_parts:
-        #     return {
-        #         "answer": "No relevant documents found. Please provide more detail or allow broader search.",
-        #         "session_id": session_id,
-        #     }
 
         return {"answer": answer, "session_id": session_id}
 
     except HTTPException:
         raise
     except Exception as e:
-        # Log-friendly error response
         raise HTTPException(status_code=500, detail=f"Server error: {e}")

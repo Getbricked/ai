@@ -1,5 +1,6 @@
 import os
 import json
+import logging
 import PyPDF2
 from docx import Document
 import re
@@ -8,34 +9,33 @@ from _utils import get_openai_embeddings_batch
 from _credentials import container_client, embed_endpoint, embed_api_key
 from _config import CONTAINER_NAME, EMBEDDING_DEPLOYMENT_NAME
 
+logger = logging.getLogger(__name__)
+
 
 def convert_to_json_and_upload(local_path):
     start_time = time.perf_counter()
     json_documents = []
     total_size = 0
 
-    # Ensure container exists once
-    print(f"Checking if container '{CONTAINER_NAME}' exists...")
+    logger.info("Checking if container '%s' exists...", CONTAINER_NAME)
     if container_client.exists():
-        print(f"✅ Container '{CONTAINER_NAME}' already exists. No action taken.")
+        logger.info("Container '%s' already exists. No action taken.", CONTAINER_NAME)
     else:
-        print(f"Container '{CONTAINER_NAME}' does not exist. Creating it now...")
+        logger.info("Container '%s' does not exist. Creating it now...", CONTAINER_NAME)
         container_client.create_container()
-        print(f"✅ Successfully created container '{CONTAINER_NAME}'.")
+        logger.info("Successfully created container '%s'.", CONTAINER_NAME)
 
-    # Get list of existing blobs
-    print("Fetching existing documents from blob storage...")
+    logger.info("Fetching existing documents from blob storage...")
     existing_blobs = set()
     try:
         blob_list = container_client.list_blobs()
         for blob in blob_list:
             existing_blobs.add(blob.name)
-        print(f"Found {len(existing_blobs)} existing documents in storage.")
+        logger.info("Found %d existing documents in storage.", len(existing_blobs))
     except Exception as e:
-        print(f"Warning: Could not fetch existing blobs: {e}")
+        logger.warning("Could not fetch existing blobs: %s", e)
 
-    # Phase 1: Collect all paragraphs that need processing
-    print("\n📋 Phase 1: Collecting paragraphs to process...")
+    logger.info("Phase 1: Collecting paragraphs to process...")
     paragraphs_to_process = []
 
     for filename in os.listdir(local_path):
@@ -74,14 +74,14 @@ def convert_to_json_and_upload(local_path):
                 ).strip()
                 category = "Word"
             else:
-                print(f"Skipping unsupported file: {filename}")
+                logger.info("Skipping unsupported file: %s", filename)
                 continue
 
             if content:
                 paragraphs = re.split(r"\n\n+", content)
                 paragraphs = [p.strip() for p in paragraphs if p.strip()]
 
-                print(f"Found {len(paragraphs)} paragraphs in {filename}")
+                logger.info("Found %d paragraphs in %s", len(paragraphs), filename)
 
                 for idx, paragraph in enumerate(paragraphs, start=1):
                     doc_id = f"{base_id}_{idx}"
@@ -100,19 +100,18 @@ def convert_to_json_and_upload(local_path):
                         }
                     )
             else:
-                print(f"No content extracted from {filename}")
+                logger.info("No content extracted from %s", filename)
         except Exception as e:
-            print(f"Error processing {filename}: {e}")
+            logger.error("Error processing %s: %s", filename, e)
 
     if not paragraphs_to_process:
-        print("No new paragraphs to process.")
-        print(f"✅ Total time: {time.perf_counter() - start_time:.2f} seconds")
+        logger.info("No new paragraphs to process.")
+        logger.info("Total time: %.2f seconds", time.perf_counter() - start_time)
         return json_documents
 
-    print(f"✅ Collected {len(paragraphs_to_process)} paragraphs to process\n")
+    logger.info("Collected %d paragraphs to process", len(paragraphs_to_process))
 
-    # Phase 2: Generate embeddings in batches
-    print(f"🔄 Phase 2: Generating embeddings in batches...")
+    logger.info("Phase 2: Generating embeddings in batches...")
     embed_start_time = time.perf_counter()
     texts = [p["content"] for p in paragraphs_to_process]
     embeddings = get_openai_embeddings_batch(
@@ -123,10 +122,9 @@ def convert_to_json_and_upload(local_path):
         max_batch_size=20,
     )
     embed_time = time.perf_counter() - embed_start_time
-    print(f"✅ Generated {len(embeddings)} embeddings\n")
+    logger.info("Generated %d embeddings", len(embeddings))
 
-    # Phase 3: Upload documents in batches
-    print(f"⬆️  Phase 3: Uploading documents to blob storage...")
+    logger.info("Phase 3: Uploading documents to blob storage...")
     upload_phase_start_time = time.perf_counter()
     upload_time = 0.0
     upload_batch_size = 50
@@ -137,7 +135,7 @@ def convert_to_json_and_upload(local_path):
 
         for para_data, embedding in zip(batch, batch_embeddings):
             if embedding is None:
-                print(f"  ⚠️  Skipping {para_data['blob_name']} (embedding failed)")
+                logger.warning("Skipping %s (embedding failed)", para_data["blob_name"])
                 continue
 
             try:
@@ -158,25 +156,26 @@ def convert_to_json_and_upload(local_path):
                 upload_time += time.perf_counter() - upload_start_time
                 size = len(blob_data.encode("utf-8"))
                 total_size += size
-                print(f"  ✓ Uploaded {para_data['blob_name']} ({size} bytes)")
+                logger.info("Uploaded %s (%d bytes)", para_data["blob_name"], size)
             except Exception as e:
-                print(f"  ✗ Error uploading {para_data['blob_name']}: {e}")
+                logger.error("Error uploading %s: %s", para_data["blob_name"], e)
 
-        # Print batch progress
         if (i + upload_batch_size) < len(paragraphs_to_process):
-            print(
-                f"  Progress: {min(i + upload_batch_size, len(paragraphs_to_process))}/{len(paragraphs_to_process)}"
+            logger.info(
+                "Progress: %d/%d",
+                min(i + upload_batch_size, len(paragraphs_to_process)),
+                len(paragraphs_to_process),
             )
 
     progress_time = time.perf_counter() - upload_phase_start_time - upload_time
     total_time = time.perf_counter() - start_time
 
-    print(f"\n✅ Total uploaded: {total_size / 1024:.2f} KB")
-    print(f"✅ Successfully processed {len(json_documents)} documents")
-    print(f"✅ Embed time: {embed_time:.2f} seconds")
-    print(f"✅ Upload time: {upload_time:.2f} seconds")
-    print(f"✅ Progress time: {progress_time:.2f} seconds")
-    print(f"✅ Total time: {total_time:.2f} seconds")
+    logger.info("Total uploaded: %.2f KB", total_size / 1024)
+    logger.info("Successfully processed %d documents", len(json_documents))
+    logger.info("Embed time: %.2f seconds", embed_time)
+    logger.info("Upload time: %.2f seconds", upload_time)
+    logger.info("Progress time: %.2f seconds", progress_time)
+    logger.info("Total time: %.2f seconds", total_time)
     return json_documents
 
 
@@ -184,21 +183,21 @@ def upload_backup(local_path):
     start_time = time.perf_counter()
     total_size = 0
 
-    print(f"Checking if container '{CONTAINER_NAME}' exists...")
+    logger.info("Checking if container '%s' exists...", CONTAINER_NAME)
     if not container_client.exists():
-        print(f"Container '{CONTAINER_NAME}' does not exist. Creating it now...")
+        logger.info("Container '%s' does not exist. Creating it now...", CONTAINER_NAME)
         container_client.create_container()
-        print(f"✅ Successfully created container '{CONTAINER_NAME}'.")
+        logger.info("Successfully created container '%s'.", CONTAINER_NAME)
     else:
-        print(f"✅ Container '{CONTAINER_NAME}' already exists. No action taken.")
+        logger.info("Container '%s' already exists. No action taken.", CONTAINER_NAME)
 
     existing_blobs = set()
     try:
         for blob in container_client.list_blobs():
             existing_blobs.add(blob.name)
-        print(f"Found {len(existing_blobs)} existing documents in storage.")
+        logger.info("Found %d existing documents in storage.", len(existing_blobs))
     except Exception as e:
-        print(f"Warning: Could not fetch existing blobs: {e}")
+        logger.warning("Could not fetch existing blobs: %s", e)
 
     for filename in os.listdir(local_path):
         if not filename.endswith(".json"):
@@ -213,7 +212,7 @@ def upload_backup(local_path):
             blob_name = f"doc-{doc_id}.json"
 
             if blob_name in existing_blobs:
-                print(f"Skipping {blob_name} (already exists)")
+                logger.info("Skipping %s (already exists)", blob_name)
                 continue
 
             blob_data = json.dumps(
@@ -229,11 +228,11 @@ def upload_backup(local_path):
             blob_client.upload_blob(blob_data, overwrite=False)
             size = len(blob_data.encode("utf-8"))
             total_size += size
-            print(f"Uploaded {blob_name} ({size} bytes)")
+            logger.info("Uploaded %s (%d bytes)", blob_name, size)
 
         except Exception as e:
-            print(f"Error processing {filename}: {e}")
+            logger.error("Error processing %s: %s", filename, e)
 
-    print(f"Total uploaded: {total_size / 1024:.2f} KB")
-    print(f"Upload time: {time.perf_counter() - start_time:.2f} seconds")
+    logger.info("Total uploaded: %.2f KB", total_size / 1024)
+    logger.info("Upload time: %.2f seconds", time.perf_counter() - start_time)
     return total_size

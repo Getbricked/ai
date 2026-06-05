@@ -1,10 +1,13 @@
 import os
 import json
 import sys
+import logging
 from typing import List, Dict, Any, Optional
 
 from _credentials import container_client, blob_connection_string
 from _config import CONTAINER_NAME
+
+logger = logging.getLogger(__name__)
 
 
 def list_json_blobs(prefix: Optional[str] = None) -> List[str]:
@@ -17,7 +20,7 @@ def list_json_blobs(prefix: Optional[str] = None) -> List[str]:
     Returns:
             List of blob names ending with .json
     """
-    print(f"Listing JSON blobs in container '{CONTAINER_NAME}'...")
+    logger.info("Listing JSON blobs in container '%s'...", CONTAINER_NAME)
     names: List[str] = []
     try:
         blob_iter = container_client.list_blobs(name_starts_with=prefix)
@@ -25,10 +28,10 @@ def list_json_blobs(prefix: Optional[str] = None) -> List[str]:
             if blob.name.lower().endswith(".json"):
                 names.append(blob.name)
     except Exception as e:
-        print(f"Error listing blobs: {e}")
+        logger.error("Error listing blobs: %s", e)
         raise
 
-    print(f"Found {len(names)} JSON blob(s).")
+    logger.info("Found %d JSON blob(s).", len(names))
     return names
 
 
@@ -43,10 +46,10 @@ def download_json_blob(blob_name: str) -> Any:
         data = blob_client.download_blob().readall()
         return json.loads(data)
     except json.JSONDecodeError:
-        print(f"Warning: Could not decode JSON from '{blob_name}'.")
+        logger.warning("Could not decode JSON from '%s'.", blob_name)
         return None
     except Exception as e:
-        print(f"Error downloading '{blob_name}': {e}")
+        logger.error("Error downloading '%s': %s", blob_name, e)
         return None
 
 
@@ -65,7 +68,7 @@ def download_all_json(prefix: Optional[str] = None) -> List[Dict[str, Any]]:
     """
     docs: List[Dict[str, Any]] = []
     for name in list_json_blobs(prefix):
-        print(f"Downloading '{name}'...")
+        logger.info("Downloading '%s'...", name)
         obj = download_json_blob(name)
         if obj is None:
             continue
@@ -74,9 +77,9 @@ def download_all_json(prefix: Optional[str] = None) -> List[Dict[str, Any]]:
         elif isinstance(obj, dict):
             docs.append(obj)
         else:
-            print(f"Warning: '{name}' does not contain a dict or list.")
+            logger.warning("'%s' does not contain a dict or list.", name)
 
-    print(f"Aggregated {len(docs)} document(s) from JSON blobs.")
+    logger.info("Aggregated %d document(s) from JSON blobs.", len(docs))
     return docs
 
 
@@ -97,13 +100,13 @@ def save_all_json(download_dir: str, prefix: Optional[str] = None) -> str:
     blob_names = list_json_blobs(prefix)
     saved_count = 0
     for name in blob_names:
-        print(f"Saving '{name}'...")
+        logger.info("Saving '%s'...", name)
         local_path = os.path.join(download_dir, *name.split("/"))
         os.makedirs(os.path.dirname(local_path), exist_ok=True)
 
         # Skip if already saved locally
         if os.path.exists(local_path):
-            print(f"Skipping '{name}' (already exists).")
+            logger.info("Skipping '%s' (already exists).", name)
             continue
         obj = download_json_blob(name)
 
@@ -122,16 +125,17 @@ def save_all_json(download_dir: str, prefix: Optional[str] = None) -> str:
                     f.write(data)
                 saved_count += 1
             except Exception as e:
-                print(f"Failed to save raw content for '{name}': {e}")
+                logger.error("Failed to save raw content for '%s': %s", name, e)
 
     abs_dir = os.path.abspath(download_dir)
-    print(f"Saved {saved_count} of {len(blob_names)} file(s) to '{abs_dir}'.")
+    logger.info("Saved %d of %d file(s) to '%s'.", saved_count, len(blob_names), abs_dir)
     return abs_dir
 
 
 if __name__ == "__main__":
     import argparse
 
+    logging.basicConfig(level=logging.INFO)
     parser = argparse.ArgumentParser(
         description="List and download JSON blobs from Azure Storage"
     )
@@ -163,16 +167,16 @@ if __name__ == "__main__":
     if args.list:
         names = list_json_blobs(args.prefix)
         for n in names:
-            print(n)
-        print(f"Total: {len(names)} JSON blob(s)")
+            logger.info(n)
+        logger.info("Total: %d JSON blob(s)", len(names))
     elif args.download:
         save_all_json(args.download, args.prefix)
     elif args.aggregate:
         docs = download_all_json(args.prefix)
-        print(f"Aggregated documents: {len(docs)}")
+        logger.info("Aggregated documents: %d", len(docs))
     else:
         # Default behavior: list names then show quick aggregate count
         names = list_json_blobs(args.prefix)
-        print(f"Total JSON blobs: {len(names)}")
+        logger.info("Total JSON blobs: %d", len(names))
         docs = download_all_json(args.prefix)
-        print(f"Total aggregated documents: {len(docs)}")
+        logger.info("Total aggregated documents: %d", len(docs))
