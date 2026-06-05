@@ -2,11 +2,14 @@ import os
 import re
 import sys
 import argparse
+import logging
 from datetime import datetime
 from typing import List, Tuple
 
 import requests
 from bs4 import BeautifulSoup
+
+logger = logging.getLogger(__name__)
 
 DOCS_FILE = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), "mitre_enterprise_techniques.txt"
@@ -22,7 +25,7 @@ def parse_links_from_docs(path: str) -> List[Tuple[str, str]]:
     """
     links: List[Tuple[str, str]] = []
     if not os.path.isfile(path):
-        print(f"Input file not found: {path}")
+        logger.error("Input file not found: %s", path)
         return links
 
     with open(path, "r", encoding="utf-8") as f:
@@ -131,7 +134,7 @@ def write_txt(
 def run(input_file: str, out_dir: str, limit: int | None = None):
     links = parse_links_from_docs(input_file)
     if not links:
-        print("No links parsed.")
+        logger.error("No links parsed.")
         return
 
     count = 0
@@ -140,14 +143,14 @@ def run(input_file: str, out_dir: str, limit: int | None = None):
             html = fetch_page(url)
             title, paragraphs = extract_title_and_paragraphs(html)
             path = write_txt(technique_id, title, url, paragraphs, out_dir)
-            print(f"Saved: {path}")
+            logger.info("Saved: %s", path)
             count += 1
             if limit and count >= limit:
                 break
         except Exception as e:
-            print(f"Failed for {technique_id} {url}: {e}")
+            logger.error("Failed for %s %s: %s", technique_id, url, e)
 
-    print(f"Total saved: {count}")
+    logger.info("Total saved: %d", count)
 
 
 def main():
@@ -171,4 +174,5 @@ def main():
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
     main()

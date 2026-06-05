@@ -6,7 +6,7 @@ from azure.core.exceptions import ResourceNotFoundError
 from azure.mgmt.storage import StorageManagementClient
 from azure.mgmt.cognitiveservices import CognitiveServicesManagementClient
 from azure.identity import DefaultAzureCredential
-from openai import AzureOpenAI
+from openai import AzureOpenAI, AsyncAzureOpenAI
 from azure.core.credentials import AzureKeyCredential
 
 logging.basicConfig(
@@ -79,7 +79,7 @@ def get_blob_service_connection_string(
 
 def get_azure_openai_credentials(subscription_id, rg_name, openai_name):
     try:
-        print("Authenticating...")
+        logger.info("Authenticating...")
         credential = DefaultAzureCredential()
 
         cognitiveservices_client = CognitiveServicesManagementClient(
@@ -87,27 +87,27 @@ def get_azure_openai_credentials(subscription_id, rg_name, openai_name):
         )
 
         # 1. Get the account properties to retrieve the endpoint
-        print(f"Fetching account details for '{openai_name}'...")
+        logger.info("Fetching account details for '%s'...", openai_name)
         account = cognitiveservices_client.accounts.get(
             resource_group_name=rg_name, account_name=openai_name
         )
         endpoint = account.properties.endpoint
-        print("Successfully retrieved endpoint.")
+        logger.info("Successfully retrieved endpoint.")
 
         # 2. Get the account keys
-        print(f"Fetching keys for '{openai_name}'...")
+        logger.info("Fetching keys for '%s'...", openai_name)
         keys = cognitiveservices_client.accounts.list_keys(
             resource_group_name=rg_name, account_name=openai_name
         )
         # We'll return the first key (key1)
         key1 = keys.key1
-        print("Successfully retrieved keys.")
+        logger.info("Successfully retrieved keys.")
 
         return endpoint, key1
 
     except Exception as e:
-        print(f"An error occurred: {e}")
-        print(
+        logger.error("An error occurred: %s", e)
+        logger.error(
             "Please ensure you have the correct permissions (e.g., 'Cognitive Services User' or 'Contributor' role) "
             "on the resource group or OpenAI account."
         )
@@ -175,4 +175,34 @@ def get_openai_completion(messages, model_name, endpoint, api_key):
     )
 
     response = client.chat.completions.create(model=model_name, messages=messages)
+    return response.choices[0].message.content
+
+
+async def get_openai_embedding_async(text, embedding_name, endpoint, api_key):
+    if not endpoint or not api_key:
+        logger.error("Failed to retrieve Azure OpenAI credentials.")
+        return None
+
+    client = AsyncAzureOpenAI(
+        azure_endpoint=endpoint,
+        api_key=api_key,
+        api_version="2023-05-15",
+    )
+
+    embedding = (await client.embeddings.create(model=embedding_name, input=text)).data[0].embedding
+    return embedding
+
+
+async def get_openai_completion_async(messages, model_name, endpoint, api_key):
+    if not endpoint or not api_key:
+        logger.error("Failed to retrieve Azure OpenAI credentials.")
+        return None
+
+    client = AsyncAzureOpenAI(
+        azure_endpoint=endpoint,
+        api_key=api_key,
+        api_version="2024-02-15-preview",
+    )
+
+    response = await client.chat.completions.create(model=model_name, messages=messages)
     return response.choices[0].message.content

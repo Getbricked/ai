@@ -72,7 +72,7 @@ def create_search_index(admin_key: str, search_name: str, index_name: str):
         search_name: Search service name
         index_name: Name of the index to create
     """
-    print(f"Attempting to create semantic index '{index_name}'...")
+    logger.info("Attempting to create semantic index '%s'...", index_name)
 
     endpoint = f"https://{search_name}.search.windows.net"
     credential = AzureKeyCredential(admin_key)
@@ -155,12 +155,12 @@ def create_search_index(admin_key: str, search_name: str, index_name: str):
 
     try:
         result = index_client.create_or_update_index(index)
-        print(f"Semantic index '{result.name}' created/updated successfully! ✅")
-        print(f"  - Primary search: Vector search (HNSW)")
-        print(f"  - Reranking: Semantic search ('{semantic_config_name}')")
+        logger.info("Semantic index '%s' created/updated successfully!", result.name)
+        logger.info("  - Primary search: Vector search (HNSW)")
+        logger.info("  - Reranking: Semantic search ('%s')", semantic_config_name)
         return semantic_config_name
     except Exception as e:
-        print(f"An error occurred: {e} ❌")
+        logger.error("An error occurred: %s", e)
         return None
 
 

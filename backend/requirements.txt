@@ -13,6 +13,9 @@ azure-mgmt-search
 azure-search-documents
 azure-storage-blob
 
+# Async HTTP transport (required by azure-search-documents aio and openai async)
+aiohttp
+
 # OpenAI Libraries
 openai
 

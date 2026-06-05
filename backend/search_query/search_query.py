@@ -1,3 +1,4 @@
+import logging
 from azure.storage.blob import BlobServiceClient
 from azure.search.documents import SearchClient
 from azure.search.documents.indexes import SearchIndexClient
@@ -5,6 +6,8 @@ from azure.core.credentials import AzureKeyCredential
 import json
 from typing import List, Dict, Any, Optional
 from azure.search.documents.models import VectorizedQuery  # Change this import
+
+logger = logging.getLogger(__name__)
 
 
 def load_json_documents_from_blob(
@@ -20,7 +23,7 @@ def load_json_documents_from_blob(
     Returns:
         List of document dictionaries
     """
-    print(f"Loading JSON documents from container '{container_name}'...")
+    logger.info("Loading JSON documents from container '%s'...", container_name)
     documents = []
 
     try:
@@ -32,7 +35,7 @@ def load_json_documents_from_blob(
         blob_list = container_client.list_blobs()
         for blob in blob_list:
             if blob.name.endswith(".json"):
-                print(f"Processing {blob.name}...")
+                logger.info("Processing %s...", blob.name)
                 blob_client = container_client.get_blob_client(blob)
                 blob_data = blob_client.download_blob().readall()
 
@@ -44,24 +47,24 @@ def load_json_documents_from_blob(
                     elif isinstance(data, dict):
                         documents.append(data)
                     else:
-                        print(
-                            f"Warning: {blob.name} does not contain a valid JSON object or list."
+                        logger.warning(
+                            "%s does not contain a valid JSON object or list.", blob.name
                         )
 
                 except json.JSONDecodeError:
-                    print(f"Warning: Could not decode JSON from {blob.name}.")
+                    logger.warning("Could not decode JSON from %s.", blob.name)
                 except Exception as e:
-                    print(f"Error processing blob {blob.name}: {e}")
+                    logger.error("Error processing blob %s: %s", blob.name, e)
 
         if not documents:
-            print("No valid .json documents found in blob container.")
+            logger.info("No valid .json documents found in blob container.")
             return []
 
-        print(f"Loaded {len(documents)} documents from {container_name}.")
+        logger.info("Loaded %d documents from %s.", len(documents), container_name)
         return documents
 
     except Exception as e:
-        print(f"Error loading documents from blob: {e}")
+        logger.error("Error loading documents from blob: %s", e)
         raise
 
 
@@ -88,7 +91,7 @@ def map_documents_for_search(
             "category": "category",
         }
 
-    print("Mapping fields and preparing documents for upload...")
+    logger.info("Mapping fields and preparing documents for upload...")
     documents_to_upload = []
 
     for doc in documents:
@@ -105,12 +108,12 @@ def map_documents_for_search(
                     doc_to_upload.get("content_vector"),
                 ]
             ):
-                print(f"Skipping document (missing required fields): {doc.get('id')}")
+                logger.warning("Skipping document (missing required fields): %s", doc.get("id"))
                 continue
 
             documents_to_upload.append(doc_to_upload)
         except Exception as e:
-            print(f"Error mapping document {doc.get('id')}: {e}")
+            logger.error("Error mapping document %s: %s", doc.get("id"), e)
 
     return documents_to_upload
 
@@ -129,12 +132,12 @@ def upload_documents_to_search(
         True if all documents uploaded successfully, False otherwise
     """
     if not documents:
-        print("No documents to upload.")
+        logger.info("No documents to upload.")
         return False
 
     max_batch_size = 100
-    print(
-        f"Uploading {len(documents)} documents to index in batches of {max_batch_size}..."
+    logger.info(
+        "Uploading %d documents to index in batches of %d...", len(documents), max_batch_size
     )
     try:
         all_success = True
@@ -144,8 +147,9 @@ def upload_documents_to_search(
             batch = documents[start : start + max_batch_size]
             batch_number = start // max_batch_size + 1
             total_batches = (len(documents) + max_batch_size - 1) // max_batch_size
-            print(
-                f"Uploading batch {batch_number}/{total_batches} ({len(batch)} documents)..."
+            logger.info(
+                "Uploading batch %d/%d (%d documents)...",
+                batch_number, total_batches, len(batch),
             )
 
             result = search_client.upload_documents(documents=batch)
@@ -154,7 +158,7 @@ def upload_documents_to_search(
             for r in result:
                 if not r.succeeded:
                     batch_success = False
-                    print(f"  - Document {r.key}: {r.error_message}")
+                    logger.warning("  - Document %s: %s", r.key, r.error_message)
 
             if batch_success:
                 total_uploaded += len(batch)
@@ -162,14 +166,14 @@ def upload_documents_to_search(
                 all_success = False
 
         if all_success:
-            print(f"Successfully uploaded all {total_uploaded} documents.")
+            logger.info("Successfully uploaded all %d documents.", total_uploaded)
         else:
-            print(f"Uploaded {total_uploaded} documents with some failures.")
+            logger.info("Uploaded %d documents with some failures.", total_uploaded)
 
         return all_success
 
     except Exception as e:
-        print(f"Error uploading documents: {e}")
+        logger.error("Error uploading documents: %s", e)
         return False
 
 
@@ -246,7 +250,62 @@ def search_index(
         return hits
 
     except Exception as e:
-        print(f"Search failed: {e}")
+        logger.error("Search failed: %s", e)
+        import traceback
+
+        traceback.print_exc()
+        return []
+
+
+async def search_index_async(
+    search_client: SearchClient,
+    query_text: Optional[str] = None,
+    vector: Optional[List[float]] = None,
+    vector_field: str = "content_vector",
+    top_k: int = 10,
+    filter: Optional[str] = None,
+    select: Optional[List[str]] = None,
+    semantic_configuration_name: Optional[str] = None,
+) -> List[Dict[str, Any]]:
+    if not query_text and not vector:
+        raise ValueError("Either query_text or vector must be provided.")
+
+    search_kwargs: Dict[str, Any] = {"top": top_k}
+    if filter:
+        search_kwargs["filter"] = filter
+    if select:
+        search_kwargs["select"] = select
+    if semantic_configuration_name:
+        search_kwargs["semantic_configuration_name"] = semantic_configuration_name
+
+    try:
+        if vector:
+            vq = VectorizedQuery(
+                vector=vector,
+                k_nearest_neighbors=top_k,
+                fields=vector_field,
+                kind="vector",
+            )
+            search_text = query_text if query_text is not None else None
+            results = await search_client.search(
+                search_text=search_text, vector_queries=[vq], **search_kwargs
+            )
+        else:
+            results = await search_client.search(search_text=query_text, **search_kwargs)
+
+        hits: List[Dict[str, Any]] = []
+        async for r in results:
+            doc = dict(r)
+            score = doc.pop("@search.score", None)
+            metadata_keys = [k for k in doc.keys() if k.startswith("@")]
+            for key in metadata_keys:
+                doc.pop(key, None)
+            hits.append({"score": score, "document": doc})
+
+        return hits
+
+    except Exception as e:
+        logger.error("Search failed: %s", e)
         import traceback
 
         traceback.print_exc()

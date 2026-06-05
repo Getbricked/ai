@@ -1,10 +1,13 @@
 import os
+import logging
 from datetime import datetime
 import re
 from typing import List, Tuple, Optional
 
 import requests
 from bs4 import BeautifulSoup
+
+logger = logging.getLogger(__name__)
 
 
 MITRE_ENTERPRISE_URL = "https://attack.mitre.org/techniques/enterprise/"
@@ -269,7 +272,7 @@ def main():
 
     entries = collect_mitre_enterprise_techniques()
     write_mitre_output(entries, output_path)
-    print(f"Wrote {len(entries)} lines to: {output_path}")
+    logger.info("Wrote %d lines to: %s", len(entries), output_path)
 
     listing_jobs = [
         ("groups", groups_output_path),
@@ -284,8 +287,9 @@ def main():
         with open(out_path, "w", encoding="utf-8") as fh:
             for item_id, name, url, desc in items:
                 fh.write(f"{item_id} - {name} - {url} - {desc}\n\n")
-        print(f"Wrote {len(items)} lines to: {out_path}")
+        logger.info("Wrote %d lines to: %s", len(items), out_path)
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
     main()

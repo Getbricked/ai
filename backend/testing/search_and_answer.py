@@ -42,7 +42,7 @@ search_client = SearchClient(
 
 input_text = "cybersecurity"  # Example query
 
-print(f"Searching for: {input_text}")
+logger.info("Searching for: %s", input_text)
 
 # 1. Generate Embedding
 query_vector = get_openai_embedding(
@@ -57,7 +57,7 @@ results = search_index(search_client, vector=query_vector, top_k=100)
 
 # Check if we have relevant results from vector search
 if not results or not any(hit["score"] > 0.55 for hit in results):
-    print("No relevant vector search results found. Falling back to keyword search...")
+    logger.info("No relevant vector search results found. Falling back to keyword search...")
 
 # 3. Construct Context
 context = ""
@@ -69,11 +69,11 @@ for hit in results:
         context += f"Content: {hit['document'].get('content', '')}\nSource: {hit['document'].get('source', '')}\n\n"
 
 if not context:
-    print("No relevant documents found.")
+    logger.info("No relevant documents found.")
 else:
-    # 4. Generate Answer
     logger.info(
-        f"Found {len([hit for hit in results if hit['score'] > 0.5])} qualified documents"
+        "Found %d qualified documents",
+        len([hit for hit in results if hit["score"] > 0.5]),
     )
     messages = [
         {
@@ -83,7 +83,7 @@ else:
         {"role": "user", "content": f"Context:\n{context}\n\nQuestion: {input_text}"},
     ]
 
-    print("Generating answer...")
+    logger.info("Generating answer...")
     answer = get_openai_completion(
         messages,
         GPT_DEPLOYMENT_NAME,
@@ -91,5 +91,5 @@ else:
         embed_api_key,  # Using same key
     )
 
-    print(f"\nQuestion: {input_text}")
-    print(f"Answer: {answer}")
+    logger.info("Question: %s", input_text)
+    logger.info("Answer: %s", answer)

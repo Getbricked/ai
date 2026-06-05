@@ -61,14 +61,14 @@ query_vector = get_openai_embedding(
 
 results = search_index(search_client, vector=query_vector, top_k=100)
 
-print(f"\nFound {len(results)} results\n")
+logger.info("Found %d results", len(results))
 
 for i, hit in enumerate(results, 1):
     if hit["score"] > 0.65:
-        print(f"\n[Result {i}]")
-        print(f"Score: {hit['score']}")
-        print(f"Document ID: {hit['document'].get('id', 'N/A')}")
-        print(f"Content: {hit['document'].get('content', 'N/A')[:200]}...")
-        print(f"Category: {hit['document'].get('category', 'N/A')}")
-        print(f"Source: {hit['document'].get('source', 'N/A')}")
-        print("-" * 80)
+        logger.info("[Result %d]", i)
+        logger.info("Score: %s", hit["score"])
+        logger.info("Document ID: %s", hit["document"].get("id", "N/A"))
+        logger.info("Content: %s...", hit["document"].get("content", "N/A")[:200])
+        logger.info("Category: %s", hit["document"].get("category", "N/A"))
+        logger.info("Source: %s", hit["document"].get("source", "N/A"))
+        logger.info("-" * 80)
