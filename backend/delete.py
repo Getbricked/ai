@@ -28,8 +28,6 @@ from azure_setup.search_service import (
     delete_search_service,
 )
 
-from azure_setup.storage import delete_storage_account
-
 
 def delete():
     credential = DefaultAzureCredential()

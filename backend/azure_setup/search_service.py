@@ -32,33 +32,46 @@ def create_search_service(search_client, rg_name, search_name, location):
         search_name: Search service name
         location: Azure region location
     """
-    try:
-        logger.info(f"Creating or updating search service '{search_name}'...")
-        poller = search_client.services.begin_create_or_update(
-            rg_name,
-            search_name,
-            {
-                "location": location,
-                "sku": {"name": "free"},
-                "properties": {
-                    "replicaCount": 1,
-                    "partitionCount": 1,
-                    "hostingMode": "default",
+    import random
+
+    def _try_create(name, is_retry=False):
+        try:
+            logger.info(f"Creating or updating search service '{name}'...")
+            poller = search_client.services.begin_create_or_update(
+                rg_name,
+                name,
+                {
+                    "location": location,
+                    "sku": {"name": "free"},
+                    "properties": {
+                        "replicaCount": 1,
+                        "partitionCount": 1,
+                        "hostingMode": "default",
+                    },
                 },
-            },
-        )
-        service = poller.result()
-        logger.info(f"Search service '{search_name}' is ready.")
-        return service
-    except ResourceExistsError:
-        logger.warning(f"Search service '{search_name}' already exists. Retrieving it.")
-        return search_client.services.get(rg_name, search_name)
-    except HttpResponseError as e:
-        logger.error(f"HTTP error creating search service: {e.message}")
-        return None
-    except Exception as e:
-        logger.error(f"An unexpected error occurred during service creation: {e}")
-        return None
+            )
+            service = poller.result()
+            logger.info(f"Search service '{name}' is ready.")
+            return service
+        except ResourceExistsError:
+            if is_retry:
+                logger.warning(f"Search service '{name}' already exists. Retrieving it.")
+                return search_client.services.get(rg_name, name)
+            return None
+        except HttpResponseError as e:
+            logger.error(f"HTTP error creating search service: {e.message}")
+            return None
+        except Exception as e:
+            logger.error(f"An unexpected error occurred during service creation: {e}")
+            return None
+
+    result = _try_create(search_name)
+    if result is None:
+        suffix = random.randint(1000, 9999)
+        alt_name = f"{search_name}-{suffix}"
+        logger.warning(f"Search name '{search_name}' unavailable, trying '{alt_name}'...")
+        result = _try_create(alt_name, is_retry=True)
+    return result
 
 
 def create_search_index(admin_key: str, search_name: str, index_name: str):
@@ -139,7 +152,7 @@ def create_search_index(admin_key: str, search_name: str, index_name: str):
                 prioritized_fields=SemanticPrioritizedFields(
                     title_field=None,  # No title field in your schema
                     content_fields=[SemanticField(field_name="content")],
-                    keyword_fields=[SemanticField(field_name="category")],
+                    keywords_fields=[SemanticField(field_name="category")],
                 ),
             )
         ]

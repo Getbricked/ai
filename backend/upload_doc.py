@@ -27,7 +27,7 @@ from _utils import (
 )
 
 # Quick upload
-# upload_backup("backup/")
+upload_backup("backup/")
 
 # Use for new documents!
 # convert_to_json_and_upload("docs/")
@@ -67,6 +67,5 @@ logger.info(f"Loaded {len(documents)} documents")
 doc_to_upload = map_documents_for_search(documents)
 
 logger.info(f"Mapped {len(doc_to_upload)} documents for upload")
-# logger.info(f"Sample document: {doc_to_upload[0] if doc_to_upload else 'No documents'}")
 
 upload_documents_to_search(search_client, doc_to_upload)

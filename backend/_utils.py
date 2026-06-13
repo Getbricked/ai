@@ -53,10 +53,11 @@ def get_blob_service_connection_string(
     try:
         storage_client = StorageManagementClient(credential, subscription_id)
         keys = storage_client.storage_accounts.list_keys(rg_name, storage_account_name)
-        if not keys.keys:
+        key_list = keys.keys_property if hasattr(keys, 'keys_property') else keys.keys
+        if not key_list:
             logger.error(f"No keys found for storage account '{storage_account_name}'.")
             sys.exit(1)
-        account_key = keys.keys[0].value
+        account_key = key_list[0].value
         connection_string = (
             f"DefaultEndpointsProtocol=https;"
             f"AccountName={storage_account_name};"

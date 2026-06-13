@@ -75,7 +75,7 @@ def deploy_model(
                         "version": version,
                     }
                 },
-                "sku": {"name": "Standard", "capacity": capacity},
+                "sku": {"name": "GlobalStandard", "capacity": capacity},
             },
         ).result()
 

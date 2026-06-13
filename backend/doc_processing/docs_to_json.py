@@ -219,6 +219,7 @@ def upload_backup(local_path):
                 {
                     "id": doc_id,
                     "content": data.get("content", ""),
+                    "contentVector": data.get("contentVector"),
                     "category": data.get("category", "Unknown"),
                     "source": data.get("source", "Local Storage"),
                 }

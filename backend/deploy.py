@@ -13,6 +13,7 @@ from _config import (
     EMBEDDING_MODEL_NAME,
     EMBEDDING_DEPLOYMENT_NAME,
     GPT_MODEL_NAME,
+    GPT_MODEL_VERSION,
     GPT_DEPLOYMENT_NAME,
     SEARCH_NAME,
     INDEX_NAME,
@@ -80,7 +81,7 @@ def deploy():
             OPENAI_NAME,
             GPT_MODEL_NAME,
             GPT_DEPLOYMENT_NAME,
-            version="2024-07-18",
+            version=GPT_MODEL_VERSION,
             capacity=200,  # Max
         )
 
