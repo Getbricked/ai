@@ -1,6 +1,7 @@
 import os
 import uuid
 import json
+import asyncio
 import logging
 from datetime import datetime
 from pathlib import Path
@@ -184,25 +185,34 @@ async def chat(req: QueryRequest):
     try:
         search_client = await get_search_client()
 
-        query_vector = await get_openai_embedding_async(
-            question,
-            EMBEDDING_DEPLOYMENT_NAME,
-            embed_endpoint,
-            embed_api_key,
-        )
-
         seen_ids = set()
         context_parts = []
+
+        embedding_task = asyncio.create_task(
+            get_openai_embedding_async(
+                question,
+                EMBEDDING_DEPLOYMENT_NAME,
+                embed_endpoint,
+                embed_api_key,
+            )
+        )
+
         q_lower = question.lower()
         matches = [t for t in SECURITY_TERMS if t and t.lower() in q_lower]
+        keyword_task = None
         if matches:
-            try:
-                keyword_results = await search_index_async(
+            keyword_task = asyncio.create_task(
+                search_index_async(
                     search_client,
                     query_text=question,
-                    top_k=50,
+                    top_k=10,
                     select=["content", "source"],
                 )
+            )
+
+        if keyword_task:
+            try:
+                keyword_results = await keyword_task
                 for hit in keyword_results:
                     doc = hit.get("document", {})
                     doc_id = doc.get("id")
@@ -217,6 +227,8 @@ async def chat(req: QueryRequest):
                         seen_ids.add(doc_id)
             except Exception as e:
                 logger.error("Keyword search failed: %s", e)
+
+        query_vector = await embedding_task
 
         vector_results = await search_index_async(
             search_client, vector=query_vector, top_k=100
