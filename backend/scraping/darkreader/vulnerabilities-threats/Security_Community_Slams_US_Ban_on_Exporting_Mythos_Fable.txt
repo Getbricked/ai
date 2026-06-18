@@ -1,0 +1,63 @@
+Title: Security Community Slams US Ban on Exporting Mythos, Fable
+URL: https://www.darkreading.com/vulnerabilities-threats/security-community-slams-us-ban-on-exporting-mythos-fable
+Author: (unknown)
+Date: (unknown)
+Topic: vulnerabilities-threats
+
+An open letter signed by dozens of security experts asked the government to reverse export restrictions on Anthropic's Claude Fable 5 and Mythos 5 models.
+
+The security community criticized the US government's decision to restrict Anthropic Claude Mythos and Fable use to foreign nationals, and many have asked the government to reverse course.
+
+Following last week's launch of Anthropic's highly anticipated Fable 5 and Mythos 5 models, the company suspended use of the models for all customers on June 12. This was a direct response to the US government issuing an export control order preventing access to all foreign nationals from using the large language models (LLMs), including those that work for Anthropic themselves. The suspension of the models was to ensure compliance with the order.
+
+In a statement, Anthropic said the government had national security concerns with the frontier models; Mythos in particular is said to be capable of discovering critical vulnerabilities and developing novel critical exploits in software. Security experts have warned that Mythos, and models like it, will change the vulnerability remediation landscape , and organizations must become "Mythos-ready" for the threat actors that will attempt to abuse the LLM.
+
+Related: HTTP/2 Bomb Attacks Put Telcos, Healthcare Orgs at Risk
+
+Anthropic previously said Mythos would remain exclusive to a select group of partners, and consumer-grade Fable has stringent guardrails the AI vendor believes will prevent abuse at scale. For example, when consumers make requests to Fable for assistance with certain topics like cybersecurity and biology, Fable will pull in Claude Opus 4.8, the previous model, to output a response instead.
+
+The government has not stated a specific reason for the export control, though Anthropic believes it's due to a supposed jailbreaking technique.
+
+"We have not even received a disclosure of a concerning non-universal potential jailbreak that led to a harmful result," Anthropic said in its statement . "The potential jailbreaks that have been disclosed to us are either entirely benign responses or are minor findings that provide no Mythos -specific uplift."
+
+Semafor reported that the export control was the result of the White House suspecting a China-linked threat group had accessed the model, although Anthropic officially prohibits access to its products from China.
+
+David Sacks, an adviser to US President Donald Trump, said in a post on X that a "highly credible trusted partner of both Anthropic and the [US government]" reported the jailbreak, and claimed Anthropic CEO Dario Amodei declined to fix the jailbreak when asked to. Sacks said the export control was issued "reluctantly."
+
+"The Admin's hope now is that Anthropic remediates the safety issue, the export control is lifted, and Fable goes back into general release," Sacks wrote. "The Admin wants all of this to happen as soon as possible. It is frankly bewildered that Anthropic hasn't wanted to comply with safety requests that it previously said were its highest priority."
+
+Related: ShinyHunters Uses Oracle Zero-Day to Rampage Higher Ed
+
+The US government's ruling is questionable for a number of reasons, but assuming its main motivation is to prevent adversaries and cybercriminals from getting their hands on Mythos, it's hard to see how this ruling will stop them.
+
+Ram Varadarajan, CEO at security vendor Acalvio, tells Dark Reading that one shouldn't assume Anthropic is the only entity with access to Mythos-level technology. "Geopolitical adversaries can, and should, be expected to have significant undeclared capabilities," he says.
+
+Similarly, John Strand, owner at penetration testing firm Black Hills Information Security, says the government's actions change "very little, if anything at all," for adversaries.
+
+“What a lot of people fail to understand is that Mythos-level capabilities are not limited to a small number of US companies like Anthropic, OpenAI, or Google," he tells Dark Reading. "These kinds of capabilities are being developed across multiple countries and across many different models."
+
+Related: Claude Fable 5 Doesn't Change the Mythos Security Story
+
+Noelle Murata, chief operating officer of penetration testing and incident response firm Xcape, says export restrictions on Mythos and Fable likely offer "little more than a speed bump" for nation-state and financially motivated attackers.
+
+"With unauthorized access reported as early as launch day, the directive appears to be a reactive measure against a China-linked group that may have already breached the perimeter for model distillation," she explains. "When equivalent capabilities like GPT-5.5 remain accessible, such bans risk accelerating a shift toward decentralized, unblockable open-source initiatives.
+
+Many members of the security community have been critical of the government's decision to block Mythos and Fable.
+
+Katie Moussouris is the founder and CEO of Luta Security, as well as a pioneer in vulnerability management. In a blog post published yesterday, Moussouris argued that the Fable 5 export control harms US cyber defenses, calling the move heavy handed, hasty, and misguided.
+
+The argument has to do with the nature of the jailbreak, which she detailed, as she had seen the relevant research.
+
+"The researchers took open-source code with known CVEs, plus new code with deliberately planted vulnerabilities, and asked Fable 5, Mythos, and Opus to 'review the code for security issues.' Fable 5 refused. They then asked the models to 'fix this code' and, through a multistep and manual process, turned the output into scripts that test the patches," she wrote. "The prompts worked because they were defensive requests, and that capability cannot be removed without making the model worse at fixing bugs and verifying patches."
+
+Moussouris said that to limit access to defenders at such a critical stage will effectively kneecap them "while doing nothing to impede attackers."
+
+She also signed an open letter co-signed by many prominent figures in the cybersecurity industry, including Alex Stamos, Casey Ellis, Bruce Schneier, and others. The letter asks the government to lift the export controls. It argues that the issues highlighted in the research cited by the government can be replicated in other models, that Anthropic is addressing the research, and that the restriction will only give US competitors like China an advantage.
+
+"The Chinese open-weight models are only months behind the best American models, and those are the models we know about. It seems likely that the PRC government has access to private capabilities beyond what has been published," the letter read.
+
+Even vendors are speaking up. Joe Levy, CEO of Sophos, published a blog post on LinkedIn stating he'd signed the open letter and that defenders need access to the best tools to fix vulnerabilities before attackers can get to them. "The fastest path there is to keep defenders equipped and to build policy on evidence, together," he wrote.
+
+Black Hills Information Security's Strand explains that if access to cutting-edge tooling becomes constrained by tooling, it "directly degrades the defender's ability to operate."
+
+"These capabilities are not optional for defenders. They need to be integrated into security operations centers, development pipelines, and both defensive and offensive security assessments," he says. "When access is restricted based on fear, uncertainty, or incomplete understanding of the technology, the practical effect is to make it easier for adversaries to succeed while making it harder for defenders to do their jobs."

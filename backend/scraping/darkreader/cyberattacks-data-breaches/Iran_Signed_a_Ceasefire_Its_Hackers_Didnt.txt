@@ -1,0 +1,41 @@
+Title: Iran Signed a Ceasefire — Its Hackers Didn't
+URL: https://www.darkreading.com/cyberattacks-data-breaches/iran-signed-ceasefire-hackers
+Author: (unknown)
+Date: (unknown)
+Topic: cyberattacks-data-breaches
+
+An extension of the Geneva Conventions could impose restrictions on cyberwarfare under ceasefire conditions and close a major loophole in international conflict.
+
+The United States and Iran have extended what began as a two-week ceasefire. The pause applies only to kinetic warfare, and even that didn't fully stop the shooting . The cyber front has no signs of a truce.
+
+The day before that ceasefire took effect, six federal agencies — the FBI, CISA, NSA, EPA, DOE, and U.S. Cyber Command's Cyber National Mission Force — issued a joint advisory warning that Iranian-affiliated actors had been manipulating programmable logic controllers inside U.S. critical infrastructure since at least March. Victim organizations across water, energy, and government services confirmed operational disruptions and financial losses. Hours after the ceasefire took effect, one IRGC-linked group announced it was pausing attacks on the U.S., for now, while vowing to revive them "when the time is right." Another pledged operations against Israel would continue “at full force.”
+
+Related: INC Ransomware Thrives by Mastering the Basics
+
+This is the problem with modern ceasefires. They cover missiles and drones, but say nothing about the digital soldiers already sitting inside power grids, water treatment plants, and defense contractors' networks, collecting intelligence and waiting.
+
+Kinetic warfare has rules. Cyberwarfare does not. The Geneva Conventions, drafted in 1949 and refined over the decades that followed, tell us what combatants cannot do to civilians, hospitals, and prisoners of war. They tell us nothing about what a state-aligned hacking group can do to a regional water utility or a prime defense supplier. That gap has become the single most exploited loophole in international conflict.
+
+A cyber extension to the Geneva Conventions would do what every prior attempt at digital norms has failed to do: tie cyber restraint to the same framework that governs the rest of modern warfare, with real consequences for violations.
+
+Start with the obligation principle. Countries are already responsible for what launches from their physical territory. A fringe group in one country cannot cross the border and attack its neighbor without the host government bearing responsibility. The same rule should apply in cyberspace. If hackers are operating from one country's soil, or from infrastructure under its influence, there should be an obligation to act when notified, just as any country would send police after armed militants operating openly within its borders. The harder version of this problem is the arrangement. Countries routinely strike bargains with independent hacking groups, trading operational freedom for intelligence. A convention worth signing has to say that trade is over.
+
+Related: Sweeping Credential-Harvesting Heist Compromises 30K+ Fortinet Devices
+
+The teeth already exist. Interpol coordinates cross-border law enforcement. The World Trade Organization, the United Nations, and the G20 all have mechanisms for suspending or downgrading members who refuse to meet their obligations. Russia lost its seat on the UN Human Rights Council in 2022 after invading Ukraine. The G7 used to be the G8 until Russia annexed Crimea in 2014. These are precedents for consequences, not just condemnation.
+
+Where to begin? The 16 critical infrastructure sectors CISA defines are the right starting point. Imagine how catastrophic it could be to have an adversary in control of water, energy, health care, financial services, and the defense industrial base. Treat those as off-limits first. Draw concentric circles outward from there. Some sectors are more critical than others. The model does not need to solve every problem at once.
+
+Skeptics will say this has been tried. Microsoft first proposed a "Digital Geneva Convention" in 2017 . Academic and policy circles have debated cyber norms through the UN Group of Governmental Experts for more than a decade. The criticism has always been the same: Attribution is too hard, enforcement is too weak, and the worst actors would never sign.
+
+Related: Fileless Phantom Stealer Targets Browser Credentials
+
+Those are real concerns, but shouldn't serve as reasons to stop trying. Attribution has improved dramatically; the Treasury Department was confident enough to sanction six named IRGC officials for the 2023 Unitronics attack. And the fact that bad actors might not sign is precisely the point. The value of the Geneva Conventions has never been that war criminals respect them. It's that everyone else agrees on what a war criminal is.
+
+None of this happens overnight. A cyber extension to the Geneva Conventions is a multilateral project that would take years of negotiation and dozens of signatories. But major international frameworks rarely start with everyone at the table. The Nuclear Non-Proliferation Treaty was built on the back of bilateral arms control agreements between the U.S. and the Soviet Union.
+
+The next peace talks with Iran will cover important factors like Lebanon, the Strait of Hormuz, uranium, and sanctions. But they should also cover cyber. If a ceasefire does not address the hackers already inside American networks, it is just an intermission, not a real ceasefire.
+
+We know what the next round looks like because the last one never ended. Trellix has identified Iranian-affiliated groups conducting multiyear espionage campaigns against Western aerospace, defense, and telecommunications companies. A group calling itself APT Iran reportedly claimed to be selling exfiltrated Lockheed Martin data, including purported F-35 blueprints, for more than $598 million. Whether that specific claim holds up or not, the pattern is unmistakable. State-aligned actors don't breach networks for ransom. They breach networks to stay. The quiet stretches aren't evidence that nothing is happening; they're evidence the operation is working.
+
+The world gained something by keeping kinetic conflict inside agreed-upon rules. It has gained nothing by leaving cyberwarfare outside them. Extending the Geneva Conventions to cyberspace is how we start closing the gap between the wars we've learned to contain and the one we haven't.

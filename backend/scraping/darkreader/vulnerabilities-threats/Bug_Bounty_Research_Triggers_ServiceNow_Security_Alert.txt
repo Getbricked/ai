@@ -1,0 +1,37 @@
+Title: Bug Bounty Research Triggers ServiceNow Security Alert
+URL: https://www.darkreading.com/vulnerabilities-threats/bug-bounty-research-triggers-servicenow-security-alert
+Author: (unknown)
+Date: (unknown)
+Topic: vulnerabilities-threats
+
+Security research inadvertently led organizations to believe they were being breached through their ServiceNow instances.
+
+ServiceNow warned that a vulnerability may have been used to target customer environments, but the company has since attributed this activity to bug bounty research.
+
+The business workflow software company yesterday informed customers that, through a gated knowledge base article, the company detected anomalous activity related to a "security issue." The issue, which the company did not explicitly call a vulnerability, could allow greater access than intended. Moreover, an unauthorized user was able to successfully query certain instance tables belonging to a subset of ServiceNow customers.
+
+The issue was addressed in a June 5 update, which was applied to hosted customer instances. In the initial knowledge base article, the only technical detail described was that "The security update changes an endpoint configuration to limit access to authenticated users."
+
+"The security issue pertains to customers who are on the Australia platform release or made certain configuration changes to instances on releases prior to Australia," the company said. "If you have not received a case from us, then we did not observe such activity in connection with your instance and no action is currently required."
+
+Related: Security Community Slams US Ban on Exporting Mythos, Fable
+
+Today, ServiceNow published an additional security notice, which is public facing , that clarifies that, based on the company's investigation, it believes "the observed activity is attributable to security researchers or customer research."
+
+"On June 3-4, 2026, customers shared submissions to their bug bounty programs regarding a security issue that could, in certain circumstances, allow an unauthenticated user to gain unwanted access to information in ServiceNow instances," ServiceNow said. "These submissions were similar to a confidential submission sent to our bug bounty program on April 22, 2026."
+
+ServiceNow said it is in contact with the researchers, who said activity was solely for bug bounty submissions, "and no data was used or retained."
+
+"On June 7, 2026, two security researchers submitted a report to our bug bounty program. Based on our investigation to date, we have reason to believe the observed activity can be attributed to security researchers or customers conducting their own research," the notice read. "Our investigation is ongoing, however, and subject to additional validation. Because this research spanned multiple organizations, some of our customers may have received related bug bounty submissions from the same researchers."
+
+Related: HTTP/2 Bomb Attacks Put Telcos, Healthcare Orgs at Risk
+
+An integral part of the security ecosystem, independent security research (often observed through bug bounties) covers a broad spectrum of activities. Unfortunately, the nature of independent research can, for one reason or another, cause a researcher to be mistaken as a threat actor. On the opposite end, threat actors can present themselves as researchers or penetration testers at times, and even organizations have presented attackers this way . At present, this may be a case where bug bounty research was mistaken for malicious activity.
+
+Ensar Seker, CISO at SOCRadar, says this kind of situation is relatively uncommon, but not unprecedented.
+
+"Most bug bounty researchers understand and respect program scope because their reputation, future participation, and potential rewards depend on following the rules," he tells Dark Reading. "However, in large cloud environments, the line between legitimate security research and unauthorized testing can sometimes become blurred, especially when researchers discover a path that unexpectedly leads beyond the intended target or reveals access to production resources."
+
+A spokesperson for ServiceNow tells Dark Reading that ServiceNow applied a security update to hosted customers, that the company directly notified affected customers, and that the range of customers impacted "was not broad."
+
+Related: ShinyHunters Uses Oracle Zero-Day to Rampage Higher Ed

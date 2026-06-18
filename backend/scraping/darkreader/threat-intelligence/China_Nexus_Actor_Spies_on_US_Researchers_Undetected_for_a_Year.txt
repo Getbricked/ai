@@ -1,0 +1,51 @@
+Title: China-Nexus Actor Spies on US Researchers Undetected for a Year
+URL: https://www.darkreading.com/threat-intelligence/china-nexus-actor-us-researchers-undetected
+Author: (unknown)
+Date: (unknown)
+Topic: threat-intelligence
+
+Google discovered and disrupted the sprawling campaign, which stole RedCAP credentials to breach numerous institutions and exfiltrate sensitive data.
+
+An emerging China-nexus threat actor covertly spied on US academic, medical, and military research institutions for at least a year in a sweeping intelligence-gathering effort.
+
+The campaign, uncovered by the Google Threat Intelligence Group (GTIG), relied on using custom malware to steal credentials from a Web application widely used by researchers, as well as a novel technique to stealthily transfer data out of an IT environment. GTIG, working with Google subsidiary Mandiant Consulting, discovered and subsequently disrupted the sprawling operation, which targeted the network of a single medical university with ties to the US military, but affected numerous organizations, according to a report published Monday.
+
+Google attributed the campaign to a group tracked as UNC6508, a relatively new China-aligned threat actor aimed at pursuing intelligence objectives aligned with the strategic interests of the People's Republic of China (PRC) by targeting "a diverse set of national, state, and private medical entities," according to the report.
+
+Related: SprySOCKS Windows Variant Abuses Kernel Drivers to Evade Detection
+
+Indeed, the organizations affected by the activity comprise world-renowned clinical providers, premier academic centers, North American military health institutions, professional advocacy groups, and health regulatory bodies, according to GTIG and Mandiant researchers.
+
+"Their research areas span a broad spectrum of modern medicine, from molecular discovery and clinical drug trials to state-level public health policy and military readiness," the report stated. "They employ thousands of people with a combined research budget in the billions of dollars."
+
+Patrick Whitsell, senior security engineer from GTIG, tells Dark Reading that despite the long and storied history of China-nexus threat actors conducting cyber espionage on US organizations, GTIG still found the scope of the intelligence-collection effort surprising. Indeed, while the activity "aligns with historical PRC intelligence objectives , the broad scope of their collection criteria at a single site was highly unusual," he says.
+
+"The scope of attempted collection encompassed military strategy and programs, foreign policy, advanced defense technology, medical research, and companies in the defense industrial base," Whitsell says. "Typically we would expect to see a more focused collection tailored to the specific targeted organization."
+
+GTIG discovered the earliest known activity of the intrusion in September 2023, with the threat actor exploiting the university's externally facing servers for REDCap (Research Electronic Data Capture) , a Web application designed for clinical research. UNC6508 then deployed custom malware named Infinitered to capture credentials for REDCap, with malicious activity continuing consistently through November 2025.
+
+Related: China's TA4922 Expands Cybercrime Attacks Globally
+
+Initially, the group remained undetected for more than a year before using the captured credentials to access the victim’s internal network. Three months after initial intrusion, UNC6508 compromised externally facing Web applications, deployed bespoke malware, and abused enterprise administrative tools for covert data exfiltration.
+
+"We determined this data was being targeted based on the specific keywords in the malicious compliance rules created by the adversary," Whitsell tells Dark Reading.
+
+The general attack chain during the period of the malicious activity was as follows: exploitation of the REDCap server; the later deployment of Infinitered malware to stealthily records credentials and persist through upgrades for more than a year; the use of stolen credentials to access a domain administrator account; the addition of the malicious content compliance rule; and the forwarding of emails matching strategic keywords to a threat actor-controlled account.
+
+Related: China Uses Dual-Method Cyberattack on Czech Orgs
+
+The campaign had some expected hallmarks of sophisticated PRC-nexus activity , such as long-term stealthy access to the target network, according to GTIG. In addition, the Infinitered malware was tailored specifically for, and will only function on, REDCap servers, demonstrating "a level of targeted engineering [that] aligns with the sophisticated tactics of PRC-nexus actors," Whitsell says. Indeed, these actors tend to "strategically reverse-engineer specialized software and appliances when targeting high-value environments," he says.
+
+However, other techniques showed deviation from standard procedure for China-backed threat actors . One was how data was exfiltrated, which occurred via a novel and "creative" technique that manipulates domain content-compliance rules, Whitsell says.
+
+"The technique does not rely on malware or even standard 'living off the land' tools, making it very difficult to detect" because it avoids many traditional endpoint and network security controls, he tells Dark Reading.
+
+UNC6508 also used a different approach to conceal its malicious activity than other China-backed actors . Specifically, the threat actor used exclusively US-based IP addresses in their obfuscation network to access both target environments and attacker infrastructure.
+
+"Typically when we see obfuscation network usage the IPs used are mostly random," Whitsell says. "This indicates a meticulous management of operations security, and an understanding that the targets would find non-US IP logins to be suspicious."
+
+Adversaries from China are among the most active state-sponsored groups conducting cyber espionage on US institutions and organizations, and the discovery of the operation should be taken seriously by any organization that may be a target, according to GTIG and Mandiant. In addition to disrupting the malicious infrastructure associated with UNC6508, Google also notified the affected organizations upon detection and offered assistance with remediation, as well as updated its Google Security Operations (SecOps) with relevant intelligence, enabling defenders to identify indicators of compromise (IOCs) within their networks.
+
+Aside from paying attention to these updates and IOCs, the "No. 1 thing defenders can do" to avoid compromise by the actor's techniques is enforcing phishing-resistant, two-factor authentication on all accounts possible, Whitsell says. "Many attacks we see today still rely on reusing compromised credentials," he says.
+
+Other recommendations include monitoring audit logs for unauthorized changes to enterprise systems and data, enabling DLP rules to alert on sharing of sensitive data, and ensuring systems are fully updated with the latest security patches.

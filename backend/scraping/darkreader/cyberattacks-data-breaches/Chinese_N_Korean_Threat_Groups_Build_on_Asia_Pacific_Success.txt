@@ -1,0 +1,43 @@
+Title: Chinese, N. Korean Threat Groups Build on Asia-Pacific Success
+URL: https://www.darkreading.com/cyberattacks-data-breaches/chinese-korean-threat-groups-asia-pacific-success
+Author: (unknown)
+Date: (unknown)
+Topic: cyberattacks-data-breaches
+
+Breaking cybersecurity news, news analysis, commentary, and other content from around the world, with an initial focus on the Middle East & Africa and the Asia Pacific
+
+North Korea's gross domestic product (GDP) has grown, in part because of the nation's state-sponsored cybercrime groups, which target financial firms and other businesses.
+
+Cyber-threat groups linked to North Korea and China continue to target financial firms and cryptocurrency assets in the Asia-Pacific region, but face increasing headwinds as national governments collaborate more closely with each other and private industry to seize cryptocurrency accounts linked to illegal activity.
+
+In its recent 2026 Financial Services Threat Landscape Report , CrowdStrike noted that six of the nine major threat groups targeting financial services in Q1 2026 are linked to China and North Korea, while at least 78 organizations in the Asia-Pacific and Oceania regions were targeted by cybercriminals groups' data-leak-and-ransom operations. Cybercrime remains a massive problem in the Asia-Pacific region, because financial fraud and digital theft have become tremendous revenue streams for some nations. In 2025, for example, threat actors linked to the Democratic People's Republic of Korea (DPRK) stole at least $2.02 billion in cryptocurrency , accounting for a 6% to 7% share of the nation's $29 billion estimated GDP .
+
+Related: Pakistan Spies on Afghan Finance Ministry With Xeno RAT
+
+Blockchain research firm Chainalysis, which announced a collaboration with South Korea's National Police Agency this week to aid investigations into illicit flow of funds and cryptocurrency, stressed that the cybercrime groups' tactics continue to evolve.
+
+"Our figures should be viewed as lower-bound estimates based on activity we've been able to attribute," says Eric Jardine, head of research at Chainalysis. "North Korea's record-breaking 2025 performance, achieved with significantly fewer known attacks, suggests we may only be seeing the most visible portion of its activity."
+
+North Korea is not alone in profiting from cybercrime, of course. Cybercrime scam compounds in Cambodia, Burma (Myanmar), and Laos have garnered tens of billions of dollars annually , accounting for a significant share of those nation's GDPs, while also costing victims in the regions billions of dollars.
+
+Social engineering remains the most popular attack vector among cybercriminal groups, with the unique combination of romance scam and investment fraud — known as "pig butchering" — the most common approach. However, North Korean threat groups often employ social engineering with a business focus, such as masquerading as IT workers. Now they are moving toward other approaches as well, says Jardine.
+
+"They are increasingly impersonating recruiters for prominent web3 and AI firms, running fake hiring processes designed to steal credentials, source code, and VPN or [single sign-on] access," he says. "We also observed outreach from purported investors or acquirers aimed at identifying access paths into high-value infrastructure."
+
+Related: Tropical Blend: Cyber & Politics Ramp Up Across Latin America
+
+Overall, the tactics of North Korea-linked groups are aimed at reproducing their greatest success: The $1.5 billion theft of cryptocurrency from exchange ByBit . Theft of currency from individual wallets increased to 158,000 incidents, but the total amount stolen declined.
+
+Support services for cybercriminals continue to grow as well, with the success of money laundering services that allows funds from financial fraud and cybercrime to be mixed with legitimate funds to make investigations more difficult. The ecosystem surrounding money laundering has evolved in the past few years. North Korea cyber-criminals move larger amounts of money than other threat actors, but rely on Chinese-language networks for transferring funds. Often, North Korean groups hold onto gains for 45 days before laundering funds, but that is more of a pattern, not a rule, Chainalysis' Jardine says.
+
+"They move larger amounts than other stolen-funds actors, but break transactions into smaller tranches and rely heavily on Chinese-language money movement networks, guarantee services, bridges, mixers, and [ decentralized finance (DeFi)] protocols," he says.
+
+Related: Latin American Cybercriminals Hoover Up Government Data
+
+Regional governments and fintech firms have become better at tracking the proceeds, with significant recoveries of the funds associated with recent major thefts. In April, the US joint-agency Scam Center Strike Force took action against the Shunda cybercrime compound in Burma (Myanmar), charging two Chinese nationals for allegedly managing the compound, locking accounts holding $700 million in cryptocurrency, and taking down more than 500 websites in connection with the scam.
+
+In addition, the US Treasury Department's Office of Foreign Assets Control (OFAC) restrained $700 million in cryptocurrency tied to the scam networks and sanctioned a Cambodian senator and 28 other people in his network . Restraining involves obtaining a court order that prevents the movement of funds linked to crimes.
+
+Overall, nations in the region have made progress targeting groups like North Korean cyber-threat actors and others, says Jardine.
+
+"What we can say is that our ability to identify and disrupt their activities continues to improve," he says. "The most effective approach combines blockchain analytics, intelligence sharing, public-private collaboration, coordinated law enforcement action, and rapid response when stolen funds begin moving."

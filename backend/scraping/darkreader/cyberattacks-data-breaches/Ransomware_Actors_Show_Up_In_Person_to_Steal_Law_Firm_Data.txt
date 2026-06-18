@@ -1,0 +1,43 @@
+Title: Ransomware Actors Show Up In Person to Steal Law Firm Data
+URL: https://www.darkreading.com/cyberattacks-data-breaches/ransomware-actors-steal-law-firm-data
+Author: (unknown)
+Date: (unknown)
+Topic: cyberattacks-data-breaches
+
+The FBI warned that the extortion gang Silent Ransom Group is targeting law firms and social-engineering its way into servers and databases.
+
+The Silent Ransom Group (SRG) is impersonating IT personnel to target law firms via social engineering. In some cases, the threat actors have appeared before the victim in person.
+
+The FBI's Internet Crime Complaint Center (IC3) yesterday published a warning that SRG has targeted law firms since spring 2023 . The group has been active since 2022, and has victimized other sectors including insurance, finance, and healthcare.
+
+SRG — which also goes by Luna Moth, Chatty Spider, and UNC3753 — has targeted law firms in a variety of ways. According to the FBI's advisory , SRG actors pose as IT support through phone calls and phishing emails "to establish access to victim computers and exfiltrate data, usually through legitimate remote access tools or by sending an individual in person to the victim company's location to gain physical access to computers."
+
+Cynthia Kaiser, SVP of Halcyon's Ransomware Research Center, tells Dark Reading that Halcyon identified the legal sector as the fourth most targeted industry by ransomware actors in the first months of 2026. "Law firms are an attractive target due to the sensitivity of client data, regulatory pressure to resolve incidents quickly, and a perceived willingness to pay ransoms to protect attorney-client privilege and confidential case materials," she says.
+
+Related: INC Ransomware Thrives by Mastering the Basics
+
+SRG is known for conducting data theft extortion attacks, where the threat actor steals data and makes ransom demands akin to a ransomware attack, but bypasses the encryption piece that originally defined ransomware . In these cases, the actor threatens to leak data (usually through a Dark Web leak site or through a sale to another cybercriminal) and uses that to pressure the victim.
+
+Originally, attackers sent phishing emails claiming the victim owed a subscription fee of some kind. To cancel the non-existent subscription, the victim would be instructed to call the threat actor who would then send the victim a link to download remote access software. Once the attacker is remotely connected, things like vulnerability exploitation or complex attack chains become unnecessary.
+
+The FBI notes that attack methods recently expanded. SRG actors pose as an employee from the victim's IT department and call or send an email to the victim; the victim is urged to grant the fake employee access to a remote desktop session. If that fails, "SRG sends a threat actor to the victim's location to gain access to insert a storage device into the victim's computer."
+
+Related: Sweeping Credential-Harvesting Heist Compromises 30K+ Fortinet Devices
+
+"In this scheme, the threat actor tells the victim they need to image the device or create a backup file to address potential impacts from the phishing email," the FBI said. "Once the threat actor obtains access to the victim's device, they minimally escalate privileges and quickly pivot to data exfiltration without encryption."
+
+To do this, the threat actors use Windows Secure Copy (WinSCP) or a hidden or renamed version of Rclone, an open source command-line program that manages and syncs files. Depending on the circumstance, data is exfiltrated to filesharing platforms like Google Drive or Microsoft OneDrive, or a physical disc, like an external hard drive or USB drive inserted by the threat actor into the victim's computer.
+
+Kaiser calls the move to in-person threat activity "an incredibly rare and concerning development," as SRG historically used professional, English-speaking call center professionals.
+
+Regarding Silent Ransom Group , Kaiser adds that the group has faced no arrests or infrastructure disruptions to date and likely operates from Russia. That would make the move to target law firms in-person a doubly strange endeavor, though the FBI offers no details about where the victim law firms are located.
+
+Once data is stolen, the attacker sends a ransom email to the victim threatening to sell or post the data to its public-facing website. SRG will also call employees or clients of the victim organization to pressure them for payment.
+
+Related: Fileless Phantom Stealer Targets Browser Credentials
+
+Indicators of an SRG attack may include new, unauthorized downloads of system management or remote access tools; unauthorized installations of USB drives or external hard drives; a WinSCP or Rclone connection made to an external IP address; or unidentified, unauthorized individuals attempting to access computers and claiming to be IT support.
+
+While social engineering attacks aren't new, organizations should take serious note when novel social engineering frameworks come around. Verizon's 2026 Data Breach Investigations Report showed social engineering as the third most popular breach vector, showing attackers continue to find success with methods like SRG's.
+
+The FBI recommends organizations verify the identity of all individuals entering company spaces, including getting a copy of their ID card; requiring phishing-resistant multifactor authentication (MFA) for as many services as possible; training employees to identity, resist, and report phishing attempts; and "if possible, disable remote access and external drive installation permissions on company computers with access to sensitive or confidential data."

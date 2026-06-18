@@ -1,0 +1,43 @@
+Title: China's TA4922 Expands Cybercrime Attacks Globally
+URL: https://www.darkreading.com/threat-intelligence/china-ta4922-cybercrime-attacks-globally
+Author: (unknown)
+Date: (unknown)
+Topic: threat-intelligence
+
+One of the world's most diverse, least-focused cybercrime groups is enlarging its footprint beyond East Asia.
+
+A Chinese cybercrime operation has expanded significantly, targeting far more countries with an even wider variety of tactics, techniques, and procedures (TTPs) than just about any other active threat group.
+
+TA4922 first showed up on Proofpoint's radar in the spring of 2025. For the first year of its observed operations, it was more focused and straightforward. It targeted Japanese organizations with tax-themed phishing emails, or impersonations of real employees. It sometimes tried to get targets to communicate outside of their normal work emails, and used ValleyRAT to gain remote access to their systems.
+
+In the past two months, though, its operational tempo increased dramatically. It's now targeting a wide variety of countries, using a significantly broader array of tactics and techniques than is typical of threat actors. In a blog post this week, Proofpoint called TA4922 "one of the most unique actors" it tracks.
+
+Related: SprySOCKS Windows Variant Abuses Kernel Drivers to Evade Detection
+
+Though a plurality of its activity still concentrates in Japan, TA4922 has also been targeting plenty of organizations around East Asia — Taiwan, South Korea, Singapore, Malaysia, Indonesia — and Europe, including the UK, Germany, and Italy. South Africa's also been caught up in the mix, thanks to the group's indiscrimination.
+
+That list might seem scattered, but TA4922 is diligent wherever it's operating in the world, always writing lure emails in languages and dialects designed to fit local norms. Those emails typically impersonate business and finance entities — finance departments, tax authorities, human resources teams — or targets' close colleagues, with classic, finance-oriented bait like taxes and invoicing.
+
+"TA4922 uses thousands of unique disposable sender addresses in their campaigns, often using Outlook, Hotmail, or Gmail. The addresses follow a pattern which suggests structured account generation through these platforms resulting in delivery success by avoiding reputation-based blocking," Proofpoint's researchers note.
+
+Oftentimes TA4922 will only use email for introductions, encouraging victims to communicate on less tightly monitored platforms like Microsoft Teams or WhatsApp.
+
+What happens after the initial point of contact can vary.
+
+Sometimes TA4922 sends malicious links to malware hosted on file sharing services, other times it attaches archive files. Sometimes the malware is packaged as a simple executable, other times the attack chain relies on dynamic link library (DLL) sideloading to get the bad stuff in. Sometimes there's no malware at all, and victims are instead directed to credential phishing pages.
+
+Related: China-Nexus Actor Spies on US Researchers Undetected for a Year
+
+If it is malware, it's anyone's guess which. TA4922 might use a remote access Trojan (RAT), like ValleyRAT or Atlas RAT, to access targeted systems, or legitimate remote monitoring and management (RMM) software, like AnyDesk . In the latter case, it'll use a loader called RomulusLoader to bring the RMM onto the host system. But it also uses a loader called SilentRunLoader, and SilentRunLoader itself doubles as a Google Chrome stealer.
+
+The Proofpoint researchers point out that across its various tools, "TA4922's delivery of payloads are often not immediately identifiable at the time of initial discovery. Their malicious payloads often require additional analysis from our malware analysts to confirm their malware families such as Atlas RAT and other variants in the broader ValleyRAT ecosystem. The consistent use of modified tooling suggests an intentional effort to complicate analysis and operate outside of normal malware classification."
+
+There remain a couple of points of confusion around TA4922, about both its tactics and its identity.
+
+Atlas RAT was first described by Hexastrike researchers in March, when TA4922 was ramping up its malicious activity. However, it was attributed to Silver Fox, a Chinese state-associated threat actor, which threat researchers have suggested crosses the line between espionage and cybercrime . That a possibly Chinese Communist Party (CCP)-aligned actor would cross over into financially motivated crime was confusing enough in the first place; now researchers at Proofpoint have highlighted a variety of overlaps between Silver Fox and TA4922, not just in the malware they use, but also their infrastructure and social engineering techniques. All of this has created some nuisance in distinguishing these clusters of activity.
+
+Related: China Uses Dual-Method Cyberattack on Czech Orgs
+
+Then there's the question of why exactly TA4922 works the way it does. Presumably there's some logic to which attack types, lures, and specific combinations of malware it uses against any given victim. Proofpoint's researchers admit that "we haven't identified a pattern that predicts or is indicative of which malware family the actor will deploy in any given campaign."
+
+"TA4922 demonstrates that the 'jack of all trades' model can be effective when there is a single goal in mind," the research team concludes. "[It] allows them to adapt to organizational defenses, which makes them more resilient than groups who operate with a singular specialty."

@@ -1,0 +1,11 @@
+Title: Remote Workforce
+URL: https://www.darkreading.com/endpoint-security/remote-workforce
+Author: (unknown)
+Date: (unknown)
+Topic: endpoint-security
+
+Breaking news, news analysis, and expert commentary on cybersecurity threats that target remote users and their devices and the tools & technologies to protect them.
+
+The emerging malware, spread via fake TikTok and Chrome downloads, has evolved by combining banking fraud with extensive device surveillance and remote control.
+
+Anatomy of a Data Breach

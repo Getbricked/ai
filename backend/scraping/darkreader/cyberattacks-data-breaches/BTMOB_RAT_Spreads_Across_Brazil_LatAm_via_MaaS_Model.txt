@@ -1,0 +1,49 @@
+Title: BTMOB RAT Spreads Across Brazil, LatAm via MaaS Model
+URL: https://www.darkreading.com/cyberattacks-data-breaches/btmob-rat-brazil-latam-maas-model
+Author: (unknown)
+Date: (unknown)
+Topic: cyberattacks-data-breaches
+
+An advanced remote access Trojan is propagating online. Notably, it's delivered via an operator licensing model and features a no-code malware-development interface.
+
+An emerging Android remote access Trojan (RAT) that offers would-be attackers a no-code interface for building malicious banking apps has resurfaced. This time, it's using a malware-as-a-service (MaaS) model that lowers the barrier to entry for cybercriminals to achieve full mobile device takeover with little expert knowledge.
+
+The RAT — dubbed BTMOB and first described by researchers at Cyble last year as an offshoot of SpySolr malware — is notable for its potential to do significant damage via a range of capabilities that extend beyond the usual RAT behavior, according to a ESET security researchers .
+
+While typical banking Trojans are aimed primarily at stealing financial credentials or intercepting user transactions, BTMOB gives adversaries broader options. These include the ability to exfiltrate a range of sensitive data, capture screenshots, record activity on the device, and ultimately take remote control of it.
+
+Related: INC Ransomware Thrives by Mastering the Basics
+
+In the campaign, which targets users in Brazil and Latin America, the RAT is both commodity and payload. As a commodity, it is sold along with an APK builder interface that allows anyone to generate new payloads such as malicious Android apps, as well as adapt phishing lures for specific regions rapidly without writing any code, noted Daniel Cunha Barbosa, a security researcher for ESET, in the post.
+
+The campaign distributes the RAT to cybercriminals through Telegram channels and other websites, and goes after victims via phishing sites impersonating streaming services, cryptocurrency platforms, and legitimate app stores.
+
+The malware comes with a relatively inexpensive price tag of $5,000 for a lifetime license, which in the digital economy of mobile device compromise, is a relative bargain, notes Jacob Krell, senior director of secure AI solutions & cybersecurity for Suzu Labs.
+
+"Mobile is where the economics of industrialized cybercrime meet the highest returns in the exploit market," he says, adding that Crowdfense, a well-known vulnerability research hub, currently pays up to $5 million for a single Android zero-click chain. "When the returns are that high, every improvement in mobile campaign tooling translates directly into profit," Krell says.
+
+In addition, the MaaS model also lowers the barrier for less sophisticated adversaries, Barbosa noted, citing a Dark Web forum that in January claimed to offer BTMOB-related files for free download.
+
+"The forum later went offline, and our search didn’t recover the payload(s), but the episode points to a familiar risk with commercial malware: access rarely stays contained forever and the tool can move into secondary markets through resale, barter, or sharing inside closed groups," Barbosa wrote.
+
+Related: Sweeping Credential-Harvesting Heist Compromises 30K+ Fortinet Devices
+
+In maliciious campaigns that deliver a BTMOB payload, operators send victims to phishing websites that pose as streaming services, cryptocurrency mining platforms, or other familiar online services. From there, they then nudge them toward fake app stores that mimic legitimate repositories and prompt them to install a malicious APK.
+
+Because BTMOB allows operators to adapt lures to specific regions, it gives attackers a strong social-engineering play and unlimited geographic reach, Barbosa noted.
+
+He cited a campaign in Argentina that spread BTMOB while impersonating Argentina's tax and customs authorities as a recent example. This, combined with the RAT's extended capabilities, gives the malware a wider reach for doing damage beyond the region in which it's currently being distributed, he said.
+
+"The combination of phishing-led delivery, ready-made app-building tooling and device takeover capabilities makes BTMOB a threat to watch well beyond Brazil or Latin America," Barbosa wrote.
+
+Related: Fileless Phantom Stealer Targets Browser Credentials
+
+Once installed, BTMOB seeks extensive access to the device by abusing Android Accessibility Services to gain elevated permissions and granting itself further system access and control over the device without additional user interaction.
+
+Mobile malware remains a significant threat to both enterprise and personal users alike, and ESET recommended a few basic tips to keep users safe from BTMOB and the range of other Android-based malware making the rounds.
+
+One basic best practice is to only download apps from the official Google Play Store and its repositories, and beware of fakes impersonating Google's mobile app marketplace. Enterprises also should make this a mandate across their employee base, Barbosa noted.
+
+Basic phishing security hygiene applies as well, such as treating unsolicited links delivered via email, messaging apps, social media, and targeted advertisements with suspicion and not clicking on anything that even remotely seems like a scam, he said.
+
+Finally, both individuals and organizations "should use mobile security solutions and treat mobile devices with the same rigor as other machines and environments," Barbosa wrote. For enterprise defenders, he included indicators of compromise in the post to help security administrators identify signs of compromise on a network.

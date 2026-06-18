@@ -1,0 +1,69 @@
+Title: The Beginning of the End of Social Engineering
+URL: https://www.darkreading.com/cyberattacks-data-breaches/beginning-end-social-engineering
+Author: (unknown)
+Date: (unknown)
+Topic: cyberattacks-data-breaches
+
+AI-native operating systems are shifting the responsibility to stay vigilant against social engineering cyberattacks from the user onto the system itself.
+
+Over the past month, the world's largest technology companies have quietly converged on the same idea. In May, Google positioned Gemini as an increasingly integrated part of Android. This week, Apple expanded Apple Intelligence across the iPhone, iPad, and Mac . While much of the attention has focused on productivity and convenience, a more significant shift may be underway.
+
+For the first time, operating systems are beginning to move beyond simply executing commands and displaying information. They are becoming active participants in interpreting what users see, hear, receive, and trust.
+
+This distinction matters more than most people realize because it signals the beginning of the end of one of the most vexing attack vectors in modern cybersecurity: social engineering.
+
+For decades, social engineering attacks have taken advantage of users and cost organizations billions in losses. From Nigerian advance-fee scams to phishing emails, fraudulent text messages, and impersonation phone calls, these attacks succeeded largely because humans were forced to manually mediate increasingly complex digital systems.
+
+Related: INC Ransomware Thrives by Mastering the Basics
+
+In The Weakest Link , I argued that social engineering attacks succeeded because of three fundamental weaknesses in the way modern computing operates: authentication, context, and speed.
+
+The first weakness was authentication. The current authentication model was never designed for large-scale use across billions of users, applications, and devices. From the earliest days of computing, the system relied on a relatively simple idea: prove identity using something only you would know, and later, something you possess.
+
+Over time, this became a patchwork architecture of passwords, security questions, one-time codes, authenticator apps, recovery devices, and endless prompts asking users to continually verify themselves.
+
+But the burden always rested on the human user. Humans had to remember passwords, carry devices, interpret prompts, answer questions, and recognize deception. The limitations were never simply technological.
+
+Large language models integrated directly into operating systems may fundamentally alter this architecture. Authentication would no longer need to rely solely on static credentials or isolated prompts. Systems could authenticate users continuously through behavioral patterns, communication history, device relationships, voice characteristics, prior interactions, and dynamic understanding of user behavior.
+
+Related: Sweeping Credential-Harvesting Heist Compromises 30K+ Fortinet Devices
+
+Instead of asking for a password or a security question, a future system might confirm identity through a combination of recent behavior: the person you spoke with yesterday, the destination you searched for before leaving for the airport, or the project you spent the last hour working on. Authentication would move from stored secrets toward lived interactions.
+
+The second weakness was context. While traditional email security systems became effective at stopping obvious spam, social engineering attacks continued succeeding because context remained extraordinarily difficult for machines to understand.
+
+A short email or text message from an unknown sender can appear nearly identical to legitimate communication from a stranger or new contact. The challenge is not simply verifying who someone is. It is understanding what is happening.
+
+Integrated LLM operating systems may begin changing this dynamic. Because these systems can operate across email, messaging, voice, calendars, browsing activity, prior communications, purchasing history, and device-level behavior simultaneously, they may finally possess enough visibility to identify manipulation patterns as they unfold.
+
+Imagine receiving a phone call from someone claiming to be from your bank while simultaneously receiving a text message asking you to verify a transaction and an email prompting you to reset credentials. Today, each system sees only its own fragment of the interaction. The phone sees a call. The email client sees a message. The banking app sees a transaction request.
+
+Related: Fileless Phantom Stealer Targets Browser Credentials
+
+None sees the attack as a whole.
+
+An integrated LLM-native operating system may. It could recognize these events as a coordinated manipulation attempt unfolding in real time and warn the user that the interaction is inconsistent with prior behavior, resembles known fraud patterns, or contains unusual urgency and coercion. Social engineering may become increasingly difficult because systems themselves begin participating in interpretation.
+
+The third weakness was speed. Social engineering attacks work because they compress cognition — the time required to notice, evaluate, and become suspicious.
+
+Often, before suspicion is even activated, the email has already been opened, the link clicked, or the call answered because of habit and routine. From that point forward, attackers exploit engagement itself as a signal of vulnerability. This is why warning banners, phishing indicators, and countless other interventions have had only limited success. They arrive after the interaction has already begun.
+
+For decades, cybersecurity ultimately relied on user vigilance. The responsibility rested almost entirely on the individual: do not click, do not respond, notice the signs, slow down, report.
+
+Organizations have spent decades training users to do exactly that. While those efforts have improved awareness, social engineering remains among the most persistent forms of cyberattack. The reason may be simple. The burden of interpretation still rests largely on the user.
+
+AI-native operating systems may fundamentally change that equation. Such systems could stop attacks before they occur, intervene during interactions, and limit damage afterward by locking accounts, restricting transfers, isolating applications, or flagging abnormal behavioral sequences.
+
+This represents something much larger than another cybersecurity tool. It signals the beginning of a transition away from user vigilance and toward system vigilance. And that may fundamentally alter the economics of social engineering .
+
+There is historical precedent for this. In the 1990s and early 2000s, self-propagating computer viruses represented one of the dominant threats in computing. Entire networks could be disrupted by rapidly spreading malicious code. Over time, however, endpoint protection systems became widespread and increasingly sophisticated.
+
+Antivirus software did not eliminate malicious activity entirely, but it significantly altered the economics of attack. As defensive systems spread across endpoints, producing traditional self-replicating viruses became more costly relative to alternative attack paths.
+
+Attackers adapted. They shifted toward credential theft, phishing , ransomware delivery, and socially engineered compromise because the human layer remained comparatively under-defended. That may now begin changing.
+
+Critics will rightly point out that attackers will simply use AI to attack AI. They probably will. But, again, history suggests that scale matters. When antivirus systems became ubiquitous, they did not eliminate malicious code. They changed the environment in which attackers operated. Millions of defensive systems continuously monitored, detected, shared signatures, and updated protections. The result was not perfect security but a dramatic increase in the cost and complexity of successful attacks.
+
+A similar dynamic may emerge with AI-native operating systems. If billions of devices eventually run persistent AI systems capable of observing behavior, recognizing manipulation patterns, sharing threat intelligence, and responding in real time, attackers may face a fundamentally different environment. The challenge would no longer be deceiving a single user. It would be deceiving millions of defensive agents operating continuously across billions of interactions.
+
+Attacks will persist. But they may become more costly, more complex, and less reliable than they are today. Not because deception disappears. But because humans no longer remain the sole interpreters of trust.

@@ -1,0 +1,49 @@
+Title: Dutch Raid Fails to Dent Russian Bulletproof Host
+URL: https://www.darkreading.com/cyber-risk/dutch-raid-russian-bulletproof-host
+Author: (unknown)
+Date: (unknown)
+Topic: cyber-risk
+
+Breaking cybersecurity news, news analysis, commentary, and other content from around the world, with an initial focus on the Middle East & Africa and the Asia Pacific
+
+Dutch law enforcement seized 800 servers and arrested two operators of THE.Hosting but left the hosting provider's core IP address space intact.
+
+A recent Dutch law enforcement operation to dismantle a bulletproof hosting network appears to have done little to disrupt its ongoing malicious activity, highlighting the resilience of modern cybercriminal infrastructure against takedown efforts.
+
+On May 18, the Netherlands Ministry of Finance's fiscal crime service (FIOD) seized more than 800 servers and arrested two people connected to THE.Hosting, a network tied to Russian cybercrime and influence operations in the European Union.
+
+But more than a week later, scanning activity from the network has remained at almost the same levels as before, according to researchers at Prague-based threat intelligence firm ELLIO.
+
+"The traffic is broad, opportunistic attack and botnet-building," ELLIO said in a report this week . "It recruits Internet-of-Things devices into botnets , drops cryptominers and self-replicating bots, steals cloud credentials, exploits exposed web applications, and abuses proxy capacity to attack third parties."
+
+Related: UK Social Media Ban for Minors Has Privacy Experts Worried
+
+THE.Hosting is the latest incarnation of a bulletproof hosting network that researchers trace back to infrastructure originally controlled by a Russian individual registrant in 2022. Shortly after Russia invaded Ukraine in February 2022, the individual transferred the network's autonomous system number (ASN), AS44477, to a newly incorporated company called Stark Industries Solution. An ASN is a number assigned to a network's block of IP addresses that tells the rest of the Internet how to route traffic to and from those addresses.
+
+When the EU sanctioned Stark Industries in 2025, the operators transferred AS44477 to another newly created entity called PQ Hosting Plus S.R.L. They later rebranded it yet again, to THE.Hosting, and moved operations to a new network, AS209847, under a Dutch company called WorkTitans B.V. The net effect of all the maneuvering was having a Russian bulletproof hosting network sitting inside EU data centers with traffic reaching the Internet from a legitimate Dutch company rather than Russian, ELLIO said.
+
+"The company history reads like a relay race run to stay ahead of sanctions," the threat intelligence firm said in an accompanying blog post . "In our honeypot telemetry, this corporate relay shows up cleanly as a migration across autonomous systems, the numbered networks that announce IP address space to the internet."
+
+The old Stark/PQ network drove the scanning through the summer of 2025, according to ELLIO, and "threw one last enormous punch" on Aug. 30. After it faded, THE.Hosting suddenly ramped up in its place, generating more two million scanning sessions per month in November and December 2025.
+
+Related: As Global Powers Explore Humanoid Robots, Cyber-Risk Looms
+
+A bulletproof hosting (BPH) service knowingly provides its infrastructure for cybercriminals, ransomware operators and other threat actors. The services typically operate across multiple jurisdictions, ignore abuse complaints, and don't cooperate with law enforcement, making it difficult for authorities to take action against the criminals renting their infrastructure. Cybercriminals use such services to host malware, run botnets, distribute spam, and conduct cyberattacks while avoiding take down efforts.
+
+According to ELLIO, threat actors using the old Stark/PQ network were mainly focused on finding systems with weak or default passwords across services like web servers, SSH access, FTP file transfer, and Windows file shares.
+
+The scanning activity associated with THE.Hosting's is broader and more concerning because it involves databases and industrial control systems (ICS). ELLIO researchers said they observed probes for exposed MongoDB, Redis, PostgreSQL, and Oracle databases alongside scans for DNP3 and EtherNet/IP, which are protocols commonly associated with power grids, water systems, and other industrial facilities.
+
+Related: Claude Mythos Fears Startle Japan's Financial Services Sector
+
+Vlad Iliushin, CEO of ELLIO, says the operators of Stark Industries, PQ Hosting and THE.Hosting have been publicly tied to repeated distributed denial-of-service (DDoS) attacks on European critical infrastructure. They have also been linked to disinformation campaigns, including activity attributed to the pro-Russian group NoName057(16) and the attacks on Danish government systems during the November 2025 elections.
+
+Iliushin points to two reasons why the recent Dutch law enforcement operation has had little effect on THE.Hosting. First, taking physical servers off the rack doesn't take away the address space those servers were using, he says.
+
+"The blocks are still allocated to the operator by the Regional Internet Registry for Europe, [are] still announced via BGP , and as soon as the operator puts new hardware behind those addresses in another data center, in another country, the scanning resumes," Iliushin says, adding that Dutch authorities seized things they could legally seize but there was no BGP blackholing, he says.
+
+The other reason is that THE.Hosting's address blocks, registered under the Dutch firm WorkTitans B.V., are geolocated across the Netherlands, the United States, Germany, Finland, Turkey, the UK, France, Moldova, Poland, Kazakhstan, Czechia and Latvia. "So, the scans we observe are originating from the address blocks assigned to AS209847 but are not necessarily coming from the Netherlands," he says.
+
+The best-case scenario for taking down an operation like THE.Hosting would be collaboration between law enforcement agencies across the European Union and US and to blackhole all address spaces belonging to AS209847, Iliushin notes.
+
+"The FIOD raided servers in Dutch data centers, which means the infrastructure hosted by THE.Hosting and its customers in the Netherlands was affected," he says. "[But] just like legitimate hosting providers, THE.Hosting is reselling VPS in multiple countries, not only in the Netherlands. Infrastructure hosted in other countries is unaffected."

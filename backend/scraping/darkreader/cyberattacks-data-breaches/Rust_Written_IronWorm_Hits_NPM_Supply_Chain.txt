@@ -1,0 +1,35 @@
+Title: Rust-Written IronWorm Hits NPM Supply Chain
+URL: https://www.darkreading.com/cyberattacks-data-breaches/rust-written-ironworm-npm-supply-chain
+Author: (unknown)
+Date: (unknown)
+Topic: cyberattacks-data-breaches
+
+Like Shai-Hulud, the campaign targets developers to steal credentials and reuses them to propagate across the software supply channel.
+
+A newly discovered malware campaign targeting the open source software ecosystem underscores how rapidly supply chain threats are evolving.
+
+The campaign, which JFrog has dubbed "IronWorm," targets developers through compromised npm publishing workflows and malicious package updates. The malware, written in Rust, harvests a wide range of developer secrets, including API keys, cloud credentials, SSH keys, and npm publishing tokens, and reuses them to spread further across the software supply chain.
+
+JFrog identified the activity while investigating suspicious behavior linked to a developer account within the Arweave/WeaveDB open source ecosystem.
+
+IronWorm’s payload shares architectural similarities with last year's Shai-Hulud worm and features a unique combination of mechanisms for credential theft, persistence, and covert Tor-based command-and-control communications (C2), JFrog said.
+
+Related: INC Ransomware Thrives by Mastering the Basics
+
+The security vendor's analysis showed IronWorm uses a rootkit that abuses the Linux kernel's extended Berkeley Packet Filter( eBPF ) to hide malicious processes, files, network activity, and other behavior from security systems. It also encrypts embedded text using unique encryption keys throughout the codebase rather than a single hardcoded key, making the malware significantly harder to analyze and detect, JFrog said.
+
+Researchers at OX Security also tracking the campaign described it as having affected at least 36 unique npm packages with more 32,000 combined monthly downloads. The company said the threat was mitigated before it could spread to other, more popular packages.
+
+In its report, JFrog itself described the operator of the IronWorm campaign as having deprecated the malicious packages, silently removing them from GitHub within a day of publishing them to the repository. However, by then the threat actor appeared to have made at least 57 malicious code changes to repositories belonging to nine organizations, the security vendor added. The attacker backdated the changes in an attempt to obscure the timeline of compromise and to complicate forensic analysis, JFrog noted.
+
+"We checked the sample against every well-known infostealer, eBPF rootkit, and C2 framework we could think of, and matched none of them," JFrog said. "There are no source-repository URLs in the binary, no borrowed code we could recognize." JFrog concluded that the IronWorm payload with its combination of features and encryption is a "custom, carefully built implant" that someone is using in a sophisticated and painstaking operation.
+
+Related: Sweeping Credential-Harvesting Heist Compromises 30K+ Fortinet Devices
+
+"The closest comparison is the Shai-Hulud campaign," JFrog said. The malware we reviewed shares a lot with it: the same idea of compromising developers, stealing credentials, and using trusted software-supply-chain workflows to spread further, using the same commit names as Shai Hulud does. But it takes the same concept to the next level."
+
+IronWorm is the latest indication of how developers and development environments have become prime targets for threat actors looking to compromise supply chains . Driving the interest is the fact that developers often hold privileged access to source code repositories, package registries, cloud environments, CI/CD pipelines, and signing keys. By compromising a single developer, threat actors can potentially introduce malicious code into trusted software projects and reach numerous downstream organizations and users.
+
+Such attacks have unfolded in multiple ways. Earlier this year for example, a threat actor pushed malicious commits to more than 5,500 GitHub repositories in a matter of hours using a credential stealing malware payload dubbed Megalodon . In other campaigns, the TeamPCP cybercrime group compromised Trivy , a popular cloud security scanning tool, as well as other projects to deploy infostealers targeting cloud credentials, tokens, SSH keys and other secrets from CI/CD workflows. In 2024, attackers used a combination of stolen code, weaponized commits and a counterfeit Python package source to hijack GitHub accounts .
+
+Related: Fileless Phantom Stealer Targets Browser Credentials

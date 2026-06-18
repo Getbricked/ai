@@ -1,0 +1,9 @@
+Title: Insider Threats
+URL: https://www.darkreading.com/vulnerabilities-threats/insider-threats
+Author: (unknown)
+Date: (unknown)
+Topic: vulnerabilities-threats
+
+The FBI warned that the extortion gang Silent Ransom Group is targeting law firms and social-engineering its way into servers and databases.
+
+Anatomy of a Data Breach

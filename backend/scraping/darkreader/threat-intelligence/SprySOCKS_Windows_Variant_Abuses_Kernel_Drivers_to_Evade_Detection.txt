@@ -1,0 +1,47 @@
+Title: SprySOCKS Windows Variant Abuses Kernel Drivers to Evade Detection
+URL: https://www.darkreading.com/threat-intelligence/sprysocks-windows-variant-kernel-drivers
+Author: (unknown)
+Date: (unknown)
+Topic: threat-intelligence
+
+FishMonger, a China-nexus threat group, has deployed an undocumented version of the Linux backdoor against government targets in Honduras, Taiwan, Thailand, and Pakistan.
+
+FishMonger, a notorious nation-state threat group tied to a Chinese technology company, has expanded its tooling with a Windows backdoor that uses kernel drivers to remain undetected.
+
+ESET discovered a previously undocumented version of SprySOCKS , a Linux backdoor that initially was observed in 2023 in threat activity from FishMonger (aka Earth Lusca and Aquatic Panda). Last year, the cyber-espionage group was tied to i-Soon , a Chinese technology company that conducted cyber operations on behalf of the People's Republic of China (PRC).
+
+ESET researchers recently found samples of the Windows version of SprySOCKS on VirusTotal, but further telemetry analysis revealed it had been deployed in the wild in 2023 and 2024. According to an ESET report published today, the Windows variant had been deployed primarily against government organizations in Honduras, Taiwan, Thailand, and Pakistan.
+
+In addition to porting SprySOCKS to Windows, FishMonger actors added new functionality using malicious kernel drivers that allow the backdoor to remain undetected. The newly discovered variant shows how extensive the advanced persistent threat's arsenal is, and once again demonstrates the danger posed by kernel drivers to enterprise security.
+
+Related: China-Nexus Actor Spies on US Researchers Undetected for a Year
+
+ESET researchers found two types of the Windows variant in their analysis, internally labeled as WIN_DRV and WIN_PLUS. While both have the core functionality of previous SprySOCKS backdoors, the WIN_DRV version uses kernel drivers for "advanced stealthiness," according to the report.
+
+Specifically, WIN_DRV uses two encrypted kernel drivers, the first of which is fsdiskbit.sys or, as ESET researchers call it, "DriverLoader." The aptly named driver is delivered via the SprySOCKS loader and serves a single purpose: to load the second kernel driver, named "RawWNPF," directly into the memory of the target system.
+
+The RawWNPF driver in turn hides the backdoor's malicious activity and can be configured through the driver's custom I/O control codes (IOCTLs). Because such drivers have privileged access to the Windows kernel, they can be used to kill security processes or, in the case of SprySOCKS, conceal malware's processes and files by intercepting certain system calls and modifying the output.
+
+For example, WRawWNPF hides processes by hooking the execution of the NtQuerySystemInformation Windows system call. "If any of the processes retrieved by this API function match a process from the driver’s list of hidden processes, the driver removes this process from the function’s output," ESET researchers wrote in the report.
+
+Related: China's TA4922 Expands Cybercrime Attacks Globally
+
+The report also noted that DriverLoader was signed with a digital certificate exposed on GitHub in the open source PastDSE project, which allowed it to load on "at least some outdated or misconfigured systems," according to ESET. It's unclear how long the code-signing certificate has been exposed, but Martin Smolár, senior malware researcher at ESET, tells Dark Reading that as far as he knows, it hasn't been revoked yet.
+
+Threat actors often abuse vulnerable, legitimate drivers for malicious tools like EDR killers , which poses challenges for security teams because blocking such drivers might trigger system crashes. But that is not the case with SprySOCKS, according to Smolár.
+
+"All drivers being abused here are malicious and should be subject to detection," he says.
+
+It's unclear how FishMonger achieved initial access to victims' networks in the attacks, but ESET researchers have noted that the APT has in the past exploited N-day vulnerabilities on public-facing servers to gain a foothold.
+
+"While we were not able to confirm the exact way FishMonger got into its victims' systems in this campaign, the presence of a server operating system on some of the victim devices along with FishMonger's typical modus operandi suggest that the attackers may well have got in through misconfigured or unpatched public-facing applications," ESET wrote.
+
+Related: China Uses Dual-Method Cyberattack on Czech Orgs
+
+Additionally, ESET noted that its telemetry showed "limited indications" that some of the recent SprySOCKS attacks may have involved a UEFI bootkit component, possibly exploiting CVE‑2023‑24932 . "Considering the limited indications of possible UEFI bootkit involvement, we advise everyone to keep a close eye on the group's activities," said the report.
+
+The Windows variant shows a "meaningful expansion of FishMonger's cross-platform capabilities," ESET's research team said. But while the addition of malicious drivers provides advanced stealth for SprySOCKS, Smolár says they don't necessarily indicate a high skill level for the threat actors.
+
+"To me, the number of drivers isn't itself a sophistication signal," he says. "Also, in this case, relying on a leaked certificate that would only work on outdated/misconfigured systems tells me little about the attacker's skill (because why burn a zero-day if the 'cheaper' method works well for the victim?)."
+
+While the initial access vector remains a mystery, ESET released indicators of compromise (IoCs) for defenders, which include file names and the IP address of the malware's hardcoded command-and-control server. Additionally, ESET recommends that enterprise security teams enable hypervisor-protected code integrity (HVCI), a Windows security feature that blocks malicious drivers from loading.

@@ -1,0 +1,81 @@
+Title: Compliance Won’t Stop These 6 Active Directory Attack Paths
+URL: https://www.darkreading.com/cyberattacks-data-breaches/compliance-won-t-stop-these-6-active-directory-attack-paths
+Author: Dominique AdamsDominique Adams is a UK-based cybersecurity writer with over seven years of experience in the cybersecurity industry. Her work focuses on cyber risk, threat trends, security operations, and helping organizations understand complex security challenges.
+Date: (unknown)
+Topic: cyberattacks-data-breaches
+
+Attackers continue exploiting weak credentials and overlooked AD weaknesses despite compliant security controls.
+
+Sponsored by Specops
+
+Active Directory Domain Services (AD DS) remains one of the most valuable targets in any enterprise network. Compliance sets a useful security baseline, but it doesn’t guarantee resilience. Even technically compliant AD environments often have gaps that create viable attack paths.
+
+Closing those gaps starts with understanding how attackers breach compliant AD environments.
+
+Why burn a zero-day when valid credentials let you walk in through the front door? The bigger issue today isn’t weak passwords. It’s infostealer malware harvesting credentials that look compliant on paper.
+
+Recent Specops research found that 19% of 1.7 billion breached passwords met rigorous enterprise standards, including high-entropy strings like 'ue6WESJOm5rfs1Jpre1v@Y#H'. Complexity does not equal security. A password can be compliant and already exposed in a criminal database.
+
+Related: INC Ransomware Thrives by Mastering the Basics
+
+Password policies must go beyond complexity rules and continuously check for breached passwords. Tools like the Breached Password Protection feature in Specops Password Policy help improve security by scanning AD against a continually updated database of over 5.8 billion compromised passwords, prompting resets for exposed passwords.
+
+Pass-the-hash attacks use password hashes already stored in memory. If attackers extract the hash, they can authenticate without knowing the plaintext password.
+
+Passwords of 15 characters or more prevent weaker LAN Manager (LM) hashes, still present in older environments. Although LM hashes are disabled by default in newer AD deployments, legacy systems and cached credentials can still expose them, so password length remains a reliable safeguard.
+
+Strong endpoint protections and virtualization-based security help prevent malware from accessing memory. Multi-factor authentication also adds a layer of defense, though it’s not a complete mitigation on its own.
+
+Kerberoasting targets service accounts by exploiting how Kerberos issues service tickets. An attacker with even a low-privileged account can request a ticket for a service account, which is encrypted using that account’s password. They can then crack the ticket offline with little risk of detection.
+
+Strong, unique passwords are an essential countermeasure, alongside regular rotation to avoid stale credentials. Monitoring for unusual service ticket requests also helps to identify suspicious activity early. Just as importantly, robust password policies should apply to all accounts, including inactive or rarely used ones.
+
+Related: Sweeping Credential-Harvesting Heist Compromises 30K+ Fortinet Devices
+
+Domain controllers that host AD DS synchronize changes through replication. By mimicking this process and making a GetNCChanges request, an attacker can capture credential data, such as password hashes, directly from AD. Using tools like Mimikatz, attackers can abuse this once the right permissions are in place.
+
+Defending against DCSync attacks starts with tightening control over privileged accounts and replication permissions. Replication rights should be tightly limited, while stale or unnecessary accounts, especially service accounts, should be regularly removed to reduce the attack surface.
+
+It’s also important to monitor for changes to domain groups and replication-related permissions, as these can indicate attempts to escalate privileges . Mitigation here relies on a layered approach: securing domain controllers, auditing AD regularly, and maintaining strict control over who can access sensitive functions.
+
+Golden Ticket attacks target the Kerberos Ticket Granting Ticket (KRBTGT) account, which is how Kerberos issues authentication tickets in AD. If an attacker obtains the NTLM hash for this account, they can generate their own tickets and gain persistent access across the domain. Because these tickets appear legitimate, the attack can be difficult to detect.
+
+Related: Fileless Phantom Stealer Targets Browser Credentials
+
+It's crucial to protect and regularly rotate the KRBTGT account password. Best practice is to reset it at least every 180 days.
+
+As with other attack paths, applying least privilege across AD reduces the chances of attackers reaching the KRBTGT account.
+
+Legacy applications integrated with AD can provide openings for attackers, especially where they rely on hard-coded credentials, outdated encryption, or insecure protocols.
+
+Addressing these issues isn’t always straightforward. Refactoring or replacing business-critical applications can take months and requires careful planning. A thorough audit helps identify where the real risks lie and which systems need attention first.
+
+Where remediation isn’t immediately feasible, additional safeguards like tightening access controls, isolating vulnerable systems, or monitoring them more closely can help. Over time, though, replacing high-risk legacy integrations should be a priority.
+
+Look across all six attack paths and a pattern emerges. Attackers rarely need to invent anything new. A weak, reused, or already-breached password is usually enough to start the chain. Everything else, from Kerberoasting to Golden Tickets, builds on that first foothold.
+
+Specops Password Policy helps organizations strengthen this layer by enforcing password policies beyond default AD settings, while continuously scanning for over 5.8 billion known compromised passwords. It’s worth exploring how stronger password controls could fit into your existing AD security strategy. Contact us today or book a demo to see our solutions in action.
+
+By Dominique Adams Dominique Adams is a UK-based cybersecurity writer with over seven years of experience in the cybersecurity industry. Her work focuses on cyber risk, threat trends, security operations, and helping organizations understand complex security challenges.
+
+How Organizations Are Managing Incident Response
+
+How Enterprises Are Developing Secure Applications
+
+Inside RSAC 2026: security leaders reveal the risks redefining your defense strategy
+
+Essential News & Insights from Black Hat USA 2025
+
+How Enterprises Are Harnessing Emerging Technologies in Cybersecurity
+
+Say Yes to AI: Securing Innovation Without Compromise
+
+Zero Trust Identity: Beyond Traditional Authentication
+
+Advanced Persistent Threats: A Practical Guide to Detection and Response
+
+The Frontier AI Era: Why Cybersecurity Must Move at Machine Speed
+
+Build vs. Buy: The Hidden Cost of Building Your Own AI Security Stack
+
+Anatomy of a Data Breach

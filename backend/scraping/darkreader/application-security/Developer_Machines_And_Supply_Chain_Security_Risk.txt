@@ -1,0 +1,75 @@
+Title: Developer Machines And Supply Chain Security Risk
+URL: https://www.darkreading.com/application-security/developer-machines-and-supply-chain-security-risk
+Author: (unknown)
+Date: (unknown)
+Topic: application-security
+
+Compromised packages and tools now lead to credential theft. Securing developer identities is essential to limiting supply chain attacks. Here's how.
+
+Sponsored by GitGuardian
+
+Supply chain attacks are evolving faster than defenders can respond with one-off controls. Every week brings another variation of the same basic pattern: an infected package, a compromised download, a malicious browser extension, or a poisoned developer tool that steals local credentials.
+
+Attackers are now focused on abusing identity. They are finding a token, key, session, or service credential that already has trust attached to it, then using that trust to log in like something legitimate.
+
+Found credentials are then used to expand access, publish more malicious artifacts, and compromise more systems. Meanwhile, repositories, services, wallets, cloud accounts, and production environments are exfiltrated to further inflict damage on the victim.
+
+Developer machines are messy. Source code, package managers, cloud CLIs, and AI coding tools all interact on the same machine that contains the human's browser sessions, SSH keys, config files, vault tokens, and environment variables. That makes the developer workstation an ideal target for a threat actor.
+
+Related: Copilot 'SearchLeak' Attack Allows 1-Click Data Theft
+
+Attackers know the easiest way in is to find and use an identity that already belongs there and abuse their access. That makes long-lived credentials among the most dangerous assets in the modern software supply chain.
+
+We can't build any castle walls strong or clever enough to block every novel attack's malicious code, infected packages, and new abuse paths.
+
+To fight AI-powered supply chain attacks, we need to eliminate production credentials, high-value credentials, and long-lived secrets from developer machines wherever possible. We believe this is the most pragmatic approach to limiting the blast radius of these ongoing, evolving attacks.
+
+That goal has a long-term and short-term roadmap.
+
+The long-term answer is identity-based access. We need to rethink how entities interact. Instead of handing a workload a reusable credential that grants authentication and authorization, it gets a cryptographically provable identity. That identity can be validated through certificate authorities, OIDC, or workload identity systems. The entity proves, “I am verifiably me,” and if they are expected and allowed, access is granted based on proof, context, policy, and intent.
+
+Done poorly, this shift feels heavy and confusing. Done well, it becomes almost invisible to the developer. This is why technologies like CNCF's SPIFFE/SPIRE and AWS federated STS are already free and available. Enterprises like Uber and State Farm have shared KubeCon stories about eliminating secrets to scale infrastructure. You are not alone on this path.
+
+Related: Miasma Supply Chain Worm Burrows Into 73 Microsoft Repositories
+
+The short-term answer is to vault everything asap. Open source tools like KeePass and local keyrings like macOS Keychain or Windows Credential Locker for environment variables are solid options for those who want to act immediately. Your enterprise likely already has a preferred solution available for developers.
+
+If a credential touches production, it should most likely live in your enterprise vault, not on the workstation. Some providers make MCP servers available to help with updating secret references for vault calls.
+
+While you act, you need to know what is at risk.
+
+In 2026, unintentionally installing a compromised package or tool means assuming the adversary has local credentials. Your first response question should be: Which credentials were exposed, and which keys need rotation first?
+
+That is where visibility becomes the difference between panic and response.
+
+GitGuardian exists to connect secret exposure to identity risk. It can help you see where credentials exist, where they leaked, whether they are valid, what systems they touch, and how urgent the remediation should be.
+
+Related: 'Hades' Campaign Against PyPI Puts New Spin on Shai-Hulud
+
+GitGuardian helps organizations map at-risk secrets back to real access. A credential represents an identity, a permission set, an owner, and a system, and it has a blast radius. That needs to be accounted for in an auditable way across the whole organization.
+
+We cannot defend the ecosystem by chasing every clever attacker trick one at a time. The developer laptop is now part of the software supply chain. Treat it that way. Secure the identities and credentials that flow through it before an attacker turns them into the next compromise.
+
+Dwayne McDaniel Principal Developer Advocate at GitGuardian
+
+How Organizations Are Managing Incident Response
+
+How Enterprises Are Developing Secure Applications
+
+Inside RSAC 2026: security leaders reveal the risks redefining your defense strategy
+
+Essential News & Insights from Black Hat USA 2025
+
+How Enterprises Are Harnessing Emerging Technologies in Cybersecurity
+
+Say Yes to AI: Securing Innovation Without Compromise
+
+Zero Trust Identity: Beyond Traditional Authentication
+
+Advanced Persistent Threats: A Practical Guide to Detection and Response
+
+The Frontier AI Era: Why Cybersecurity Must Move at Machine Speed
+
+Build vs. Buy: The Hidden Cost of Building Your Own AI Security Stack
+
+Anatomy of a Data Breach

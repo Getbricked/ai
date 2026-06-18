@@ -1,0 +1,39 @@
+Title: INC Ransomware Thrives by Mastering the Basics
+URL: https://www.darkreading.com/cyberattacks-data-breaches/inc-ransomware-thrives-by-mastering-the-basics
+Author: (unknown)
+Date: (unknown)
+Topic: cyberattacks-data-breaches
+
+And one of those basics is focusing on sectors where a ransomware disruption creates immediate pressure to pay up, like with healthcare.
+
+INC is a ransomware group that has excelled in the ransomware-as-a-service (RaaS) space through doing the basics effectively — alongside a bit of good timing.
+
+Researchers with security vendor Acronis today published a blog post covering RaaS gang INC, a group that emerged in 2023 and has claimed more than 800 victims to date. INC is a ransomware actor that greatly benefited from the shutdown of ALPHV/BlackCat and the disruption of LockBit ; this is an attribute shared with other ascendant gangs like The Gentlemen .
+
+And according to the Acronis Threat Research Unit (TRU), the group is one of the most active of its kind right now. On the surface, INC doesn't stand out so much. It's a double extortion ransomware actor (meaning it uses encryption and data leaking to get victims to pay up), drawing victims from manufacturing, legal services, healthcare , technology, construction, and educational sectors, among others. The group appears to have a certain preference for organizations with especially sensitive data to add extra extortion pressure.
+
+Related: Sweeping Credential-Harvesting Heist Compromises 30K+ Fortinet Devices
+
+Santiago Pontiroli, threat intelligence research lead at Acronis, tells Dark Reading that INC's growth can be chalked up to three factors: unusually aggressive victim selection, rapid affiliate scaling, and "a focus on proven intrusion methods that maximize volume rather than technical innovation."
+
+"What makes INC particularly effective is its focus on sectors where disruption creates immediate pressure to restore operations," he says, adding that the group has repeatedly targeted high-profile victims such as Scottish healthcare organization NHS Dumfries & Galloway and Alder Hey Children's Hospital in Liverpool, England. "These types of organizations often hold sensitive data and face significant operational consequences when systems are disrupted, creating strong leverage for extortion."
+
+Their intrusion methods include spear-phishing, getting in with valid account credentials through initial access brokers, and exploiting tried-and-tested vulnerabilities such as Citrix Bleed 2 flaw CVE-2025-5777 , SimpleHelp RMM bug CVE-2024-57727 , Citrix Netscaler vulnerability CVE-2023-3519 , and Fortinet EMS bug CVE-2023-48788 .
+
+Once they're in, INC uses a fairly vanilla playbook. Discovery is conducted through pings, cmd.exe commands, and established tools such as Advanced IP scanner and netscan. INC steals credentials through a base64 encoded script and uses living-off-the-land binaries for lateral movement. It uses EDR killers for evasion, as well as red team and commercial remote access tools for command and control (C2). And INC exfiltrates stolen data by packaging it into archives and uploading to attacker-controlled cloud storage.
+
+Related: Fileless Phantom Stealer Targets Browser Credentials
+
+Because INC has found success without relying on proprietary tools or novel techniques, Pontiroli says this flexibility lowers the barrier to entry for affiliates and makes the operation easy to scale. The group further benefitted from emerging as many other ransomware groups shuttered and focusing on sectors and (primarily US-based) organizations where there is far more pressure to pay up.
+
+"If there's one factor that best explains the group's success, it's scalability," Pontiroli says. "INC has shown that a ransomware operation doesn't need novel malware to be effective. Consistently turning common intrusion techniques into a steady stream of victims across high-pressure sectors can be just as powerful."
+
+Related: 'Lorem Ipsum' Malware Pivots to ClickFix Delivery
+
+Acronis's blog includes YARA rules and indicators of compromise. Acronis recommends defenders use a 3-2-1 backup rule (keep three copies of data on two different media types and one copy stored offsite); ensure backups are offline or immutable and regularly tested; use endpoint and ransomware protection tools; implement identity and access controls; stay patched; and segment networks.
+
+"Because these affiliates continue to rely on opportunistic tactics such as stolen credentials, phishing, credential reuse and exploitation of unpatched remote services, organizations should prioritize reducing external exposure and securing perimeter access points to limit the risk of intrusion," the blog post read.
+
+Adam Darrah, VP of intelligence at ZeroFox, tells Dark Reading that INC operates alongside other groups that dominate the current threat landscape, such as Akira, Qilin, RansomHub, Play, and Cl0p. In the first quarter of this year, INC broke into ZeroFox's global top five for the first time, with 124 incidents behind Qilin (338), Akira (197), and The Gentlemen (192), but ahead of Cl0p.
+
+"INC's trajectory, however, has been uneven — the contraction in late 2025 followed by a Q1 2026 surge probably reflects affiliate churn and re-consolidation rather than sustained organic growth," he says. "And although INC doesn't have that same technical profile on paper as let's say Qilin, its Q1 2026 numbers suggest it's attracting affiliate volume at a competitive rate regardless."

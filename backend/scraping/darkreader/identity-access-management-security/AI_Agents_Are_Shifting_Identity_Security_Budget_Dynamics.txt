@@ -1,0 +1,45 @@
+Title: AI Agents Are Shifting Identity Security Budget Dynamics
+URL: https://www.darkreading.com/identity-access-management-security/shifting-budget-dynamics-identity-security-ai-agents
+Author: (unknown)
+Date: (unknown)
+Topic: identity-access-management-security
+
+Enterprise cybersecurity technology research that connects the dots .
+
+AI agent projects are proliferating throughout the enterprise, and those AI agent identities require management, security, and governance. New Omdia research shows the AI agent identity budget dynamics are very different than traditional IAM projects.
+
+While Omdia's new research, " Identity Security for AI Agents ," revealed numerous interesting findings, something that caught my eye was the radically changing budget dynamics around agentic AI adoption.
+
+The study, which surveyed identity leaders in the US and Canada, showed how identity teams are rapidly evolving their existing identity and access management (IAM) tooling, focused on human and non-human identities, to put management and identity security in place for AI agent populations as well.
+
+AI agent populations are expanding and evolving toward autonomous systems operating at machine speed, accessing sensitive data, APIs, and workflows across hybrid environments. The proliferation of identities and privileges is a challenge today, and will become even more so as AI agents needing authentication, fine-grained authorization, governance, and life cycle management move into production. Identity leaders and leaders driving AI initiatives recognize the need for IAM discipline for this new class of identities, which represent a significant expansion of the enterprise attack surface.
+
+Related: Identity Security 2026: Four Predictions & Recommendations
+
+The budget for previous identity security projects like identity governance and security (IGA), access management (SSO, MFA), or privileged access management (PAM) has typically come from an IT budget owned by the chief information officer (CIO), or a security budget owned by the chief information security officer (CISO). Projects for AI agents show a very different dynamic.
+
+Omdia surveyed 350 IT leaders in the first half of 2025 and found that 45% were using a completely new standalone budget for their AI agent projects. This bucket of funds for AI was separate from the digital transformation budget or an innovation/science project budget.
+
+Then in January 2026, Omdia surveyed 400 identity leaders around "Identity Security for AI Agents" and probed into the source for funding identity security for AI agents. More than a third (36%) of enterprise identity leaders said they tapped a separate, standalone AI budget. There is an identity "tax" being levied against an AI budget to fund the identity security layers needed for AI agents.
+
+While having a standalone AI budget was the most frequent response, the other approaches to funding identity security for AI agents were reallocating funds from other technology/innovation budgets (28%), using a digital transformation or AI initiative (21%), and reducing existing identity budgets in other identity areas (15%).
+
+Given how diffused and diverse AI agent initiatives are in the enterprise, identity leaders are engaging with new constituents to ensure that the right identity management, governance, and security layers are in place. These are net-new layers. Identity security for AI agents requires visibility (inventory of AI agent identities , visibility into what agents are doing), fine-grained access management (guarding against over-permissioned agents and long-lived credentials), governance (ensuring access aligns with policy, controlling against AI drift), and life cycle management. Identity leaders are having to educate their security peers and other enterprise constituents about the role of identity for compliance, security, and efficiently scaling AI agent projects.
+
+Related: Google API Keys Remain Active After Deletion
+
+Securing AI agents requires many technology layers, however identity security is a key pillar of any AI agent security strategy. AI agents represent a new, first-class identity that requires new policies, processes, and technology tooling. And that costs money and requires budget.
+
+Something that caught my eye in comparing the Omdia survey results was that the IT audience indicated that 45% of enterprises had a standalone AI budget, but the identity teams reported that they tapped that AI budget to deliver identity security for AI agents 36% of the time. That nearly 10% delta means that identity teams probably have an underappreciated budget source to fund AI agent identity infrastructure. The 15% of identity teams use their existing identity budget for AI agent identity security, and that cost may be more appropriately covered by the AI budget. And I expect a similar dynamic holds true for other "cybersecurity for AI" projects. The budget is there, but someone has to educate the AI budget holder and make a business case.
+
+Related: Oracle Red Bull Racing Team Revs Up Automation to Boost Security
+
+For enterprise identity and security teams
+
+Make certain you are plugged into the AI agent projects happening throughout the enterprise and educate stakeholders on the need for management, security, and governance for AI agent populations. Those projects might be raised to the internal "AI steering committee" or they may not. Getting visibility and control with the right identity security layers in place is preferable to scrambling to respond to a security incident when you find unsanctioned "shadow AI" causing mischief.
+
+Start tapping the AI budget to fund the needed identity security infrastructure. The executive(s) driving AI projects will understand the imperative to have the right identity and access management (IAM) layers in place for AI agents when you explain compliance obligations, security risks, and how the right identity "railroad tracks" can help accelerate and scale AI agent projects
+
+Start to understand the new personas for AI initiatives. Every company is different, and vendor go-to-market teams may need to understand a new AI audience and decision maker. You will need to arm your existing identity security customers with the tools to make the case for any technology or service, or your sales and marketing teams will need to reach that enterprise AI leader to educate them.
+
+It is a great time to work in identity security — the dynamism around AI agents in particular makes your head spin! If you are a new technology player solving an interesting new identity problem or you have an innovating approach to an existing challenge, I would like to hear about it. You can reach me via LinkedIn .

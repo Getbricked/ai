@@ -1,0 +1,57 @@
+Title: Miasma Supply Chain Worm Burrows Into 73 Microsoft Repositories
+URL: https://www.darkreading.com/application-security/miasma-supply-chain-worm-73-microsoft-repositories
+Author: (unknown)
+Date: (unknown)
+Topic: application-security
+
+The attacks stemmed from a GitHub account that was also compromised in a previous Miasma attack on Microsoft last month.
+
+A variant of the infamous Shai-Hulud worm wreaked havoc on Microsoft's code repositories, triggering disruptions to CI/CD workflows and heightening concerns about increasing software supply chain threats.
+
+The attacks, which unfolded June 5, were first reported by Open Source Malware, an online collaboration platform for security researchers. In less than two minutes, 73 of Microsoft's GitHub repositories, primarily in the company's Azure organization, were taken offline in an automated sweep for terms of service violations.
+
+The response broke CI/CD pipelines around the globe for organizations that used any of the affected GitHub Actions. The most notable example was Azure/functions-action, the GitHub Action for deploying Azure Functions.
+
+"[Azure/]functions-action isn't a library you can pin around — it's the action that runs inside other people's pipelines ," Open Source Malware noted in its June 5 blog post . "When GitHub disabled it (and functions-container-action alongside it), every workflow on Earth that references Azure/functions-action@v1 stopped resolving."
+
+Related: Copilot 'SearchLeak' Attack Allows 1-Click Data Theft
+
+StepSecurity published research the same day, confirming Open Source Malware's findings and connecting the attacks to Miasma, a variant of the Mini Shai-Hulud worm . Miasma was spotted earlier this month in a series of attacks against Red Hat npm packages .
+
+More interestingly, StepSecurity connected the Miasma worm attacks to a previous compromise of a Microsoft PyPI package last month, raising questions about the software giant's response to that incident.
+
+Three poisoned versions of Microsoft's official durabletask Python SDK were published to PyPI on May 19. The compromised package, which is typically downloaded 400,000 times per month, was online for approximately 35 minutes before Microsoft took it down.
+
+In a blog post published that same day, Ashish Kurmi, chief technology officer (CTO) and co-founder of StepSecurity, noted the poisoned versions were "particularly dangerous" because they contained a modular cloud intrusion framework called "rope.pyz" that steals secrets and credentials and can also deploy a destructive wiper in some regions.
+
+"The attacker compromised the real publishing credentials for an official Microsoft package and bypassed the repository's build pipeline entirely," Kurmi wrote. "Microsoft has since confirmed the compromise and yanked the affected versions."
+
+At the time, StepSecurity attributed the PyPI package compromise to TeamPCP, noting the overlapping infrastructure with the group's earlier Mini Shai-Hulud attacks . In its most recent report, the vendor tied the compromised Microsoft repos to TeamPCP's broader supply chain campaign and noted that a malicious commit in the attacks came from the same contributor account used in the PyPI package compromise.
+
+Related: 'Hades' Campaign Against PyPI Puts New Spin on Shai-Hulud
+
+Kurmi tells Dark Reading that it's very possible the attackers used a combination of the first two scenarios.
+
+"Our leading assessment is re-compromise through the worm's own propagation loop, likely combined with incomplete credential rotation after May 19," he says. "The two aren't mutually exclusive and tend to compound. An account already in the blast radius once is a natural reinfection candidate, consistent with how we've watched this worm jump across accounts."
+
+Related: Coding Gaffe Exposes Microsoft 365 Accounts to Widespread Takeover
+
+Dark Reading contacted Microsoft for comment. The company did not respond to questions regarding the contributor account and instead provided a statement. "Our priority is to protect customers and the broader ecosystem. We temporarily removed some repositories as we investigated potential malicious content. All of these repos have been restored after review. As part of our investigation, we notified a small number of customers who may have pulled down content from the affected repositories," the software giant said. "We will continue to investigate, and if anything further is identified that requires customer action, we will reach out directly through our established support channels."
+
+While previous Miasma and Shai-Hulud attacks have targeted developer secrets and cloud credentials , StepSecurity said the credential-stealing malware in the Microsoft repos was focused on AI coding agents. Specifically, the credential-stealing malware targets Anthropic's Claude Code, Google's Gemini CLI, Cursor, and Visual Studio Code.
+
+Another difference observed by StepSecurity researchers was the attacker's use of configuration files rather than a poisoned package registry. The files automatically execute code when a developer opens a compromised repo through an AI coding tool or integrated development environment (IDE), activating the malware.
+
+Kurmi says this deliberate shift by the threat actors was designed to bypass detection systems. Downloading a compromised repo won't trip any alerts because the repo is considered safe, but is then opened via AI coding tools — where most scanners aren't yet looking, Kurmi says.
+
+"Defenses are built around the package manager and its install-time hooks. The June 5 attack skips that entirely. It changed no source code; it planted config files for Claude Code, Gemini CLI, Cursor, and VS Code, all pointing at one 4.6MB payload," he says. "The pattern is consistent: they find the least-monitored trusted surface and move there."
+
+And while the compromised repos were flagged and taken down within a few hours by GitHub's automated defenses, the exposure window is significant, according to StepSecurity.
+
+"For a self-spreading worm, that's the whole game," Kurmi says. Anyone who pulled an affected repo and opened it in one of the affected environments had credentials harvested instantly, and the stolen tokens are what push the next commit and republish the next package. "So the blast radius compounds rather than being fixed," he adds.
+
+It's unclear how many developer accounts may have been compromised in that time frame, and Kurmi says no one can put a hard number on it. But just one high-value developer opening one of the compromised repos will provide enough credentials to seed the next wave of attacks, which makes fast detection essential.
+
+StepSecurity urged organizations that cloned any of the compromised repos after June 2 and opened them with the aforementioned AI coding tools to assume their systems have been breached. Those organizations should rotate all credentials, audit their npm/PyPI packages, and check logs for indicators of compromise.
+
+To prevent similar attacks, StepSecurity recommended inspecting cloned repos for any suspicious configuration files of AI coding agents and other third-party tools; enabling branch protection rules that require reviews for all commits; and restricting outbound network access from CI/CD runners to block traffic to command-and-control (C2) domains, among other steps.

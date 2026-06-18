@@ -1,0 +1,47 @@
+Title: Tropical Blend: Cyber & Politics Ramp Up Across Latin America
+URL: https://www.darkreading.com/cyberattacks-data-breaches/nation-state-cyber-activity-latin-america
+Author: (unknown)
+Date: (unknown)
+Topic: cyberattacks-data-breaches
+
+Breaking cybersecurity news, news analysis, commentary, and other content from around the world, with an initial focus on the Middle East & Africa and the Asia Pacific
+
+China-linked espionage groups have attacked at least a dozen nations in the region, gathering information on maritime shipping, oil production, and other geopolitical interests.
+
+State-sponsored threat groups have increased their cyber operations targeting countries and government entities in Latin America and the Caribbean, as the US and China take a more active geopolitical role to the region.
+
+Following the US military operation in Venezuela, China-linked group FamousSparrow targeted a Venezuelan governmental group focused on maritime affairs, cybersecurity firm ESET stated in an report on advanced persistent threat (APT) groups released May 28. Both FamousSparrow and NegativeGlimmer — another China-linked cyber-espionage group — targeted government agencies in Panama as well.
+
+The two countries are only the most recent Latin American nations targeted by China in the past year. ESET has tracked about a dozen targeted countries in the region since early 2025, says Alexis Rapin, a cyber threat analyst with ESET. While the overall strategy may be from the PRC's national playbook, many China-linked groups operate according to their sponsoring organizations, he says.
+
+Related: Chinese, N. Korean Threat Groups Build on Asia-Pacific Success
+
+"PRC intelligence system is very decentralized, with many intelligence units reporting firstly to provincial authorities," Rapin says. "In this context, it's quite conceivable that two different APT groups may be tasked with targeting the same entity, because it proves strategic to various regions or departments simultaneously, without any coordination taking place between them."
+
+Geopolitics has focused major nation-states on the Latin America and Caribbean region. The US military operation to capture the president of Venezuela and his wife and the Trump administration's vow to "take back" the Panama Canal are among the US-China points of tension that may spur additional cyber activity, experts say. China holds claims to about half the oil produced by Venezuela, and the Chinese company that held the contracts to operate ports on both sides of the Panama Canal — the Panama Ports Company, a subsidiary of the Hong Kong-based conglomerate CK Hutchison — lost its contract when the country's Supreme Court ruled that the agreement violated Panama's constitution .
+
+With the Trump administration's "aggressive reaffirmation of US interests in the region," China is looking to gather intelligence on what's being discussed behind closed doors and whether their economic and geopolitical interests are threatened, ESET's Rapin says.
+
+"It's pretty clear that oil constitutes one of China's primary interests in Venezuela, and it thus seems fair to assume that this in turn constitutes one of the major motivations behind China-aligned APT activities in the country," he says.
+
+Related: Pakistan Spies on Afghan Finance Ministry With Xeno RAT
+
+State-sponsored attacks focus overwhelmingly on government agencies in North and South America. Source: ESET
+
+A variety of APT groups are active in the region. China-linked Earth Krahang, for example, targeted Mexico, Brazil, and Paraguay in 2024 , and groups such as Vixen Panda, Aquatic Panda, and Liminal Panda have targeted Argentina, Bolivia, Brazil, Chile, Colombia, Ecuador, Peru, Suriname, and Uruguay in 2024 and 2025.
+
+The groups typically are not using zero-day exploits, but a toolbox of common tactics, says Santiago Rosenblatt, CEO and founder of security vendor Strike.sh. "Identity-led intrusion paths — [such as] phishing-resistant multifactor authentication (MFA) gaps, conditional-access bypasses, [and] post-MFA token theft — are now the most commonly scoped-up area, especially in financial services and gov-adjacent fintechs in Mexico, Brazil and Argentina," he says. "Second, edge-device and API-surface testing demand has spiked."
+
+Russian cyber-espionage groups are mostly absent. However, while Russia's cyber-operations have mainly targeted Ukraine and its allies , Cuba has always been of interest to Russia, and the Trump administration's recent focus on the island nation will likely spur additional cyber activities.
+
+The most frequent initial access technique involved the compromise of an unpatched server — often a Microsoft SQL database or Exchange mail server, ESET says. While nation-state adversaries have certainly deployed zero-day exploits, the threat actors usually try to avoid using more advanced implants and techniques unless absolutely necessary, says Mathieu Tartare, a senior malware researcher at ESET.
+
+Related: Latin American Cybercriminals Hoover Up Government Data
+
+"On several occasions we detected the deployment of custom implants after the failed deployment of off-the-shelf implants," he says, adding, "Properly patching such servers should be the highest priority."
+
+The second most popular form of access is spear-phishing, as demonstrated by the NegativeGlimmer attack, he says.
+
+Strike.sh's Rosenblatt agrees. Organizations should focus on identity by putting phishing resistant MFA on every privileged account, and patch Internet-facing edge devices within 14 days, especially if they are on CISA's Known Exploited Vulnerabilities list , he says.
+
+"Mandiant's 2024 finding, the four most-exploited vulnerability classes were all in edge devices, is the single most operationally relevant data point" in reports, he says. "This is the door PRC-aligned actors have walked through into LatAm governments more often than any other."

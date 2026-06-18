@@ -1,0 +1,51 @@
+Title: Asia's Cyber Insurance Market Shows Signs of Life
+URL: https://www.darkreading.com/cybersecurity-operations/asias-cyber-insurance-market-signs-of-life
+Author: (unknown)
+Date: (unknown)
+Topic: cybersecurity-operations
+
+Breaking cybersecurity news, news analysis, commentary, and other content from around the world, with an initial focus on the Middle East & Africa and the Asia Pacific
+
+The cyber insurance industry has made relatively weak inroads into Asia due to a variety of factors, but that could be changing.
+
+Relatively few organizations in the Asia-Pacific (APAC) region use cyber insurance , but there is reason to believe that is slowly changing.
+
+Cyber insurance is a subset of insurance that has gained popularity in recent years as ransomware attacks became an ever-present threat. Cyber insurance is intended to offset the losses incurred by cyberattacks, including, in some cases, policy holders paying ransoms to cybercriminals.
+
+Insurance broker UIB and cyber-risk analytics vendor CyberCube this week published a report detailing the state of cyber insurance in Asia. The report, titled "Unlocking Asia’s Cyber Insurance Opportunity: The Broker's Role in Growth," claims that, despite the billions of people and countless organizations that reside in the region, market penetration remains low, even in developed economies like Japan, South Korea, Hong Kong, and Singapore.
+
+In these economies, "larger entities with multi-billion-dollar revenues often purchase only modest cyber limits relative to their exposures," the report states, and in many markets fewer than 5% of small businesses purchase standalone cyber insurance. Risk management firm Aon said in a report last year that cyber insurance had reached only about 6% of Asia's addressable market.
+
+Related: EU Gets a Head Start in Developing 6G Network Security
+
+Organizations in Asia lagged behind on getting cyber insurance for a variety of reasons, namely the mixed quality of cybersecurity postures, recent rapid digitalization, and a threat landscape that ramped up in tandem with said digitization, according to UIB and CyberCube's report.
+
+As threat actors got more aggressive and smarter about how much money to demand from victims, underwriting requirements for elements like customer security postures got more stringent. But this isn't necessarily true in all cases, as the report notes.
+
+"In a soft market, with cyber (re)insurers navigating a world of rising, increasingly complex threats, the underpenetration of the APAC market presents an opportunity. Growing competition has pushed cyber globally into its third consecutive year of rate reductions, as insurance supply continues to outpace demand," the report reads. "This dynamic is offsetting recent exposure growth due to negative rate changes, and driving further concessions on premiums, coverage and security controls."
+
+Alongside this "opportunity" for growth, UIB and CyberCube note a worsening threat landscape as major Asian organizations report high-profile cyber incidents. The Bank of China's Singapore branch suffered a ransomware attack in April 2025. Japanese beermaker Asahi suffered an attack at the hands of ransomware group Qilin in September of that year, leading to dayslong production shutdowns .
+
+Related: Interpol's 'Operation Ramz' Pioneers Cross-Region Collabs in Middle East
+
+Cyber consultancy S-RM published research in January observing a sharp increase in ransomware attacks across the region, with twice as many organizations being named on ransomware leak sites over the previous year.
+
+Qilin was the most active group targeting organizations in Asia last year, though that may be changing, as Cyble observed that The Gentlemen accounted for nearly one in four ransomware attacks. Cyble's Q1 2026 APAC report further noted massive ransomware targeting in India, with a 165% jump in incidents between Q1 2025 and Q1 2026.
+
+Similar to the Latin America (LATAM) and the Middle East and Africa (MEA) regions, Asian security postures are inconsistent across organizations and countries, a problem only exacerbated by the rapid digital expansion seen across the region. For example, Vietnam , which has seen massive digital expansion in recent years, has become one of the fastest-growing targets for ransomware attacks.
+
+On a positive note, that same aforementioned report from Aon observed an overall improvement in cyber maturity among APAC organizations.
+
+Related: Operation Red Card 2.0 Leads to 651 Arrests in Africa
+
+Rich Seiersen, chief risk technology officer at Qualys, tells Dark Reading that while Asia is not uniquely targeted in this way, any rapidly digitizing market with a growing attack surface will attract both opportunistic cybercrime and state-sponsored activity.
+
+"As economies become more connected, cloud-enabled, mobile-first, and operationally dependent on digital systems, they naturally become more attractive target environments," he says. "Many parts of the region are experiencing rapid economic and digital expansion, which increases both exposure and attacker interest. In some countries, that is compounded by uneven regulation , varying levels of cyber maturity, and heightened geopolitical attention around critical infrastructure, telecom, manufacturing, and supply chains."
+
+A core thesis of the report appears to be that while the Asian market lagged due to rapid digitization and mixed security postures, it is also positioned for growth because of these factors, as many organizations didn't consider insurance until the threat landscape demanded it.
+
+"Expansion is expected to be driven by Asian enterprises that often lack a clear understanding of their true financial exposure to cyber threats," the report read. "Many of these organizations also operate without internal cybersecurity leadership, lack dedicated specialized IT security teams, and have yet to implement structured approaches to risk financing. Cyber insurance functions as a relatively affordable financial backstop against operational disruption, ransomware attacks, and business interruption costs and expenses."
+
+And there has apparently been growth: Asian businesses at all levels saw a more than 100% increase in cyber insurance adoption rate between 2024 and 2025, the report said.
+
+Organizations in Asia considering cyber insurance may want to build coverage requirements into their security road map, as such requirements could well grow stricter as insurers' customer bases increase. It should be noted that even if cyber insurance is a backstop, it is by no means a replacement for good security posture; organizations should as always prioritize vulnerability patching, strict authentication practices, and guidance for employees on how to avoid social engineering tactics like phishing.

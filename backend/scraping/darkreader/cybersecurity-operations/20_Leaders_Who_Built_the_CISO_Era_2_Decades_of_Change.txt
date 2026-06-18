@@ -1,0 +1,357 @@
+Title: 20 Leaders Who Built the CISO Era: 2 Decades of Change
+URL: https://www.darkreading.com/cybersecurity-operations/20-leaders-ciso-era-2-decades-change
+Author: the FBI in Las Vegas after attending the Black Hat USA 2017 and DEF CON 25 conferences, having been indicted on six counts related to the development and distribution of the
+Date: (unknown)
+Topic: cybersecurity-operations
+
+Since 2006, Dark Reading has been at the forefront of covering cybersecurity, providing deep insights and analysis beyond the headlines. All those major news events? We were there. Shifts in technology trends? We wrote about them. Enjoy this special anniversary coverage celebrating where we've been and what's next.
+
+As part of Dark Reading's 20th anniversary special coverage, we profile the CISOs, founders, researchers, criminals, and policymakers who rewrote the enterprise risk playbook.
+
+20 Leaders Who Built the CISO Era: 2 Decades of Change
+
+Twenty years after Dark Reading debuted in 2006, the CISO era is no longer emerging — it's well-established. But you know what they say about standing on the shoulders of giants …
+
+It began with pioneers like Steve Katz formalizing the role at Citicorp and Howard Schmidt elevating cybersecurity to an administration-level hire in federal government; but now, cybersecurity has become a board‑level risk, and the job of the chief information security officer (CISO) has expanded from block-and-tackle cyber defense into the realms of business resilience, national security, brand protection, compliance, and corporate trust.
+
+This special 20th anniversary retrospective from Dark Reading traces a rich history of how a diverse set of voices reset the playbook for adversaries and defenders alike, and architected today’s CISO-led world. We profiled 20 newsmakers, from Dan Kaminsky to Barnaby Jack, Katie Moussouris to Troy Hunt, Window Snyder to Kevin Mandia. There are some tarnished haloes in there too, like Edward Snowden, Kevin Mitnick, Marcus Hutchins, Albert Gonzalez, and Joe Sullivan, all of whom have been at the center of hard conversations about accountability, offense/defense dynamics, how enterprises should ethically respond to threats, and redemption narratives.
+
+The list is by no means exhaustive, but we think it's representative. Each of these 20 profiles (organized alphabetically) have contributed to a practical road map for modern cyber defense: align cyber with business outcomes; modernize disclosure, collaboration, and crisis communications; bridge gaps between public and private, cloud and on-prem, the board and the SOC; pressure‑test supply chain and third‑party risk; prioritize safety for connected devices and critical infrastructure; and of course, ready your organization for AI‑accelerated threats. Happy (dark) reading!
+
+Click here for all of our DR20 content , which will be rolling out across the month of May. Keep checking back for new items!
+
+Albert Gonzalez. Source: Dark Reading
+
+There was a time in the early 2000s when cybercrime busts were rare, and perpetrators were mostly nameless and faceless. That all changed in 2008, when federal authorities arrested 26-year-old Albert Gonzalez, the mastermind behind a massive hacking operation targeting some of the biggest names in retail (as well as card payment processor Heartland Systems). His self-titled "Operation Get Rich or Die Tryin'" spree marked the largest cybercrime and identity theft case in history for the US Department of Justice at the time, and his prison sentence of 20 years was the longest ever levied on a convicted cybercriminal.
+
+Gonzalez, whose online handles included "segvec," "soupnazi," and "j4guar17," between 2005 and 2007 hacked into retailers including TJX Companies, BJ's Wholesale Club, Office Max, Boston Market, Sports Authority, 711, Hannaford Bros., and Barnes & Noble, as well as Heartland, stealing in total some 160 million-plus payment-card accounts. The financial damages to companies and insurers initially were estimated at hundreds of millions of dollars.
+
+Even more stunning was the fact that Gonzalez performed much of his cybercrimes while working as a paid undercover informant for the US Secret Service, where he helped the agency engage and bust carders.
+
+"Up to that point, most of the public still pictured hackers as kids defacing websites or pulling pranks," recalls David Maynor, a security expert with Tenable. "Gonzalez made it impossible to keep pretending. Real money was moving, with organized crews behind it, and companies were eating losses big enough to show up on quarterly earnings."
+
+The case represented a shift in the hacking conversation: cybercrime had become a money-making profession. "Gonzalez changed the talking points. This wasn't curiosity-driven; it was repeat, profit-driven intrusion across multiple companies," Maynor says. "Law enforcement stopped treating hackers as lone explorers and started treating cybercrime as the business it actually was."
+
+Gonzalez employed various techniques in the cyber heists, including "wardriving" near retailer Wi-Fi networks and installing sniffers that grabbed passwords and account information. He also later supplied his fellow hackers in Eastern Europe and the US with backdoor malware and SQL injection strings, to exploit holes in store payment servers and snatch payment account data.
+
+In 2011, Gonzalez unsuccessfully tried to appeal his conviction, arguing that the Secret Service had sanctioned his hacking and had made him feel like a part of the agency as he did their bidding.
+
+According to US Bureau of Prisons records, Gonzalez was released in September of 2023, having served 15 years of his 20-year sentence.
+
+Jennifer Granick. Source: the ACLU.
+
+The past two decades have seen a wide range of legal battles regarding cybersecurity and Internet freedom, and perhaps no one has been more involved in those battles than Jennifer Granick.
+
+The former surveillance and cybersecurity counsel with the ACLU's Speech, Privacy, and Technology Project, Granick began her legal career in criminal defense in the '90s, where she focused on digital law and computer crimes. Later, she helped create the Stanford Law School's Center for Internet and Society (CIS), which launched in 2000 as a program dedicated to technology law and policy.
+
+In addition to her policy work on cybersecurity and digital rights, Granick has been an outspoken critic of digital surveillance and authored the 2017 book American Spies: Modern Surveillance, Why You Should Care, and What To Do About It .
+
+But she's perhaps best known in cybersecurity circles as being a staunch defender of security researchers and hackers over the years, including defending the late Internet activist Aaron Swartz . She's served as a board member of the Internet Security Research Group (ISRG) and has spoken at several infosec conferences over the years and gave the keynote address at Black Hat USA 2015 , in which she warned that Internet freedom was dying.
+
+"She is an unflappable voice of reason, and thus one of the first people I turn to when things get tough," Josh Aas, executive director and co-founder of ISRG, says of Granick. "You won't find a better person to help you get comfortable with uncertainty, talk through nuance without letting it bog you down, and feel good about where you land. More often than not, she'll even make it fun."
+
+Troy Hunt. Source: Troy Hunt
+
+A long-time security consultant, Troy Hunt's claim to fame is founding and operating Have I Been Pwned? , a database launched in 2013 that lets users insert their email to check if they've had personal information compromised in a data breach. As of this writing, the database includes 975 "pwned" websites representing 17.5 billion compromised accounts.
+
+No centralized public source of breach data existed prior to 2013. As a result of this work, Have I Been Pwned? has offered countless users the ability to gain a view of (and possibly take control of) their operational security in a way they might not have previously.
+
+Hunt's impact extends far beyond individual lookups: the HIBP API has become important infrastructure for the security industry itself, powering breach notifications in password managers, browsers, and enterprise security tools used by many. Organizations like Mozilla, 1Password , the FBI, and Bitwarden use HIBP data to identify whether a user's data has been compromised or password has been exposed, and then alert the users on an individual level.
+
+Millions have benefitted from Have I Been Pwned?, whether they know it or not. More broadly, Hunt's legacy lies in democratizing cybersecurity awareness, and being among the first to put companies on notice by essentially disclosing breaches to the masses, even before the advent of breach-disclosure rules from the SEC .
+
+"Have I Been Pwned? provides easy to access information on data breaches and helps make breach exposure more visible and understandable for everyday users,” says Gary Orenstein, chief customer officer at password-management vendor Bitwarden. "Troy is also a prolific creator and social media participant showcasing how openness and sharing can help everyone stay more secure."
+
+MarcusHutchins. Source: Dark Reading
+
+Hero or villain? To some, Marcus Hutchins is both.
+
+The devastating WannaCry ransomware attacks of 2017 could have been much worse, if not for the work of Hutchins, a then-anonymous security researcher at cybersecurity firm Kryptos Logic operating under the handle "MalwareTech." Hutchins, as many now know, reverse engineered the wormable ransomware variant and found a domain that acted as WannaCry's command-and-control (C2) infrastructure.
+
+After discovering the domain wasn't registered, Hutchins quickly registered it for himself, which resulted in a kill switch for the ransomware payload mechanism. While the WannaCry worm continued to spread via the dangerous Windows exploit known as EternalBlue , the ransomware itself was nullified. Salim Neino, CEO of Kryptos Logic, says Hutchins' work helps companies avoid a cyber-cost apocalypse.
+
+"When he registered this particular WannaCry C2 domain, it triggered the so-called kill switch, which nullified its dangerous payload mechanism," he says. "We believe reporting indicates this mitigated billions in potential damages."
+
+However, just a few months later, Hutchins was arrested by the FBI in Las Vegas after attending the Black Hat USA 2017 and DEF CON 25 conferences, having been indicted on six counts related to the development and distribution of the Kronos banking Trojan . Many in the cybersecurity community supported Hutchins , who later pled guilty to two charges  and was sentenced to supervised release.
+
+Hutchins admitted to writing the malware as a teenager prior to becoming an infosec professional, and expressed regret for his actions, pledging to use his cyber skills for good. He currently works as principal threat researcher at cybersecurity vendor Expel, and is considered one of the most well-known security researchers in the industry.
+
+"His ability to rapidly pull apart malware led to his most famous action: stopping WannaCry from causing more damage than it doubtless would have otherwise," says Jake Williams, vice president of R&D at Hunter Labs. "But Marcus isn't just a reverse-engineering wizard. He's an excellent threat-intelligence researcher and amazing content creator. Whatever one might think about his past, there's no question he's a net-positive today."
+
+Barnaby Jack: Source: Dark Reading
+
+New Zealand hacker Barnaby Jack might be best known for his “ATM jackpotting” exploits , but he was a linchpin for the awareness of the security of physical devices, through his research on medical equipment, cars, factory systems, and much more. Jack’s dramatic, visual demonstrations of critical vulnerabilities made abstract security concepts tangible and urgent, forcing industries to confront threats they had long ignored.
+
+Jack was “way early” on recognizing the potential risks of physical device hacking, says Tyler Shields, CMO at Allstacks and a former Enterprise Strategy Group analyst. His work paved the way for other researchers to examine physical systems where security failures could kill people, such as automobiles, aviation systems, and industrial safety systems, Shields notes.
+
+Jack's "jackpotting" research from Black Hat USA 2010, where he made two ATMs on stage spit out cash on command, showed how default passwords, poor encryption, and insecure communication protocols left ATMs vulnerable . It was an industry wake-up call, forcing ATM manufacturers and banks to patch the vulnerabilities, develop new security standards, and rethink the security of these machines.
+
+Also significant — and arguably more important — was his medical device security research. He demonstrated that insulin pumps could be hacked remotely — from 300 feet away — to trigger potentially fatal insulin doses. Prior to his premature death in July 2013, Jack was scheduled to show how he could remotely hack pacemakers and implantable cardioverter-defibrillators (ICDs).
+
+Medical device security went from being ignored — no one really realized these devices could be hacked — to becoming an important field of research . Now, cybersecurity is part of the FDA's responsibilities, vulnerability disclosure programs for medical devices exist, and there are international standards for medical devices (IEC 62443, ISO 81001).
+
+Jack's work also foreshadowed the security nightmare that is the Internet of Things . His defining principles — that security is a safety issue and that researchers and manufacturers must collaborate — are still applicable today, with organizations like I Am The Cavalry advocating for safety-critical security.
+
+"His research was incredible and his impact on the future of cyber security is undeniable," Shields says. "From deep technical hacks and experience to market-changing shock-and-awe storytelling, Barnaby had it all."
+
+Dan Kaminsky. Source: IMAGO via Alamy Stock Photo
+
+There aren't too many cybersecurity researchers who can definitively say they single-handedly saved the Internet, but that's exactly what Dan Kaminsky did in 2008, many say.
+
+In July of that year, he revealed the "Great DNS Vulnerability," with a dire message that the entire Internet was completely open to cyberattack — a DNS cache-poisoning vulnerability could allow traffic flows to be re-routed globally, with massive consequences for the Web at large.
+
+He later added more than a dash of fun to it all by entering his Black Hat USA presentation on the bug on roller skates. But it was a monumental moment for cybersecurity. At the time he was just 29, leading secret meetings at Microsoft headquarters with the world’s biggest tech giants to develop a patch. It only took a few months until a worldwide fix was applied.
+
+The Great DNS Vulnerability wasn’t the first bombshell for Kaminsky. In 2005 for instance, he blew the lid on Sony BMG installing hidden software in music CDs to stop piracy, that could also have been exploited to conceal other malware.
+
+But beyond Kaminsky's powerful intellect, he was also a force for good, setting a "good guy" tone among the cyber community.
+
+"Hackers can fix things. We don't just break things," he said at a 2015 presentation at DEF CON 23 . "I like looking at how things actually work and taking that knowledge and using it to make things better." He was there presenting a fix to " clickjacking " attacks, which had emerged as a big problem at the time.
+
+Tragically, Kaminsky died in 2021 at just 42. But his short career indeed left an indelible impact on cybersecurity and beyond.
+
+"Dan’s impact and influence in our industry were enormous," Chris Gibson, CEO of the Forum of Incident Response and Security Teams (FIRST) says. "His work in 2008, working on one of the largest multivendor, multistakeholder vulnerability disclosures, continues to influence how these are handled today. His work since has helped us all improve our world."
+
+Steve Katz. Source: Steve Katz
+
+Today, you can find someone with a title of chief information security officer at virtually any Fortune 500 company, and plenty of smaller organizations as well. But it wasn't always that way: Steve Katz, the first person to pioneer the CISO role, was recruited to it after weathering a worst-case scenario.
+
+In 1995, while Katz was at JP Morgan, Citibank was hacked by a Russian software engineer who broke into its computer system and stole more than $10 million alongside his accomplices, wiring the money to multiple accounts globally. After that major blow, Katz received an offer from a recruiter for a position that would be called chief information security officer, the first of its kind.
+
+Katz himself described the role as "all about business risk ," recognizing that cybersecurity shouldn't be a separate, merely technical job, tucked away in the basement for the analysts and their computers to tackle.
+
+"Cybersecurity is a tool for managing business risk," Katz said in 2021. "It is not an end in itself."
+
+Katz took his trailblazing role as the first CISO and changed conversations in the industry with his knack for explaining the risks of security to other board members and leaders in other departments, like HR and accounting.
+
+"Steve Katz exemplified the visionary leader who understood that cybersecurity begins at the top," says Melina Scotto, veteran CISO. "He wrote that executive involvement is essential for true organizational resilience. His unwavering commitment to integrating security into business strategy and advocating for diversity, especially the empowerment of women in cyber, has left a lasting legacy."
+
+In late 2023, Katz passed away. He is still remembered as someone who opened the doors for what has become an essential role in cybersecurity, as well as someone who chose to pursue a path that no one had ever gone down before.
+
+Chris Krebs at Black Hat USA. Source: Black Hat Events
+
+When Christopher Krebs took the job as the first-ever director of the Department of Homeland Security's brand-new Cybersecurity and Infrastructure Security Agency (CISA) in 2018, he probably had no idea that two years later he would be embroiled in a red-hot political dogfight over US election security — one that continues to simmer to this day.
+
+He was tapped by the Trump Administration to lead CISA after a career at the Department of Homeland Security in various upper-tier roles focusing on cybersecurity. It was a quiet appointment, and by all accounts he went to work carrying out CISA's mission to unite government and the private sector in a shared responsibility to protect critical infrastructure and combat national cybersecurity threats.
+
+"As the inaugural director of CISA, Chris Krebs fundamentally transformed the agency into the nation's primary operational cyber defense hub, establishing the standard for how the public and private sectors must collaborate to prevent and mitigate cyberattacks," says John Gallagher, vice president of Viakoo Labs at Viakoo. "By forming the Sector Coordinating Councils (of which there are now 15), he created an enduring legacy of CISA as an active partner with organizations outside the federal government in protecting critical infrastructure and operational technology (OT)."
+
+His name quickly became kitchen-table recognizable, though, as he oversaw efforts to protect US elections, fight disinformation, and generally ensure trust in the electoral process during the fractious 2020 presidential election cycle.
+
+Shortly after Biden was declared the victor in 2020, Trump doubled down on the idea that the election was "stolen" from him. CISA officials, in response, said in a statement that 2020 "was the most secure in American history." And Krebs posted from his government Twitter account: "On allegations that election systems were manipulated, 59 election security experts all agree, 'in every case of which we are aware, these claims either have been unsubstantiated or are technically incoherent.'"
+
+After two weeks of public back-and-forth that amounted to obvious infighting within the administration, Trump fired Krebs via tweet , to the surprise of no one, "effective immediately," citing debunked theories about "massive improprieties and fraud" in the vote, as well as unproven "'glitches' in the voting machines."
+
+The director role would remain empty, and CISA leaderless, until Joe Biden took office and appointed Jen Easterly as the next leader of the agency. Krebs meanwhile went on to private-sector roles on advisory boards, consulting gigs, Black Hat keynotes , teaching stints, a talking head spot at CBS News, and the role of Chief Intelligence and Public Policy Officer at SentinelOne. But Trump's memory is long; after taking office the second time, the president revoked Krebs’s security clearance , posted a permanent page on the White House website declaring Krebs a "significant bad-faith actor," and ultimately, Krebs resigned from SentinelOne so he could focus on his legal defense.
+
+As the midterms loom, Trump is floating warnings about election rigging and voter fraud a second time, which gives the once-again-vacant CISA chief position an undeniably Krebsian political halo.
+
+All of this sadly overshadows a career in government cybersecurity that should be remembered for pioneering a holistic vision of how cybersecurity risk spans American life, Gallagher notes.
+
+Above all, "Krebs institutionalized a culture of collaboration at CISA that continues to serve as the blueprint for defending the modern, hyper-connected attack surface across IT, operational technology (OT), IoT, and industrial control systems ICS," Gallagher says.
+
+Kevin Mandia. Source: Armadin
+
+Kevin Mandia founded Mandia Consulting in 2004 under the belief that the incident-response process should rely on specialized expertise, and that such expertise should be accessible.
+
+Traditionally, incident-response was handled quietly by internal IT teams and focused on "cleaning up messes" without understanding the root cause. Mandia built the template for establishing that external investigators would be more effective and objective than those within the company, with a broader base of knowledge to assess risk and damages.
+
+This was clearly valuable to the security community, as Mandia first sold his consulting firm to FireEye in 2013 for the eye-catching sum of $1 billion . The company then went independent again as Mandiant in 2021, before selling to Google the following year for approximately $5.4 billion .
+
+Mandia also helped change how we think of two other core tenets of cybersecurity: threat intelligence and attribution.
+
+In February of 2013, Mandia led the firm in publishing a report detailing espionage-driven cyberattacks attributed to a specific unit of the Chinese government, which allegedly targeted nearly 150 organizations in the US and other English speaking countries. The report designated this entity "APT1" and called out the Chinese government directly for its offensive cyber activities, setting a standard for how state-sponsored actors would be designated, and publicly outed.
+
+Mandia championed this research despite anticipating — and getting — intense fallout from the work. But it represented a vision Mandia had to connect geopolitical tensions to their impact on cyberattacks and emphasize attribution when few others would "go there."
+
+It would not be an overstatement to say the report changed how the security industry perceives threat intelligence on the whole. And Marshall Heilman, CEO of insider risk management security vendor DTEX, tells Dark Reading that Mandia "fundamentally changed how the industry thinks about adversaries."
+
+"I have worked with Kevin in many capacities for almost 20 years," he says. "His impact extends far beyond security operations teams — he has shaped how countries defend their critical infrastructure, how governments coordinate responses to sophisticated attacks, and how global organizations build resilience against the most advanced threats in the world."
+
+Beyond that, in 2020 (as part of FireEye) Mandia's team was among the first to discover the infamous SolarWinds supply-chain attack, and chose to publicly disclose that FireEye itself had been breached. His team was also contracted in 2021 to respond to the monumental Colonial Pipeline attack.
+
+Though Mandiant went through several acquisitions and sales leading up to its current home at Google Cloud, Mandia led the company through all of it, finally leaving in mid-2024. In 2025, he founded Armadin, an AI-focused red teaming security firm.
+
+"Few people have done more to shape the discipline of incident response and threat intelligence on a truly global scale, and the security of nations, not just enterprises, is stronger because of it," Heilman says.
+
+Miller & Valasek on the Black Hat USA stage. Source: IMAGO via Alamy Stock Photo
+
+Hacking the Internet of Things (IoT) for fun and profit has been a thing for a while, but the phenomenon definitely banged a hard left into nightmare territory in 2015 when the white-hat team of Charlie Miller and Chris Valasek took a Wired reporter on a ride he would never forget.
+
+The duo effectively turned the journalist into a crash-test dummy by demonstrating how they could remotely hack a 2014 Jeep Cherokee he was driving on the freeway, bringing the car to a full stop. They also gained control of the steering, high beams, turn signals, windshield wipers and fluid, door locks, and the speedometer and tachometer; and they showed how they could kill the engine and disengage the transmission so the accelerator pedal failed — and they did it all from Miller’s living room in St. Louis.
+
+The live demonstration caused a veritable pile-up of consequences, including a recall from Chrysler , congressional interest and proposed legislation, and a slew of follow-on research from the team, who went on to become Black Hat USA stalwarts and the de facto kings of automotive pen testing (though each has notched plenty of other notable achievements).
+
+"Before the world was worried about rogue AI agents, Charlie and Chris were already showing us how the 'Ghost in the Machine' could seize control of a two-ton SUV at 70mph," says Tom Kellerman, vice president of AI security and threat research at TrendAI, which created the Pwn2Own Automotive hacking contest in the latest ripple effect of the duo’s exploits. "They moved us from a culture of plausible deniability to one of absolute accountability."
+
+When you start making everything "smart," the potential for disaster increases accordingly — no more so than in the automotive world. Miller and Valasek were the first put up a flashing road sign with that IoT warning, pioneering a whole new class of exploits that automakers are still putting on their security road maps today, especially as cars go from being connected to autonomous ( eek! ).
+
+Kevin Mitnick. Source: Mitnick Security
+
+Boundless curiosity led Kevin Mitnik from being an teenaged " phone freak " Ma Bell hacker to occupying a spot on the FBI’s Most Wanted List for breaking into corporations just to see if he could. But it was his genius as a cybersecurity researcher that left the industry light years ahead of where it might have been without him.
+
+After spending three years on the run in the early 1990s, Mitnik served a five-year prison sentence, which quickly spawned a “ Free Kevin ” protest movement from supporters who felt his punishment was excessive and more akin to that for a hardened violent criminal. Nonetheless, Mitnik did his time, with eight-and-a-half months of it spent in solitary confinement.
+
+Upon his release in 2000, Mitnik was embraced by the ethical hacker community as a hero, and his story became legend among cybersecurity professionals.
+
+Tragically, at 59, Mitnik succumbed to pancreatic cancer .
+
+"Kevin was a pivotal figure in cybersecurity that made hacking more of a household term," says his friend and colleague Jake Williams (a.k.a. MalwareJake), a seasoned security researcher. "While he was sometimes a polarizing figure, he was an absolute beast when it came to social engineering."
+
+Williams tells the story of being in the DEF CON Social Engineering Village with Mitnik, where he was demonstrating live how to find someone's Social Security number and flexed his strong good guy energy.
+
+"Smartphones were just starting to be a common thing then and some clown in the audience snapped a photo of this person's dossier," Williams remembers. "Kevin was immediately all over the guy and had some choice words, something to the effect of, 'If I find out that wasn't deleted, I'll be finding yours and you won't like what happens next.'"
+
+HD Moore. Source: runZero
+
+AI-powered hacking may be all the rage right now, but generations of security researchers over the past two decades have been raised on the open source Metasploit tool , which remains the essential platform for penetration testing, vulnerability research, exploit development, and security assessments.
+
+"Metasploit was nothing short of groundbreaking. It helped move exploit development from fiddly PoC [proof of concept] code scattered across the Internet into a proper framework that people could use, test with, learn from, and collaborate around," says Daniel Cuthbert, global head of security research at Banco Santander.
+
+Metasploit's creator, renowned security expert HD Moore, first released the tool in 2003, at a time when security researchers were either ignored or reviled by technology vendors for sharing their findings of product vulnerabilities. There were no bug-bounty programs, no responsible disclosure processes, so Moore often grabbed vendors' attention by releasing his bug discoveries to the public, often much to the dismay of companies such as Microsoft . His controversial and enlightening Month of Browser Bugs (MoBB) project in the summer of 2006 dropped daily demo code of security flaws he discovered in popular browsers, including Internet Explorer and Mozilla. MoBB made Moore's point about poor browser security loud and clear, pressuring vendors to build more secure versions of their software.
+
+Industrial and Internet of Things firmware security was another groundbreaking research initiative led by Moore, who found and flagged dangerous flaws in the pervasive VxWorks operating system found in embedded systems including printers, OT equipment, and network switches . He pioneered critical research in Internet scanning for exposed systems and devices , eventually coordinating with other researchers to pool their resources identifying sitting-duck devices under one umbrella, with the creation of Project Sonar .
+
+The indefatigable Moore took a rare but brief hiatus from the security industry around 2019, when he began to study the nagging IT challenge of poor visibility into devices and services on enterprise networks , an issue he had seen firsthand over and over again in his years discovering millions of exposed corporate systems. He built a new tool with IT in mind, but it quickly led him right back to security as he focused on deeper visibility of devices and interdependencies in an enterprise network. It later evolved into a commercial product with his startup runZero that spans IT, OT, IoT, mobile, and cloud assets.
+
+Some things haven't changed: Moore recently told Dark Reading that he still conducts research into the wee hours after a day at the runZero office. And he's still characteristically humble about his work and standing as an industry icon.
+
+"It's [HD's] super-chilled demeanor, his constant 'but what if …' approach to security, and the way he keeps finding the weird edges everyone else missed,” Cuthbert says. "One of the nicest dudes in the industry and one of the sharpest."
+
+Jeff Moss. Source: Black Hat Events
+
+While the hacker handles of many industry pioneers eventually fade into history, Jeff Moss still regularly goes by the 1990s-era handle "The Dark Tangent," which remains integral to his persona. Moss, who founded DEF CON in 1993 and Black Hat in 1997, is today still a key fixture at both conferences, running the annual DEF CON hacker confab and advising Black Hat and moderating its headliner keynotes.
+
+Moss, 51, has always had a knack for providing a rich forum for the researcher community, starting with the very first DEF CON, which was basically a party in Vegas. Black Hat was created to bring together security researchers with the software companies they were hacking so they could better work together on solving security vulnerability problems. The conference has, of course, grown dramatically and expanded commercially over the years, but Moss's mission to bring together as many of the stakeholders in the industry as possible has continued at both shows, and in his work outside them.
+
+But it was Moss's vision of a live lab for hackers to uncover vulnerabilities in electronic voting machines and systems that placed him in the national political limelight. DEF CON opened the doors with its inaugural Voting Machine Village at the 2017 conference at Caesars Palace in Las Vegas, and within minutes, hackers found vulnerabilities in several systems. Voting Village in the ensuring years has attracted high-level federal, state and local government officials, including California Sen. Alex Padilla, then the Secretary of State in California, and former CISA director Chris Krebs, who keynoted the event in 2019 .
+
+The vulnerability findings at DEF CON prompted newfound attention on securing cybersecurity of elections, as well as accelerating the decommissioning of insecure systems and ensuring paper-ballot backups.
+
+Moss's influence has included serving as a bridge between the ethical hacker community and policymakers. He served as a member of the Homeland Security Advisory Council during the first Obama administration, and had a stint as commissioner of the now-defunct Global Commission on Stability of Cyberspace that was set up to establish norms and policies for the global Internet.
+
+While he took a little heat from some members of the hacker community in 2016 for appearing at a fundraiser for Hillary Clinton , he also shifted the conversation to stay informed on policy that could directly affect the industry, such as the security and safety of Internet of Things devices , encryption, and security research. During the Biden administration, Moss served on the CISA Cybersecurity Advisory Council.
+
+"DEF CON, Black Hat, and so many other things we now take for granted in this community exist because Jeff had the vision, stubbornness, and mischief to make them happen," says Daniel Cuthbert, a member of the Black Hat Review Board and global head of security research at Banco Santander. "He helped create the rooms, the culture, and the weird little ecosystem where hackers could find each other, argue, learn, build, and occasionally cause beautiful chaos."
+
+Katie Moussouris. Source: Luta Security
+
+While many of us take vulnerability disclosure and bug-bounty programs for granted these days, they didn't really exist with any kind of regularity until the mid to late 2000s. Before that point, it was much more difficult for penetration testers and vulnerability researchers to operate openly without fear of retribution or legal consequences.
+
+That changed thanks to those who pioneered vulnerability disclosure practices and created opportunities for researchers who simply wanted to fix weaknesses in software. The establishment of spaces like bug-bounty programs also made it so security experts who might have considered selling vulnerabilities to criminals now had an ethical, safe outlet to get paid for important work. Few, if any, were as foundational to that work as Katie Moussouris.
+
+Before founding Luta Security — a firm that helps organizations build bug-bounty programs — in 2016, she was chief policy officer at HackerOne, where she built out the company's vulnerability disclosure policy.
+
+While it takes a village to do anything in security, Moussouris' role in pioneering vulnerability disclosure — a foundational tenet of this industry — was a key turning point, ushering in an era of liability-free independent vulnerability research .
+
+Casey Ellis, founder of bug-bounty platform company Bugcrowd, praised her work in shaping the vulnerability disclosure landscape.
+
+"I've had the opportunity to work alongside Katie in the vulnerability disclosure and bug-bounty space for nearly 13 years now, and she has been instrumental in showing the industry and lawmakers alike that vulnerability disclosure isn't optional or optional — it's physics," he tells Dark Reading. "She's has played a stalwart role in making it safe and rational for vendors to listen and for researchers to speak."
+
+Howard Schmidt. Source: White House Archives
+
+During a career spanning more than four decades, Howard Schmidt served in senior security roles across government, the US Air Force, and the private sector, influencing national and international cybersecurity policy, and forging connections with the private sector. A rare figure who commanded respect across the continuum, Schmidt used that credibility to fundamentally transform how nations approach cybersecurity.
+
+"He built bridges between government and the private sector at a time when those two worlds were deeply suspicious of each other, and he did it through credibility earned over decades, not a title," says Trey Ford, CISO Americas at Bugcrowd. "The work he did to elevate security as a governance and policy priority — not just as an IT function — is still the foundation we're all building on."
+
+Schmidt’s first White House role was right after the Sept. 11 attacks, amidst a growing awareness that cyberattacks could be potential terrorism vectors. Critical infrastructure protection had become a national security priority, and he recognized early that most critical infrastructure was privately owned, meaning government couldn't secure the nation alone. He helped develop the National Strategy to Secure Cyberspace in 2003.
+
+His second White House role, as the Cybersecurity Coordinator for President Barack Obama , was just as influential. During a critical period of digital transformation and escalating cyber threats (Stuxnet, the RSA breach of Secure ID tokens, and Operation Aurora, to name a few). He developed the International Strategy for Cyberspace and promoted international cooperation on cybercrime.
+
+Later, as the chief security officer at Microsoft, he brought a government security perspective to a major technology company and helped implement the security development lifecycle (SDL) as well as establish threat modeling and secure coding practices.
+
+Nearly a decade after his death , Schmidt remains influential because the structures he built still function, the principles he advocated still guide policy, and the challenges he identified still persist.
+
+"Howard Schmidt made the case — at the highest levels of government and industry — that cybersecurity is a shared responsibility, not someone else's problem. That framing is still doing work today," Ford says.
+
+Bruce Schneier. Source: Asa Mathat
+
+In 1991, Bruce Schneier found himself without a job after getting laid off. He took to writing for computer magazines on a lark; little did he know that he would build a lasting legacy in dragging cybersecurity into the boardroom conversation — into an arena of business risk and real-world consequences on real-life people.
+
+"Over the last two decades, Bruce Schneier has shaped the cybersecurity industry not only through cryptography and security engineering, but by forcing organizations to think critically about trust, privacy, policies, surveillance, and the economics of security," says Morey Haber, chief security adviser at BeyondTrust.
+
+"His work consistently challenged the industry to move beyond fear driven security responses to focus instead on measurable risk, resilience, and the human element of security and technical controls. In many ways, he helped transform cybersecurity from a purely technical discipline into a broader conversation about the long term consequences of digital dependence in the workforce."
+
+In all his known roles, Schneier has been unfailingly open and upfront in sharing his opinions, especially when it comes to hot cybersecurity topics. His latest book, for instance, Rewiring Democracy: How AI Will Transform Our Politics, Government, and Citizenship , explores Schneier’s interest in how artificial intelligence will create new opportunities as fast as it will create new risks , altering our society in every way — including our country's democracy itself .
+
+Source: Baikal via Alamy Stock Photo
+
+Regardless of whether you viewed him as an iconic whistleblower or a leaker of classified US information, in 2013 Edward Snowden found himself at the center of an international firestorm that still hasn’t been fully put out all these years later.
+
+At the time, he was working as a contractor for the US National Security Agency, where he was able to collect and eventually leak sensitive information that he said was evidence of a vast government surveillance operation against US citizens.
+
+The story inspired countless headlines, many painting Snowden as a patriot, a notion President Obama at the time was quick to dismiss , adding that the contractor was in violation of the law and engaged in "unauthorized disclosures." Obama argued that if Snowden believed the information he possessed was truly concerning, he would have pursued lawful channels for its release.
+
+Once it became apparent that he was being treated as a criminal by the US government and arrest was imminent, Snowden bugged out to Hong Kong. He was then able to leave Hong Kong for Russia, thanks to help from the WikiLeaks organization. But once he landed in Russia, Snowden’s cancelled US passport left him stranded for 39 days in the Moscow airport, until he was eventually granted asylum. In 2022, Snowden gained full Russian citizenship.
+
+The escapade was the subject of a dramatic 2014 documentary " Citizenfour ."
+
+For the cybersecurity community, the Snowden affair represented a more existential danger — the ultimate insider threat.
+
+The NSA deputy director during the Snowden affair , Chris Inglis, says that the leaks caused incalculable harm to the US national security apparatus, and in fact, courts found that none of the disclosed information-gathering activities by the NSA violated the law.
+
+Nonetheless, the conspiracy narrative quickly grabbed hold in the media and became too much for the agency to overcome, Inglis says.
+
+"Edward Snowden was neither a whistleblower nor a reliable observer and reporter of intelligence operations," Inglis says. "But his allegations did compel us to reexamine every aspect of authority, operations and oversight. More than a decade later, we have a far better ‘house,’ though Snowden remains more the arsonist than the architect."
+
+Window Snyder. Source: Thistle Technologies
+
+Throughout her career, Window Snyder has pushed companies to do better and improve their security standards, even when there was no immediate external threat to fend off.
+
+While experts today increasingly call for these kinds of proactive security measures, Snyder was ahead of the game.
+
+Through her roles at a number of technology giants, including Microsoft, Apple, Fastly, Mozilla, and Intel (which named her chief software security officer in 2018), she focused on not just preventing and mitigating flaws in software before it's released into production, and in the early 2000s, played a pivotal role in pioneering software security by creating and implementing the Security Development Lifecycle (SDLC) during her time at Microsoft.
+
+This preceded the CISA's Secure by Design initiative by a decade, and was a precursor for NIST's Secure Software Development Framework , which organizations across industries are now urged to follow.
+
+In 2023, Snyder shifted her focus from enterprise software to Internet of Things (IoT) security for device manufacturers through her latest company, Thistle Technologies. IoT devices are inherently insecure , with problematic by default settings and, like software security, require a proactive approach. IoT is embedded in everything these days, making secure development crucial.
+
+Chris Wysopal, chief security evangelist and co-founder of Veracode, worked closely with Snyder, especially on the Microsoft IIS 6 security assessment, which helped push Microsoft SDLC forward. He referred to her as "one of the most important security leaders of the past two decades," for her ability to achieve systemic change when it comes to fixing and finding vulnerabilities.
+
+"What has always stood out to me about Window is that she understood how to turn deep security expertise into durable engineering change," Wysopal says. "Platforms like Mozilla, Windows, and Apple are meaningfully more secure today because of her work, and that has made the digital world safer for everyone.”
+
+Joe Sullivan. Source: Joe Sullivan Security
+
+Make no mistake, Joe Sullivan, Uber's former chief security officer (CSO), is a controversial figure. In 2022, a jury convicted him of covering up a breach against Uber that occurred in 2016. Not only did Sullivan not publicly disclose the breach — the theft of data belonging to 57 million Uber riders and drivers — when it happened, he hid key details from the Federal Trade Commission (FTC). Even after pressed, he didn't disclose the fact that Uber, under his recommendation, paid off the cyberattackers behind the breach and had them sign a nondisclosure agreement.
+
+Not only was this a shocking exposure of how companies could try to hide (or lie about) security incidents, it also highlighted the personal liability and accountability issues chief information security officers (CISOs) increasingly face. The CISO role is already a heavy one, with an ever-growing list of responsibilities that often leads to burnout , and now CISOs have to worry about executives throwing them under the bus following an incident.
+
+As such, the three-time CISO (he held two positions at public companies), Sullivan had a major impact on how other people see the role. George Gerchow, IANS faculty member and CSO at Bedrock Data, says the incident changed how he handles security incidents, especially the communication side.
+
+"None of us ever wants to be in his shoes or go through what he is still living with, including the Ninth Circuit upholding his conviction last year," Gerchow says. "I know Joe personally. He is brilliant. You don't become the first CISO at Facebook, Uber, and Cloudflare by accident. What I respect is that he did not disappear after the verdict. His case made me sharper about decision-making under pressure, about who gets looped in early, and about where the line sits between protecting the company and protecting yourself."
+
+Chenxi Wang. Source: Rain Capital
+
+Dr. Chenxi Wang may not have the same household name recognition as some government-focused security figures, Wang has been enormously influential in shaping how enterprises approach security in the cloud era.
+
+As the principal analyst and vice president at Forrester Research, she helped shape how enterprises approached the transition to the cloud. She was one of the early leaders who recognized that traditional perimeter security controls don’t translate to cloud environments and that multi-cloud is a reality that enterprises needed to address. She also recognized early on that identity is the new perimeter in distributed environments, and that identity governance was important.
+
+Later, as the vice president of strategy at container security startup Twistlock, acquired by Palo Alto Networks in 2019 for $410 million, she helped define the market for cloud-native security. Container security was an emerging category at the time, and Wang’s involvement helped legitimize and define the market. Through her career, she also helped define cloud-native security as an architectural approach and identity-centric security as a strategic framework.
+
+Today, Wang is a highly respected cybersecurity executive, entrepreneur, researcher, academic, analyst, and investor. Beyond her expertise in cloud security , she also focuses on data protection, identity and access management, and security architecture . And now, as a managing general partner with Rain Capital, she invests in and advises early-stage companies focused on solving "stubborn or new security problems."
+
+"I can't think of anyone besides Chenxi in the security industry who has been an academic, an analyst, an executive, a founder, and an investor ... and excelled at each of those very different roles," Jon Oberheide, founder of Duo Security and now a startup advisor and investor under Oberheide Ventures. "It's like the EGOT of cybersecurity."
+
+Wang's work remains important in 2026 because the challenges she identified — securing cloud environments, protecting data, and implementing identity-centric security — are more critical than ever. As an investor and startup adviser, she now influences which security technologies get developed and brought to market, shaping the tools that will protect organizations in the future.
+
+"What makes her stand out is that as she continues her achievements, she is constantly bringing others with her to help others make strides in the industry," says Melinda Marks, practice director of cybersecurity at Omdia, noting that Wang is "a master of networking and connecting people."
+
+How Organizations Are Managing Incident Response
+
+How Enterprises Are Developing Secure Applications
+
+Inside RSAC 2026: security leaders reveal the risks redefining your defense strategy
+
+Essential News & Insights from Black Hat USA 2025
+
+How Enterprises Are Harnessing Emerging Technologies in Cybersecurity
+
+Say Yes to AI: Securing Innovation Without Compromise
+
+Zero Trust Identity: Beyond Traditional Authentication
+
+Advanced Persistent Threats: A Practical Guide to Detection and Response
+
+The Frontier AI Era: Why Cybersecurity Must Move at Machine Speed
+
+Build vs. Buy: The Hidden Cost of Building Your Own AI Security Stack

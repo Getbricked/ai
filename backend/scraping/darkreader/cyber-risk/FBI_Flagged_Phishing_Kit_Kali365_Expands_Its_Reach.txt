@@ -1,0 +1,33 @@
+Title: FBI-Flagged Phishing Kit Kali365 Expands Its Reach
+URL: https://www.darkreading.com/cyber-risk/fbi-flagged-phishing-kit-kali365-expands-its-reach
+Author: (unknown)
+Date: (unknown)
+Topic: cyber-risk
+
+Once targeting just Microsoft 365, the phishing-as-a-service platform now aims at AWS, Okta, and Russian platforms, while relying on device code phishing.
+
+The operators of Kali365, a phishing-as-a-service platform that drew considerable attention for helping attackers bypass multifactor authentication (MFA) on Microsoft 365 accounts, have significantly broadened both their capabilities and their target list.
+
+In a report released this week, Arctic Wolf described Kali365 as evolving from a purely Microsoft-focused phishing kit to a broader account-compromise platform that targets digital identities across AWS, Okta, Xerox DocuShare, and several Russian online services. The most notable among them is MAX Messenger, a Russian state-backed messaging platform with more than 80 million users that the Russian government has promoted as the country's national message service.
+
+Kali365's expansion into MAX Messenger and other Russian online services suggests "a deliberate, consistent focus on Russian consumer-Internet platforms, alongside the operator's existing Western enterprise targets," Arctic Wolf said. "A phishing operator who can convert MAX account takeovers into propagation has access to one of the largest installed messaging bases in the Russian-speaking world."
+
+Related: Get Out of Security Debt by Tackling the Exposure Problem
+
+Kali365 has emerged as one of the more prominent examples of a device code phishing kit in recent months. Device code phishing abuses the authentication workflow used by smart TVs, printers, and other devices when they lack a full browser or keyboard and require users to log in via a separate device. For example, it's the code that a streaming device like a Roku or Apple TV might display on a smart TV screen and which the user would then enter on their phone or computer to complete the login and link the two devices.
+
+In a device code phishing attack, a threat actor generates a legitimate OAuth 2.0 device authorization request and then tricks a victim into entering the associated code on a legitimate login page, through a phishing email impersonating a shared OneDrive file or a security verification prompt, for example. Once the victim authenticates and completes any required MFA steps, the service — in Kali365's case initially Microsoft365 — issues access tokens to the attacker's session, granting the attacker access to the victim's account without ever requiring their credentials. In these attacks , MFA does not prevent compromise, because the victim is unknowingly completing the authentication process on behalf of the attacker.
+
+The insidious nature of the attack prompted the FBI to issue a public service announcement last month warning users about Kali365 and describing how the attack works. "Kali365 lowers the barrier of entry, providing less-technical attackers access to AI-generated phishing lures, automated campaign templates, real-time targeted individual/entity tracking dashboards, and OAuth token capture capabilities."
+
+Related: UK Social Media Ban for Minors Has Privacy Experts Worried
+
+Arctic Wolf's analysis of the operation showed Kali365 has become an even bigger threat in recent weeks. Researchers at the company were able to identify the platform's live command-and-control (C2) infrastructure and from there identify a cluster of 126 malicious hosts that were active between early and late May, all serving the same kit. The hosts, according to Arctic Wolf, impersonate a wide range of platforms, including Microsoft Outlook, Microsoft Live, Okta SSO, Xerox DocuShare, the German email provider GMX, Amazon Web Services naming conventions, and several major Russian online services, such as Mail.ru, Yandex Disk, and the social network Odnoklassniki. The sheer breadth of the impersonated platforms showed that Kali365 has evolved from being a specialized platform for stealing M365 tokens to a much broader credential theft platform that presents a threat to enterprise organizations across regions.
+
+Related: Most CISOs Report Pressure to Bury Bad Security News
+
+"Arctic Wolf strongly recommends implementing comprehensive security awareness training to equip users with the skills needed to quickly identify and report suspicious activity, including the tactics observed in this campaign," the security vendor said. The company's report also included specific measures that organizations can take to spot potentially malicious activity connected with Kali365.
+
+Kali365 is one among multiple device code phishing kits that have become available to threat actors in recent months. Other examples include Tycoon2FA , Venom, and CYB3R. In a recent report, Push Security reported observing a "huge spike" in device code phishing activity recently with at least 14 such kits currently available in the wild. Some of these are existing phishing-as-a-service platforms adding device code functionality and some are new.
+
+"Security teams need to consider the risk posed by device code phishing across multiple apps where device code authorization grants are common, particularly for developers and technical users," the security vendor warned. "In an ideal world, you would simply block device code logins. But this can’t be done without causing serious disruption in some environments, while some apps simply don’t provide the tools required to do so."
