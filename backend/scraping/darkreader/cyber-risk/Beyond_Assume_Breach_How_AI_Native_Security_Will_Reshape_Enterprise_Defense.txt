@@ -1,0 +1,73 @@
+Title: Beyond Assume-Breach: How AI-Native Security Will Reshape Enterprise Defense
+URL: https://www.darkreading.com/cyber-risk/assume-breach-ai-native-security-reshape-enterprise-defense
+Author: (unknown)
+Date: (unknown)
+Topic: cyber-risk
+
+Since 2006, Dark Reading has been at the forefront of covering cybersecurity, providing deep insights and analysis beyond the headlines. All those major news events? We were there. Shifts in technology trends? We wrote about them. Enjoy this special anniversary coverage celebrating where we've been and what's next.
+
+Twenty years after Dark Reading launched, we're looking ahead at what's next for enterprise security. Spoiler: It's hyper-segmented, AI-orchestrated, and way more sophisticated than your dad's firewall.
+
+Cybersecurity has been one of the fastest-moving tech sectors over the past few decades, rushing headlong from its beginnings as an almost niche IT bolt-on practice to becoming a mainstream enterprise risk category — all thanks to an always-on, swiftly moving threat landscape that changes the face of the enemy seemingly weekly. Dynamic change, in other words, is the steady state.
+
+There's zero indication that's going to change, either: It's a pretty safe bet that threat actors are going to keep innovating; network topology will keep morphing; enterprises will keep evolving their security philosophies and tooling; and investors will keep investing. In short, cybersecurity is driven by a constant state of transformation. But far from being a vortex of confusion for defenders, a few standout trends for the future are starting to coalesce.
+
+We thought we might wrap up Dark Reading's 20th anniversary celebration , which has seen us taking a deep look at how things have evolved since we started covering the industry in 2006, with a look at the future by making five big predictions. And no, it's not all about AI — but it would be true to say that the future is firmly AI-adjacent.
+
+Related: Boulevard of Broken Dreams: 2 Decades of Cyber Fails
+
+Click here for all of our DR20 content , including big retrospectives, videos, a podcast and more!
+
+Enterprises have moved away from traditional perimeter-based security models to operating under an "assume-breach" mentality that focuses more on harm reduction than keeping the castle free from invaders. That means implementing the once-trendy, now-mainstream concept of zero-trust , segmenting the network to better contain incidents, and embracing zeitgeisty concepts like continuous behavioral analysis for managing human and non-human identities. But taking all that to its logical conclusion, where do you end up? To misquote The Graduate , just one word:  microspheres. There's a big future in microspheres.
+
+We're defining microspheres as hyper-segmented areas of the business that each have their own risk profiles, with specific tooling deployed accordingly. Picture an e-commerce organization that has agentic AI coordinating bot identification on customer-facing touchpoints, but an entirely different just-in-time smart intrusion-detection and prevention (IDP) running in the cloud to ID any misconfigurations that touch customer data, in real time. Over on the corporate network, execs have five approval layers before transfers of more than $25,000 can be sent through; and emails have a swarm of autonomous agents making game-time decisions on how likely something’s a phish. Just in case, they rotate credentials once a week—not that employees are aware, because it's all seamless and hidden behind an elegant single sign-on (SSO) solution. And all of it is coordinated via a back-office real-time orchestration layer that is itself operating on a need-to-know basis, where no one specific function is overprivileged.
+
+Related: Get Out of Security Debt by Tackling the Exposure Problem
+
+On a related note, industry analysts have been talking about platformization — where instead of best-of-breed point solutions, enterprise defenders are looking at platforms and integrated tooling.
+
+The next logical step is to collapse the security stack into intelligent, interconnected security fabrics where AI orchestration layers do the heavy lifting and autonomous agents handle the vast majority of security events without human intervention.
+
+Imagine, if you will, a security fabric where an anomalous login attempt triggers a cascade of autonomous actions: the identity system cross-references behavioral patterns, the endpoint agent checks device posture, the network layer evaluates traffic patterns, and the threat intelligence platform assesses whether similar activity has been observed elsewhere.
+
+Related: UK Social Media Ban for Minors Has Privacy Experts Worried
+
+Expensive? Yes. Possible? Also yes. This is where enterprise defense has to go. This is what the AI-native security future looks like.
+
+Specifically, we're talking about endpoint security, which has evolved significantly from the bad old days when companies deployed basic antivirus software and a firewall and called it good. Now we have modern endpoint protection that's far more sophisticated . But all that advancement is for nought if the pervasive, endemic, glaringly obvious failure to implement basic security hygiene continues to be a thing.
+
+Not to catastrophize, but it's already kind of an endpoint apocalypse out there for enterprises — especially ever since the pandemic. Locking down devices and ensuring good patch management, MFA, and password practices has gone from being a foundational practice to becoming a stretch goal . So, is it time to move on to flexible, shiny new security operations center (SoC) approaches that leapfrog user behavior and focus on immediate response and dynamically tuned resilience? Yes, yes, a million times yes!
+
+It's about AI-ingested threat intelligence that recognizes when a potentially bad node hooks up with the perimeter. It's about sifting through thousands of daily alerts, matching those with verified threats, and learning to be predictive, not reactive, based on the day's threat level.
+
+It's also certainly about embracing identity as the new perimeter, where human and non-human permissions and credentials are granted and created dynamically as needed — perhaps spun up and spun back down depending on policies, approvals, and again, threat levels.
+
+Put another way, our AI agent buddies will know when sharks are in the water and suggest we surge the lifeguards accordingly.
+
+The list of things the CISO is responsible for keeps growing — from protecting networks to governing the entire business fabric of how organizations operate, comply, and interconnect with the outside world.
+
+Let's start with compliance. The alphabet soup of regulatory requirements — GDPR , CCPA, SEC disclosure rules , NIS2, DORA, and whatever comes next — has become a full-time job for entire teams. But the future isn't less regulation; it's smarter compliance that falls squarely in the CISO's domain.
+
+We're heading toward machine-readable regulatory requirements enforceable through code, not PDF documents and manual audits. Policy-as-code frameworks will allow organizations to continuously validate their security posture against regulatory requirements in real time, not once a year when auditors show up.
+
+Imagine infrastructure that automatically adjusts to meet new regulatory requirements the day they're published, where compliance reports generate themselves from telemetry data, and violations are caught and remediated before they become findings.
+
+This isn't a compliance officer's dream — it's a security architecture challenge. CISOs who treat compliance as an engineering problem rather than a paperwork problem will find themselves owning not just security controls but the entire governance-automation layer that proves those controls work.
+
+There's another technological shift looming that will fundamentally break modern cryptography: quantum computing. The timeline for when quantum computers will be able to break modern encryption and become mainstream is no longer theoretical. IBM projects fault-tolerant quantum computers with hundreds of logical qubits will be available by 2029. Google plans to integrate post-quantum cryptography into its systems, products, and services by the end of that year. The latest estimates say machines powerful enough to break RSA-2048 and elliptic curve cryptography will emerge between 2030 and 2035 .
+
+Adversaries are already gearing up for "Q-Day" with "harvest now, decrypt later" attacks  — where they siphon off encrypted data with plans to crack the encryption when quantum computers become available. So forward-thinking enterprises are already conducting crypto-agility assessments, inventorying where encryption is used across their environments, and planning migration paths to quantum-resistant algorithms.
+
+Other work includes considering PQC in long-term storage plans and retention requirements; upgrading public key infrastructure with updated certificate authorities; setting up new key management policies and ensuring backward compatibility during the transition period; and coordinating with third-party suppliers including cloud providers, application vendors, payment processors, and communications partners, to ensure PQC support.
+
+It's not exciting, but it is necessary, and the window for doing it proactively rather than reactively is closing fast. Just like we traced the transition where organizations shifted from planning out their cloud migration to adopting cloud-native technologies, Dark Reading will be chronicling the transition to quantum-resistant technologies in what will arguably be a decades-long transition.
+
+Notice a pattern to these predictions? We talk about the role of AI, which makes sense because AI is transformational, similar to cloud and mobile. But none of our observations are simply about AI itself. That's intentional.
+
+The future of cybersecurity doesn't involve replacing humans with AI. Nor will AI be the oft-sought-for silver bullet that solves all problems. By amplifying human expertise and automating whatever can be automated, security professionals will get time back to focus on problems and tasks that require human oversight.
+
+The winners will be CISOs who embrace this expanded mandate , who build teams that span security engineering and compliance automation. Those who speak the language of business resilience rather than just threat prevention. They are the ones who can walk into the boardroom and explain how quantum-resistant encryption, automated compliance validation, and real-time vendor risk monitoring all tie together to enable faster, safer business operations. Those are the CISOs who'll thrive in the next 20 years.
+
+Dark Reading has spent 20 years documenting cybersecurity's evolution from IT afterthought to boardroom priority. The next 20 years will be just as turbulent , just as transformative, and just as critical. And through it all, we'll be here — asking the hard questions, providing the context, experimenting with new methods of storytelling, and serving the security professionals on the front lines of this never-ending battle.
+
+Here's to the next 20 years. May they be slightly less breach-filled than the last!

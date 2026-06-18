@@ -1,0 +1,37 @@
+Title: ShinyHunters Uses Oracle Zero-Day to Rampage Higher Ed
+URL: https://www.darkreading.com/vulnerabilities-threats/shinyhunters-oracle-zero-day-higher-ed
+Author: (unknown)
+Date: (unknown)
+Topic: vulnerabilities-threats
+
+A major bug in Oracle's ERP software disproportionately affected American universities, and hackers have capitalized by stealing gobs of data.
+
+ShinyHunters used a zero-day vulnerability in Oracle's PeopleSoft software suite to steal data from potentially more than 100 organizations.
+
+PeopleSoft is an enterprise resource planning (ERP) application suite used for things like payroll, supply chain management, human resources (HR), and student administration. It's primarily oriented to large businesses and organizations, such as government entities and higher education institutions.
+
+From May 27 to June 9, 2026, the ShinyHunters extortion gang exploited a zero-day vulnerability in PeopleTools, PeopleSoft's underlying integrated development environment (IDE) and runtime platform, according to new research from Mandiant and the Google Threat Intelligence Group (GTIG). More specifically, the vulnerability is located in the Environment Management Hub (EMHub), a backend service that tracks and manages agents across PeopleSoft environments. The issue allowed for remote code execution (RCE) without any authentication required.  It has since been assigned a label, CVE-2026-35273, and a critical 9.8 CVSS score.
+
+Related: Security Community Slams US Ban on Exporting Mythos, Fable
+
+With the zero-day, ShinyHunters claims to have compromised more than 300 PeopleSoft instances across more than 100 organizations. In a blog post , researchers from Mandiant and GTIG said they alerted more than 100 organizations with potentially vulnerable endpoints. In an email to Dark Reading, Dustin Childs, head of threat awareness for Trend Micro's Zero Day Initiative, characterizes the exploitation as "limited," though notes that the investigation by TrendAI, Trend Micro's enterprise security division, is still ongoing.
+
+Beginning on May 27, ShinyHunters exploited CVE-2026-35273 across global organizations, according to Mandiant and GTIG. In the process, they accidentally left several directories exposed on the open Internet, allowing researchers to piece together what happened next:
+
+The group used MeshCentral , an open source browser-based program for remote management, for command-and-control (C2) operations. They tried concealing their activity by naming their MeshCentral agents after Microsoft Azure services. Next, they used MeshCentral's command line interface (CLI) to perform reconnaissance, a custom SSH credential spraying script to spread further into victims' environments, and the Zstandard compression algorithm to exfiltrate data en masse.
+
+The threat actors concluded its campaign on June 9, by leaking its winnings on its website. At that point, researchers from TrendAI identified the vulnerability and alerted Oracle. Oracle patched the flaw and published a security advisory the following day.
+
+Related: HTTP/2 Bomb Attacks Put Telcos, Healthcare Orgs at Risk
+
+Of the more than 100 at-risk organizations contacted by Google, most were based in the U.S., and 68% happened to be involved in higher education. The University of Nottingham in the U.K. has confirmed that it was one of the fallen, having lost "a significant amount of data" from its student records system. In a notice online it acknowledged that both current and former students were impacted, but did not indicate what specific kinds of data were stolen.
+
+On its dark web leak site, ShinyHunters listed the University of Nottingham as a recent victim, alleging it possessed more than 40 GB of sensitive data. The extortion group listed several other enterprises as recent victims, but those attacks have not been confirmed and it's unclear if they are related to the PeopleSoft zero-day campaign.
+
+ShinyHunters' zero-day campaign marks the group's latest attacks against the education sector. Last September, threat actors tied to the group breached Instructure, an edtech company known for its widely used Canvas learning management platform. ShinyHunters successfully breached the company again and disrupted Canvas this spring; Instructure later announced it had " reach an agreement " with the threat actors, presumably paying ShinyHunters' ransom demand.
+
+Related: Claude Fable 5 Doesn't Change the Mythos Security Story
+
+In the PeopleSoft attacks, Mandiant and GTIG researchers noted that "In several instances we have identified web application firewalls (WAFs) protecting otherwise vulnerable organizations." Still, the researchers doesn't condone WAFs as a catch-all solution, arguing that "These are not durable protections and we recommend following Oracle’s mitigations guidance as soon as possible."
+
+Oracle "strongly" recommended that organizations patch the vulnerability. Mandiant and GTIG suggested other mitigations in the blog post, first and foremost that organizations should disable the EMHub service or otherwise block external network access to it. They also noted that restricting the EMHub endpoint doesn't break PeopleSoft since it's "not required for the core user-facing PeopleSoft Internet Architecture (PIA) browser sessions."

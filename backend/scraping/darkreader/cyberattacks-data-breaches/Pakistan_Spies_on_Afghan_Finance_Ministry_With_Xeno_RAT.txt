@@ -1,0 +1,43 @@
+Title: Pakistan Spies on Afghan Finance Ministry With Xeno RAT
+URL: https://www.darkreading.com/cyberattacks-data-breaches/pakistan-spies-afghan-finance-ministry-xeno-rat
+Author: (unknown)
+Date: (unknown)
+Topic: cyberattacks-data-breaches
+
+Breaking cybersecurity news, news analysis, commentary, and other content from around the world, with an initial focus on the Middle East & Africa and the Asia Pacific
+
+Despite broadly connected digital infrastructure, standard fare TTPs are enough to cause trouble for Afghanistan's porous cybersecurity.
+
+A Pakistani advanced persistent threat (APT) group has been spying on Afghanistan's government finance apparatus, from the Ministry of Finance on down to provincial government employees.
+
+Forget the Kalashnikovs, pickup trucks, and sausage fest tribal councils. In 2026, even the Taliban manages modern, widespread IT infrastructure.
+
+"Despite common perceptions, Afghanistan maintains a considerably larger digital footprint than many observers expect," researchers from Seqrite wrote in an email to Dark Reading. "The government operates numerous ministry portals, educational institutions, regulatory bodies, email systems, and administrative services that support day-to-day governance — a broad and interconnected digital ecosystem."
+
+As such, like any other government, Afghanistan has cybersecurity threats to fend off. In concert with their recent spike in hostilities, for example, its frenemies across the border in Pakistan have been trying to spy on its government finance department since at least May 2025. Seqrite attributes the recently observed, likely ongoing phishing campaign to the group known as "SideCopy." SideCopy is believed to be an element of the Pakistani government , is often associated with Pakistan's catch-all "Transparent Tribe" (aka APT 36) APT, and has been known to target neighboring countries.
+
+Related: Chinese, N. Korean Threat Groups Build on Asia-Pacific Success
+
+The attack chain SideCopy deployed in this latest Afghanistan campaign is not only the same one it's been rolling out for ages, but utterly textbook of a mid-tier threat actor.
+
+The attacks began with spear-phishing emails. Those emails contained zip archives, with malicious LNK files disguised as PDFs. The LNK files used mshta to fetch an HTA payload, which then got decoded in-memory. A couple of loaders followed, and the attackers established persistence via the Windows registry, disguising their task as a Microsoft Edge process.
+
+The malware these steps were in service of, Xeno RAT, is an open source (OSS) remote stealer, customized in this case with a hardcoded command-and-control (C2) domain hosted by a bulletproof service in Bulgaria.
+
+Meanwhile, the decoy document presented to victims was an Afghan Ministry of Finance staff directory, listing names and mobile numbers belonging to various high-ranking employees across the country's 34 provinces.
+
+From the name of that LNK file to the decoy document dropped shortly thereafter, the attack chain made specific use of the Pashto language. Though only the second most commonly spoken language in Afghanistan — behind the lingua franca, Dari — Pashto is native to the Pashtun, the country's largest ethnic group from which the Taliban largely derives.
+
+Related: Tropical Blend: Cyber & Politics Ramp Up Across Latin America
+
+Even more significantly, the attackers hosted their remote payload on a compromised domain in the IP address space of Afghanistan's Ministry of Communication and Information Technology . By running their malicious traffic through the government's own sovereign infrastructure, on a website situated next to more than 200 legitimate government and education sites, the hackers were able to blend their malicious traffic with proper state business.
+
+Remember the images from the pullout of Afghanistan in 2021? Decades worth of weaponry, vehicles, and military and government infrastructure left behind for free use by the invading Taliban.
+
+Related: Latin American Cybercriminals Hoover Up Government Data
+
+This was also how the Taliban got its current cyber infrastructure . In the two decades following 2001 — when the former Taliban government fell — foreign aid and investments helped Afghanistan develop mobile, fiber optic, and other telecommunications infrastructure. The government developed a variety of IT and cybersecurity services on top, including security and surveillance systems, biometric databases, and administrative networks such as the Finance Ministry's, in which Pakistan has taken a recent interest. When the government turned over half a decade ago, the new (old) kids on the block simply inherited all those systems.
+
+Though it inherited the digital transformation for free, the Taliban has fewer cybersecurity resources available to protect that infrastructure, compared with the average non-US-designated terrorist government. That might help explain why a nation-state wouldn't deploy its most sophisticated TTPs in attacking it.
+
+"Afghanistan's cyber resilience may face challenges due to several factors, including economic isolation, limited access to international cybersecurity partnerships , difficulties in retaining skilled cybersecurity personnel, and constraints on technology modernization," the researchers say. "Such conditions can create opportunities for threat actors to maintain long-term access and conduct espionage operations with a reduced likelihood of detection."

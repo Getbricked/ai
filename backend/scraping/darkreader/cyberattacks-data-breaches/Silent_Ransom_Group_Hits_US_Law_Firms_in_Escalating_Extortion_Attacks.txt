@@ -1,0 +1,43 @@
+Title: Silent Ransom Group Hits US Law Firms in Escalating Extortion Attacks
+URL: https://www.darkreading.com/cyberattacks-data-breaches/silent-ransom-us-law-firms-extortion-attacks
+Author: (unknown)
+Date: (unknown)
+Topic: cyberattacks-data-breaches
+
+The financially motivated group is combining vishing, IT impersonation, and in-person office intrusions to steal data and extort victims.
+
+A financially motivated threat group is targeting US legal, professional and financial services firms in a data theft extortion campaign using a combination of phishing, voice impersonation tactics, and legitimate remote access tools.
+
+Google's Mandiant division attributed the activity to UNC3753, a threat cluster associated with the Silent Ransom group , which is known for stealing high-value data from victims and then extorting ransoms from them under the threat of public disclosure.
+
+Between January and May 2026, the group targeted dozens of organizations with social engineering attacks to gain initial access to victim environments.
+
+" UNC3753 leverages voice phishing (vishing) and social engineering deception techniques to achieve remote access into corporate environments," Google said in a recent blog post . "Using pretexts such as data migration or invoice related emails, the threat actors initiate phone conversations posing as IT support and convince targets to host screen-sharing sessions and download remote monitoring and management (RMM) utilities."
+
+Related: INC Ransomware Thrives by Mastering the Basics
+
+In some of the incidents, the attackers used "escalating tactics" that included posing as IT staff to gain physical access to corporate offices to attempt direct data theft from endpoint devices, Google said. Last month, the FBI warned about members of the group, also tracked as Luna Moth and Chatty Spider, personally showing up at a victim's office location on the pretext of needing to reimage their system and inserting a USB device into it for stealing data.
+
+Mandiant observed the threat actors operating very quickly once they gained initial access to victim environments. In several cases it investigated, UNC3753 progressed from initial contact to data theft and extortion in under a day. In more recent intrusions, the group compressed that timeline even further, with some incidents moving from compromise to data exfiltration and ransom demands in less than an hour, according to the blog post.
+
+The typical attack chain begins with the targeted individual receiving a suspicious looking, but benign, invoice-themed email from the attacker with no malicious attachments or links. The attacker then uses the benign phishing email as a pretext for initiating a follow-up voice call with the recipient, pretending to be a member of the victim organization's internal IT help desk or security support team.
+
+"The callers use a variety of verbal instructions to guide target behavior," Google said. "Under the guise of addressing a security issue or aiding with a corporate data migration project, they build trust and direct the target to join a screen-sharing session," via Zoom, Microsoft Teams and other platforms.
+
+Related: Sweeping Credential-Harvesting Heist Compromises 30K+ Fortinet Devices
+
+When possible, UNC3753 actors try to establish more persistent access on a compromised device by tricking the victim into downloading AnyDesk , Zoho Assist or other remote monitoring and management tool.
+
+Mandiant observed the threat actor also abusing bring-your-own-device (BYOD) remote work setups to gain access to corporate environments. In multiple cases, the attackers initiated Zoom sessions on personal devices belonging to targeted individuals and then used those endpoints to access enterprise virtual desktop infrastructure (VDI) through tools such as Windows 365 and Citrix clients.
+
+Once on a system, the attackers rapidly enumerate infected devices, map local and network drives, and identify sensitive document repositories, according to Google. They also leverage built-in search capabilities in enterprise platforms such as iManage to locate and stage high-value files, including tax records, client agreements, and personally identifiable information.
+
+UNC3753 transmits stolen data using multiple methods, including portable file transfer tools such as WinSCP and Rclone, as well as direct uploads to attacker-controlled cloud storage accounts via a victim’s browser. Mandiant also observed instances where the threat actors manipulated victims into dragging and dropping staged files into cloud folders during screen-sharing sessions or used tools like FTP to move stolen data to its servers.
+
+Related: Fileless Phantom Stealer Targets Browser Credentials
+
+Often, in as little as 30 minutes after successful data exfiltration, UNC3753 actors contact the victim with an aggressive extortion demand and give them three days to comply or risk having their sensitive data publicly disclosed. A sample extortion email that Mandiant posted showed the attackers threatening to notify "employees, partners and customers" about the data theft before also publicly publishing it.
+
+"You will receive claims from individuals, and legal entities for information leakage and breach of contracts, your current deals will be terminated," the extortion email warned. "Journalists and others will dig into your documents, finding inconsistencies or violations in them. Your organization will lose its reputation, shares will fall in price, and your organization will be forced to close."
+
+Mandiant recommended that organizations educate users about the vishing threat, particularly those tied to UNC3753's tactics, techniques and procedures. Other measures organizations can take, Google said, include implementing conditional access policies for remote access and enforcing strict controls on the use of remote monitoring and management (RMM) tools and screen sharing.

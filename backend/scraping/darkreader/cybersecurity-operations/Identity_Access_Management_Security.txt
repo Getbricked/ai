@@ -1,0 +1,9 @@
+Title: Identity & Access Management Security
+URL: https://www.darkreading.com/cybersecurity-operations/identity-access-management-security
+Author: (unknown)
+Date: (unknown)
+Topic: cybersecurity-operations
+
+Security research inadvertently led organizations to believe they were being breached through their ServiceNow instances.
+
+Anatomy of a Data Breach

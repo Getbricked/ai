@@ -1,0 +1,11 @@
+Title: Perimeter
+URL: https://www.darkreading.com/cybersecurity-operations/perimeter
+Author: (unknown)
+Date: (unknown)
+Topic: cybersecurity-operations
+
+Breaking news, news analysis, and expert commentary on threats to the network perimeter, and the tools & technologies for securing it.
+
+Attackers are actively targeting various sectors across nearly 200 countries and already have compiled a list of working credentials for tens of thousands of compromised devices.
+
+Anatomy of a Data Breach

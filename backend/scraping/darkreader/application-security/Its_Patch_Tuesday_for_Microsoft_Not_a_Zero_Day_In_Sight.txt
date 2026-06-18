@@ -1,0 +1,35 @@
+Title: It's Patch Tuesday for Microsoft & Not a Zero-Day In Sight
+URL: https://www.darkreading.com/application-security/patch-tuesday-microsoft-zero-day-sight
+Author: (unknown)
+Date: (unknown)
+Topic: application-security
+
+It's the first time in two years with no zero-days. But with 137 flaws to patch, including nine critical ones, admins still have plenty of work to do.
+
+For the first time in nearly two years, Microsoft's monthly security update featured no actively exploited zero-day vulnerabilities or previously disclosed flaws.
+
+But that welcome reprieve aside, Microsoft's May 2026 update contained fixes for 137 CVEs, 13 of which Microsoft considers as likely candidates for exploitation and nine of which the company rated as critical. These include two in Microsoft Office Word, where the Preview Pane is an attack vector, plus five others with near-maximum severity scores of 9.8 or 9.9 on the 10-point CVSS scale.
+
+This is the third month this year where Microsoft has disclosed more than 100 CVEs in a Patch Tuesday update. Through May, the company had already patched over 500 CVEs, which puts it on pace to surpass the annual record of 1,245 bugs Microsoft disclosed in 2020, said Satnam Naranag, senior staff research engineer at Tenable.
+
+Related: Copilot 'SearchLeak' Attack Allows 1-Click Data Theft
+
+According to Tom Gallagher, Microsoft's vice president of engineering, large releases could soon be the norm, with AI helping researchers uncover more vulnerabilities than before. "This month's release sits on the larger side of a hotpatch month, and we expect releases to continue trending larger for some time," Gallagher said in a blog post . "Advanced AI models are part of the discovery picture and help to accelerate it. They enable us to reason about code paths and configurations at a speed and consistency that would not be possible through manual review alone."
+
+The two Microsoft Office Word vulnerabilities in Microsoft's latest update with the preview pane attack vector are CVE-2026-40361 (CVSS 8.4) and CVE-2026-40364 (CVSS 8.4). The former is a memory-related vulnerability that allows a remote attacker to execute code locally on vulnerable systems. CVE-2026-40464 too is a remote code execution (RCE) bug stemming from a type-confusion issue. Neither vulnerability requires any user interaction. An attacker can trigger the flaws by simply sending a maliciously crafted document. "Outlook's reading pane has long been a common attack vector; a single incoming email can trigger exploitation without the user ever opening it," warned Amol Sarwate, head of security research at Cohesity, in a statement.
+
+Among the nine vulnerabilities in the May update with a severity score of 9.0 or greater — a rarity in recent Microsoft Patch Tuesday releases — are three with a near maximum rating of 9.9 out of 10 on the CVSS scale: CVE-2026-42898, CVE-2026-42823, and CVE-2026-33109.
+
+Related: Miasma Supply Chain Worm Burrows Into 73 Microsoft Repositories
+
+Of these, CVE-2026-42898 , an RCE in Microsoft Dynamics 365 On-premises, is the most pressing. The code-injection flaw enables an authenticated remote attacker to execute arbitrary code. Though an attacker does not require admin or other elevated privileges to exploit the attack, Microsoft itself has categorized the flaw as one attackers are unlikely to exploit.
+
+But Jack Bicer, director of vulnerability research at Action1, recommended organizations patch it immediately anyway. "With no user interaction required, and the potential to impact systems beyond the vulnerable component's original security scope, this vulnerability poses serious enterprise risk," he said in emailed comments. An attacker who successfully exploits the vulnerability can access customer records, operational workflows, financial information, and integrated business systems, he explained. "Since CRM environments often connect with identity services, databases, and enterprise applications, successful exploitation could lead to broader organizational compromise and operational disruption."
+
+The other two bugs with a 9.9 severity score affect Azure. CVE-2026-42823 is an elevation-of-privilege vulnerability in Azure Logic Apps. According to Microsoft, the company will notify organizations via Azure Service Health notification if they are impacted by the flaw and provide specific mitigation advice. CVE-2026-33109 is an RCE that affects Azure Managed Instance for Apache Cassandra. Users don't have to do anything to address the flaw because Microsoft has already mitigated it fully. "There is no action for users of this service to take. The purpose of this CVE is to provide further transparency," Microsoft said.
+
+Related: 'Hades' Campaign Against PyPI Puts New Spin on Shai-Hulud
+
+Jason Kikta, security researcher at Automox, highlighted CVE-2026-41089, an RCE in Windows Netlogon, as another flaw that organizations should prioritize. "An attacker sends a crafted network request to a domain controller. No authentication required. No user interaction required. If you've been doing this long enough, the description language sounds sadly familiar," Kitka said in prepared comments. Organizations, he advised, should keep an eye out for unexpected crashes or service restarts on the Netlogon service across their domain controllers. They should also be monitoring for anomalous Netlogon traffic patterns from non-domain controller source addresses, particularly malformed requests, authentication failures, or domain trust errors immediately after suspicious network activity hitting a domain controller.
+
+A total of seven CVEs affecting Copilot and Azure AI Foundry highlighted the growing exposure that organizations face from AI tools, added Tyler Reguly, associate director of security R&D at Fortra. "Are we aware of all our uses of AI?" Reguly asked in an emailed statement, adding that 6% of the CVEs this month were AI-based. "We know that number is only going to grow from here," he noted. "What other instances of AI might be in use in your organization that are not backed by a company with a regular update schedule like Microsoft?"

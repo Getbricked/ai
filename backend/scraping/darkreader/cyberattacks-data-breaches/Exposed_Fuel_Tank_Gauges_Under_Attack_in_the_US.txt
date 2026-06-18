@@ -1,0 +1,47 @@
+Title: Exposed Fuel Tank Gauges Under Attack in the US
+URL: https://www.darkreading.com/cyberattacks-data-breaches/exposed-fuel-tank-gauges-attack-us
+Author: (unknown)
+Date: (unknown)
+Topic: cyberattacks-data-breaches
+
+Threat actors are taking advantage of Internet-exposed tank gauges by breaching gas stations, opening the door to disruption.
+
+Cyberattackers are targeting Internet-exposed automatic tank gauge (ATG) systems in the United States, and the feds are urging site owners to take swift action.
+
+ATGs are the electronic gauges that industrial sites use to monitor liquid storage tanks, whether they contain dangerous chemicals, fuel, or whatever else. Compared to some more elaborate machinery, they're rather straightforward things: probes that feed displays, which feed data to broader supervisory control and data acquisition (SCADA) systems so that plant operators can monitor their readings at a distance. Perhaps most folks give them little thought, especially in a cybersecurity context, but they're arguably as grave of a potential risk as any other equipment at any industrial facility anywhere.
+
+This week, the Cybersecurity and Infrastructure Security Agency (CISA), Federal Bureau of Investigation (FBI), National Security Agency (NSA), Department of Energy (DoE), Environmental Protection Agency (EPA), Transportation Security Administration (TSA), Department of Transportation (DOT), and US Department of Agriculture (USDA) published a joint notice urging industrial organizations to harden their ATGs from cyberattack.
+
+Related: INC Ransomware Thrives by Mastering the Basics
+
+The agencies said they're "aware of malicious cyber activity" targeting these systems in the US, but didn't attribute it to any one particular threat group; the statement might be in reference to reports last month that threat actors loosely linked to Iran have been attacking ATGs at gas stations around the country.
+
+The notice highlighted how, by compromising vulnerabilities in ATGs, threat actors could conceivably alter tank readings, pump controls, and other settings. If plant operators aren't wise to being infiltrated, and especially if the readings concern safety-critical systems, the consequences could be dire. ATGs also perform functions besides bare readings, like alerting operators about abnormal conditions in a tank. Attackers could theoretically disable such alerts, raising the chances for something very dangerous occurring.
+
+It's only fitting that the US government would be the one conveying the message. Putting the recent Iran-linked campaign aside, the overwhelming majority of vulnerable ATGs today are located in the States, according to recent data.
+
+Following the joint notice, The Shadowserver Foundation ran widespread scans looking for ATGs exposed to the open Web. The vast majority of discoverable devices were honeypots, but after those were filtered out, the lion's share of under-protected ATGs out in the wild were found to be concentrated in a single country: specifically, there were 909 discoverable devices in the US as of the time of publication. The next most-exposed countries were Canada (with 30 exposed ATGs), Australia (22), and then the UK (four) and Brazil (four).
+
+Related: Sweeping Credential-Harvesting Heist Compromises 30K+ Fortinet Devices
+
+Dark Reading reached out to Shadowserver for a possible explanation for the massive disparity in exposure levels, but didn't receive an answer by press time.
+
+Even if the US constitutes 90% or more of the vulnerable ATGs on the planet, those 909 instances actually represent an improvement for stateside organizations. A decade ago, Dark Reading reported that nearly 6,000 ATGs across the nation were exposed on the Web.
+
+Like other industrial devices, ATGs are vulnerable almost by design. They're built to last in the field for years, often without downtime, with a focus on reliability more than security. That leaves lots of them old and unpatched, running legacy stacks , and they're certainly not complex enough to run security software.
+
+It should come as no surprise, then, that these devices can contain serious vulnerabilities . A couple of years ago, researchers at Bitsight did a study that found seven critical zero-day vulnerabilities across six of the most popular models. They included command-injection vulnerabilities with CVSS scores of 10 out of 10, a few authentication bypass issues, hardcoded credentials, and more.
+
+Related: Fileless Phantom Stealer Targets Browser Credentials
+
+Were a high-level or even nation-state threat actor — like, say, an advanced persistent threat (APT) from Iran — able to reach an ATG over the Internet, they could exploit it for useful intelligence to support follow-on cyberattacks or for other purposes. But another real risk is if attackers are able to cut off industrial operators from the data they rely on, especially when that data concerns critical systems.
+
+The first, most important, and most obvious line item in the US government's recommendations to operators is to rip ATGs off the open Web.
+
+Andrew Ginter, vice president of industrial security at Waterfall Security Solutions, recalls how "years ago, I thought the first thing to do to launch an operational technology (OT) security program was segmentation. A firewall or three. I was recently corrected: the first step is to get your devices and human machine interfaces (HMIs) off the Internet. Do it on an emergency basis."
+
+If for some inexplicable reason an ATG has to be on the Internet, he adds, "Harden it nine ways to Sunday. Auto update. Long passwords. Encrypt everything. If you can't do that either, you have intrinsically bad design."
+
+US authorities also recommend enforcing credential security, applying patches — which at always-on industrial sites that can't afford downtime may be more difficult than it sounds — and closely monitoring unauthorized network access.
+
+At a higher level, Ginter points out that organizations can protect themselves against worst-case scenarios by "deploying cyber-informed engineering (CIE)-style analog and other 'unhackable' digital mitigations to prevent unacceptable consequences." These could include over-pressure release valves and float valves that preempt dangerous tank conditions, and unidirectional gateways that prevent malicious information from reaching even the most vulnerable equipment.

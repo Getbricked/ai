@@ -1,0 +1,53 @@
+Title: DriveSurge Hijacks Thousands of Sites for ClickFix, FakeUpdate Attacks
+URL: https://www.darkreading.com/cyberattacks-data-breaches/drivesurge-hijacks-thousands-sites-clickfix-fakeupdate-attacks
+Author: (unknown)
+Date: (unknown)
+Topic: cyberattacks-data-breaches
+
+A sneaky, wide-scale IAB operation uses a malicious traffic distribution system (TDS) to redirect visitors of trusted websites to ones that deliver malware.
+
+Threat actors have compromised thousands of websites for the purpose of engineering industrialized ClickFix and FakeUpdate attacks in an organized malware delivery operation aimed at selling initial access to systems. The campaign targets not only Windows users but also macOS systems and appears to be a mature cybercriminal ecosystem that avoided detection for nearly a year.
+
+The operation — dubbed DriveSurge by the researchers at Silent Push who discovered the activity — appears to function as an initial access broker (IAB) "using a pay-per-install (PPI) model to supply downstream threat actors with high-quality victim leads," according to a recently published report.
+
+The operation's primary weapon is a technique known as a traffic distribution system (TDS), which specifically uses an open source variant called zTDS. zTDS, in use since at least 2015, is publicly available at ztds[.]info. This system acts as the foundational engine of the activity, with compromised websites setting zTDS domains for traffic victims of ClickFix and FakeUpdate websites, acccording to Silent Push.
+
+Related: INC Ransomware Thrives by Mastering the Basics
+
+"Using zTDS, DriveSurge hijacks thousands of legitimate, high-reputation websites and silently redirects visitors to malware, unbeknownst to the sites' owners or their visitors," the report reads.
+
+DriveSurge's infrastructure is quite extensive, including payload repositories, PowerShell downloaders, staging servers, and multiple fallback domains designed to maintain resiliency if portions of it get taken down, the researchers discovered. Attackers also avoid detection using obfuscated JavaScript that uses Base64 encoding, dynamic URL construction, and failover logic to retrieve malicious code while avoiding detection.
+
+One notable part of the operation's strategy involves using an obfuscated payload hosted on its infrastructure that performs extensive victim profiling, according to the report. Attackers collect information about the target environment through the malware's features, which includes identifying OS characteristics, communicating with attacker-controlled endpoints, and dynamically building payloads based on the victim's platform.
+
+The activity is unique for its scope, Waseem Ahmed, head of engineering for Secure.com, tells Dark Reading. Noting that "ClickFix and fake-update pop-ups have been the way in for a while now," he says what's different with DriveSurge "is the scale and the business behind it."
+
+"[It's] the crew quietly running this across thousands of hacked-but-legitimate sites, then selling that access to whoever wants it," he says. "Think less burglar, more the guy selling keys to burglars."
+
+Related: Sweeping Credential-Harvesting Heist Compromises 30K+ Fortinet Devices
+
+Another notable aspect of the campaign is that it's managed to fly under the radar for so long, according to Silent Push. One of the malicious websites used in the campaign has been active since at least September 2025, though the researchers only uncovered DriveSurge this past February.
+
+"What makes DriveSurge notable isn't just the volume of its activity; it's the sophistication of its infrastructure, the breadth of its targets, and the fact that it has been operating largely undetected until now," the report said.
+
+To a victim, an attack starts with someone visiting a legitimate website — such as that of a business, a professional services firm, or a local organization — that secretly has been compromised. In the background, hidden malicious code injected by DriveSurge routes the visitor through zTDS, which, as mentioned, profiles the visitor and decides what to serve them next.
+
+The compromised user will then typically encounter one of two scenarios. The first is a FakeUpdate browser update, with a prompt that impersonates Google Chrome, Mozilla Firefox, Microsoft Edge, Safari, Opera Browser, Brave Browser, Yandex Browser, Vivaldi, Samsung Internet, UC Browser, or an "Other" category browser. The prompt urges the user to download what looks like a legitimate update but is actually malware.
+
+Related: Fileless Phantom Stealer Targets Browser Credentials
+
+The second scenario is a ClickFix attack in which the user encounters a fake error message instructing them to copy and paste a "fix" into their terminal or PowerShell window, as is typical of this style of attack. The fix is actually a malicious command that installs malware directly onto their system.
+
+Silent Push researchers encountered an example of each of the attacks. They observed a FakeUpdate attack on the compromised site jclforwarding[.]com, with the malicious domain check[.]first-node[.]rocks serving a false Mozilla Firefox update page that triggered the download of a zip file containing several DLLs and a "Browser Update[.]exe."
+
+They also observed a ClickFix attack attempting to pull malicious code from IP 91.92.240[.]127, an address previously listed on SilentPush's Bulletproof Hosting Indicators of Future Attack (IOFA) feeds, according to the report.
+
+DriveSurge marries two rising current cybersecurity trends — industrialized IAB operations and ClickFix , a combination of which showcases how to successfully bypass many traditional browser protections by convincing users to execute commands manually. The attack also demonstrates the increasing popularity of macOS as a targeted system, which historially was less susceptible to attack than Windows systems.
+
+To help stymie these attacks, defenders should rely less on automated protections and shift toward addressing these convincing social engineering tactics, which trick users into manually executing malware, Jason Soroko, senior fellow at certificate life cycle management firm Sectigo, tells Dark Reading.
+
+"Security teams should ingest real-time threat intelligence feeds to block DriveSurge domains, and prioritize user education so employees recognize fake error prompts and never paste unfamiliar commands into a system dialog," he says.
+
+Organizations also should take precautions and instruct security teams to monitor for activity associated with the operation, such as unexpected outbound traffic to newly registered or low-reputation domains; browser update prompts originating from non-vendor domains; and users executing Terminal, PowerShell, or shell commands copied from websites, according to SilentPush.
+
+Suspicious JavaScript injections on externally facing Web servers and indicators of compromise associated with zTDS infrastructure and ClickFix delivery chains related to the campaign, provided by Silent Push, also can be helpful for detecting the campaign.

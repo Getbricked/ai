@@ -1,0 +1,49 @@
+Title: Latin American Cybercriminals Hoover Up Government Data
+URL: https://www.darkreading.com/cyberattacks-data-breaches/latin-american-cybercriminals-government-data
+Author: (unknown)
+Date: (unknown)
+Topic: cyberattacks-data-breaches
+
+Breaking cybersecurity news, news analysis, commentary, and other content from around the world, with an initial focus on the Middle East & Africa and the Asia Pacific
+
+A  purported leak exposing 5.8 million records of Uruguayan citizens is the latest incident where cybercriminals targeted government agencies to monetize citizen data.
+
+Cyber threat groups in Latin and South America have increasingly targeted government agencies and contractors, stealing and monetizing citizen data at a rate that has made the public-administration sector in the region the most-breached in the past year.
+
+In mid-May, a group known as La Pampa Leaks claimed to have compromised Uruguay's government-sponsored identity service managed by telecommunications provider Antel, reportedly monetizing the information as a citizen-data lookup service. In February, a hacking collective known as the Chronus Group claimed to have stolen data from 25 different Mexican government agencies and groups . And, in Colombia, cyberattackers targeted the nation's health ministry with more than 23 million attempted attacks during the month of March.
+
+The region has spawned its own cybercriminal ecosystem, with local cybercriminal groups targeting government agencies and municipal infrastructure in nations such as Chile, Colombia, Mexico, and Uruguay, says Fabio Assolini, lead security researcher at Kaspersky's Global Research and Analysis Team (GReAT).
+
+Related: Chinese, N. Korean Threat Groups Build on Asia-Pacific Success
+
+"Unlike global cartels that cast a wide net, these actors intimately understand the regional geopolitical landscape," he tells Dark Reading, adding that they have their own playbooks as well: "Moving away from traditional operational models, these groups are pivoting to 'pure extortion' attacks, bypassing the encryption phase entirely to focus solely on high-volume data exfiltration."
+
+Also on attackers' radar in the past year: organizations in Peru, Mexico, and Brazil, which have suffered at least 90 data breaches each, placing them in the top 10 most-targeted nations, according to data from Bitsight , a cyber-risk platform provider. In addition, "public administration" topped the list of industry sectors for breach victims, accounting for 21%, or 543, breaches in the past 12 months, according to the company's data.
+
+Public administration has dominated as the economic sector most targeted by cybercriminals. Source: Bitsight
+
+While cyber threat actors may be finding fertile fields for attacks in the region, the geopolitical environment in Latin America adds another layer to the cyber threat landscape, says Emma Stevens, a threat intelligence researcher at Bitsight.
+
+"Elections, political differences, economic instability, and foreign influence concerns can make government institutions more attractive to hacktivists, state-aligned actors, and financially motivated groups," she says. "Recent activity across Uruguay, Paraguay, Argentina, and Mexico suggests repeated targeting of public-sector and citizen-adjacent systems, not just isolated incidents."
+
+Related: Pakistan Spies on Afghan Finance Ministry With Xeno RAT
+
+Like other threat actors, those targeting the Latin American threat landscape tend to focus on hacktivism, financial gain, or nation-state activity. Yet, in many ways, they also have their own playbooks. While regional threat actors utilize the same initial access and lateral movement strategies as major ransomware groups, their post-exploitation behavior differs significantly, says Kaspersky's Assolini.
+
+"Instead of deploying encryptors, they quietly siphon governmental databases," he says. "Their strategy relies on psychological and public pressure, mirroring the modus operandi of groups like ShinyHunters ."
+
+In late May, for example, the ransomware group Bashe, also known as APT73, claimed a compromise of Grupo Petersen, an engineering and construction company that works on many public-works projects in Argentina. The group is one of the regional groups known for often fabricating data breach claims using publicly accessible data, or reusing data from previous breaches. Antel, for example, downplayed La Pampa Leaks' claims of a breach by saying (via Google Translate) that "passwords, signature PINS, private keys associated with digital certificates, or credentials were not compromised, so the operation or authentication mechanisms currently used by the platform have not been affected."
+
+Related: Tropical Blend: Cyber & Politics Ramp Up Across Latin America
+
+Ransomware groups in other regions have used broad claims to put pressure on victims, but the technique is especially prevalent in Latin America, says Kaspersky's Assolini.
+
+"A significant portion of these 'new' announcements are elaborate deceptions," he says. "Cybercriminal groups frequently recycle historical, publicly available data — from older, well-known breaches — mix it with auto-generated records, and falsely attribute it to a new corporate target. "
+
+One reason attacks on governments in the region have grown so quickly: When faced with a ransom demand, public agencies will often weigh the cost against the potential legal and political consequences of a public leak, says Assolini. More nations in the region are adopting strict cybersecurity rules and requiring that agencies and contractors comply.
+
+"Cybercriminals have realized that regulatory compliance can be weaponized," he says. "By threatening to publish sensitive citizen data, attackers leverage the victims' fear of massive government fines, political fallout, and severe reputational damage."
+
+Organizations should build resilience in the areas that cyber threat actors continue to focus, such as exposed services, weak identity controls, unpatched vulnerabilities, and open ports, says Bitsight's Stevens.
+
+"For LatAm CERTs specifically," she adds, "identity security and exposed infrastructure should come first, because those are the areas that can turn a single weak point into a much larger public-sector incident."

@@ -26,3 +26,5 @@ python-docx
 # Web API
 fastapi
 uvicorn
+
+beautifulsoup4

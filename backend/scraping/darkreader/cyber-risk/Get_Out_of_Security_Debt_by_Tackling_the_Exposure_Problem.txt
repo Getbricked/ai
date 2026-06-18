@@ -1,0 +1,75 @@
+Title: Get Out of Security Debt by Tackling the Exposure Problem
+URL: https://www.darkreading.com/cyber-risk/security-debt-tackle-exposure-problem
+Author: (unknown)
+Date: (unknown)
+Topic: cyber-risk
+
+Teams digging out of security debt need to answer only two simple questions: Which vulnerabilities in our systems are exposed, and how long should they stay that way?
+
+Security teams already know they have too many vulnerabilities. What they often underestimate is how much of that risk remains exposed.
+
+Right now, 82% of organizations carry security debt . These are vulnerabilities that have been open for more than a year. At the same time, flaws that are both severe and likely to be exploited are increasing.
+
+That combination is what turns a backlog into real risk. Vulnerabilities are not just being discovered. They are persisting in production systems long enough to be found and used.
+
+Most teams already know they can't fix everything. They've known that for years. What's changed is how quickly exposure turns into impact. Attackers move faster, exploit techniques are easier to access, and the window between discovery and exploitation continues to shrink.
+
+If you are still managing security debt as a backlog problem, you are measuring activity, not risk.
+
+Related: UK Social Media Ban for Minors Has Privacy Experts Worried
+
+The question that matters now is simple. Which vulnerabilities are exposed, and how long do they stay that way?
+
+The first step is narrowing the scope.
+
+Every organization has a small number of applications that carry most of the risk. These are systems tied to revenue, sensitive data, or external access — the "crown jewels" of an organization. These are also the systems attackers are most likely to target.
+
+Instead of spreading effort across the entire backlog, start with these critical applications. Then go a level deeper. Identify the highly or very highly critical vulnerabilities that are likely or very likely to be exploited. In our research, we found that 11.3% of flaws exist in this high-risk region.
+
+This approach does not reduce the backlog overnight. It reduces real risk.
+
+Severity scores still matter, but they are not enough on their own.
+
+Attackers do not prioritize based on severity rankings. They look for what is accessible, easy to exploit, and connected to something valuable. A medium-severity vulnerability in a public-facing application can present more immediate risk than a high-severity issue in an internal system.
+
+We are also seeing more vulnerabilities cluster in the high-risk category. These are flaws that combine high severity with high exploitability. They are the ones most likely to be used in real-world attacks, and they are increasing as a share of overall findings.
+
+Effective prioritization needs to reflect that reality. Teams should be asking a few key questions. Is the vulnerability reachable in production? Is the application exposed or business-critical? Are there known exploits or active attack patterns? We have found that developers, left to themselves, will not prioritize this way.
+
+Related: Most CISOs Report Pressure to Bury Bad Security News
+
+You do not need to rebuild your entire prioritization model, but you do need to ensure the vulnerabilities most likely to be used against you are addressed first.
+
+Fix capacity is one of the biggest constraints in application risk management today.
+
+Most organizations are finding vulnerabilities faster than they can remediate them. That gap is what drives the steady growth of security debt.
+
+If remediation is treated as something that happens when developers have extra time, it will always fall behind.
+
+Teams that make progress treat remediation as a resourced function. They allocate dedicated engineering time to security work, define expectations for how quickly high-risk vulnerabilities need to be addressed, and track whether incoming findings are outpacing their ability to fix them. They integrate fixes into the SDLC as part of continuous remediation process.
+
+In some cases, this requires trade-offs. Slowing feature delivery to reduce exposure is not an easy decision, but it is often necessary to bring risk back under control.
+
+Related: US Cracks Down on Anthropic AI Models Amid Abuse Concerns
+
+Sixty-six percent of security debt in third-party code is critical, making it one of the most persistent sources of long-lived exposure.
+
+A significant share of critical security debt comes from dependencies, which tend to take longer to remediate. Our research found that the remediation half-life for third-party flaws in 358 days.
+
+The reasons are familiar: transitive dependencies are complex; upgrades can break functionality; ownership is often unclear. The result is consistent — these issues stay open longer and expand your exposure window.
+
+Reducing that risk requires discipline. Keep dependencies current, especially in high-risk applications. Maintain visibility into where vulnerable components are used. Prioritize fixes based on reachability and impact, not just version numbers or severity scores.
+
+If you are not actively managing this layer, it will quietly dominate your risk.
+
+Most security programs still rely on metrics that do not reflect actual risk.
+
+Counting vulnerabilities does not tell you whether you are safer. Tracking how many issues were closed in a given period does not answer that question either. These are activity metrics.
+
+A more useful measure is exposure time . This is how long a critical, exploitable vulnerability exists before it is fixed or mitigated.
+
+This is the window attackers operate in. The longer it stays open, the higher the chance it is exploited.
+
+If you measure and manage that window, you get a much clearer view of whether your program is reducing risk.
+
+Security debt is not going away. There have always been more vulnerabilities than teams can fix, and that will continue. What can change is how long the most dangerous ones remain exposed. That is the shift security leaders need to make. Do not focus on eliminating the backlog. Focus on shrinking the window in which critical vulnerabilities are available to attackers. Breaches happen because the wrong vulnerability was exposed for too long.
