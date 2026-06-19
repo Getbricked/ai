@@ -8,6 +8,7 @@ import time
 from _utils import get_openai_embeddings_batch
 from _credentials import container_client, embed_endpoint, embed_api_key
 from _config import CONTAINER_NAME, EMBEDDING_DEPLOYMENT_NAME
+from doc_processing.spacy_utils import process_text_for_embedding
 
 logger = logging.getLogger(__name__)
 
@@ -111,7 +112,14 @@ def convert_to_json_and_upload(local_path):
 
     logger.info("Collected %d paragraphs to process", len(paragraphs_to_process))
 
-    logger.info("Phase 2: Generating embeddings in batches...")
+    logger.info("Phase 2: Compressing text with spaCy...")
+    compress_start_time = time.perf_counter()
+    for p in paragraphs_to_process:
+        p["content"] = process_text_for_embedding(p["content"])
+    compress_time = time.perf_counter() - compress_start_time
+    logger.info("Compressed %d paragraphs in %.2f seconds", len(paragraphs_to_process), compress_time)
+
+    logger.info("Phase 3: Generating embeddings in batches...")
     embed_start_time = time.perf_counter()
     texts = [p["content"] for p in paragraphs_to_process]
     embeddings = get_openai_embeddings_batch(
@@ -124,7 +132,7 @@ def convert_to_json_and_upload(local_path):
     embed_time = time.perf_counter() - embed_start_time
     logger.info("Generated %d embeddings", len(embeddings))
 
-    logger.info("Phase 3: Uploading documents to blob storage...")
+    logger.info("Phase 4: Uploading documents to blob storage...")
     upload_phase_start_time = time.perf_counter()
     upload_time = 0.0
     upload_batch_size = 50
