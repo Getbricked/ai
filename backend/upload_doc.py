@@ -27,7 +27,7 @@ from _utils import (
 )
 
 # Quick upload
-upload_backup("backup/")
+# upload_backup("backup/")
 
 # Use for new documents!
 # convert_to_json_and_upload("docs/")
