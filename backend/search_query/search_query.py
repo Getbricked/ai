@@ -4,6 +4,7 @@ from azure.search.documents import SearchClient
 from azure.search.documents.indexes import SearchIndexClient
 from azure.core.credentials import AzureKeyCredential
 import json
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List, Dict, Any, Optional
 from azure.search.documents.models import VectorizedQuery  # Change this import
 
@@ -11,18 +12,10 @@ logger = logging.getLogger(__name__)
 
 
 def load_json_documents_from_blob(
-    connection_string: str, container_name: str
+    connection_string: str,
+    container_name: str,
+    max_workers: int = 16,
 ) -> List[Dict[str, Any]]:
-    """
-    Loads JSON documents from Azure Blob Storage.
-
-    Args:
-        connection_string: Azure Storage connection string
-        container_name: Name of the blob container
-
-    Returns:
-        List of document dictionaries
-    """
     logger.info("Loading JSON documents from container '%s'...", container_name)
     documents = []
 
@@ -32,29 +25,35 @@ def load_json_documents_from_blob(
         )
         container_client = blob_service_client.get_container_client(container_name)
 
-        blob_list = container_client.list_blobs()
-        for blob in blob_list:
-            if blob.name.endswith(".json"):
-                logger.info("Processing %s...", blob.name)
-                blob_client = container_client.get_blob_client(blob)
+        blob_names = [
+            b.name for b in container_client.list_blobs() if b.name.endswith(".json")
+        ]
+        logger.info("Found %d JSON blobs.", len(blob_names))
+
+        def _download_and_parse(name: str) -> List[Dict[str, Any]]:
+            try:
+                blob_client = container_client.get_blob_client(name)
                 blob_data = blob_client.download_blob().readall()
+                data = json.loads(blob_data)
+                if isinstance(data, list):
+                    return data
+                elif isinstance(data, dict):
+                    return [data]
+                else:
+                    logger.warning("'%s' is not a dict or list.", name)
+                    return []
+            except json.JSONDecodeError:
+                logger.warning("Could not decode JSON from '%s'.", name)
+                return []
+            except Exception as e:
+                logger.error("Error processing '%s': %s", name, e)
+                return []
 
-                try:
-                    data = json.loads(blob_data)
-
-                    if isinstance(data, list):
-                        documents.extend(data)
-                    elif isinstance(data, dict):
-                        documents.append(data)
-                    else:
-                        logger.warning(
-                            "%s does not contain a valid JSON object or list.", blob.name
-                        )
-
-                except json.JSONDecodeError:
-                    logger.warning("Could not decode JSON from %s.", blob.name)
-                except Exception as e:
-                    logger.error("Error processing blob %s: %s", blob.name, e)
+        with ThreadPoolExecutor(max_workers=max_workers) as pool:
+            fut_map = {pool.submit(_download_and_parse, n): n for n in blob_names}
+            for fut in as_completed(fut_map):
+                docs = fut.result()
+                documents.extend(docs)
 
         if not documents:
             logger.info("No valid .json documents found in blob container.")
