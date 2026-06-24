@@ -1,0 +1,14 @@
+TIMING SUMMARY
+------------------------------------------------------------
+  mitre_processing        26.02s
+  darkreader_processing    49.30s
+  load_from_blob          29.40s
+  map_for_search           0.00s
+  upload_to_search        14.59s
+  total                  122.20s
+
+SIZE SUMMARY
+------------------------------------------------------------
+  Loaded from blob:      2088 docs, 64837.66 KB
+  Mapped for search:     2088 docs, 64839.70 KB
+============================================================

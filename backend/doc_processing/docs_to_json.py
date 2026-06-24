@@ -5,6 +5,8 @@ import PyPDF2
 from docx import Document
 import re
 import time
+import concurrent.futures
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from _utils import get_openai_embeddings_batch
 from _credentials import container_client, embed_endpoint, embed_api_key
 from _config import CONTAINER_NAME, EMBEDDING_DEPLOYMENT_NAME
@@ -119,53 +121,58 @@ def convert_to_json_and_upload(local_path):
         EMBEDDING_DEPLOYMENT_NAME,
         embed_endpoint,
         embed_api_key,
-        max_batch_size=20,
+        max_batch_size=500,
     )
     embed_time = time.perf_counter() - embed_start_time
     logger.info("Generated %d embeddings", len(embeddings))
 
-    logger.info("Phase 3: Uploading documents to blob storage...")
+    logger.info("Phase 3: Uploading documents to blob storage (parallel)...")
     upload_phase_start_time = time.perf_counter()
+
+    def _upload_blob(args):
+        para_data, embedding = args
+        try:
+            json_doc = {
+                "id": para_data["doc_id"],
+                "content": para_data["content"],
+                "category": para_data["category"],
+                "source": para_data["source"],
+                "contentVector": embedding,
+            }
+            blob_data = json.dumps(json_doc)
+            blob_client = container_client.get_blob_client(para_data["blob_name"])
+            t0 = time.perf_counter()
+            blob_client.upload_blob(blob_data, overwrite=False)
+            elapsed = time.perf_counter() - t0
+            size = len(blob_data.encode("utf-8"))
+            return (json_doc, size, elapsed, None)
+        except Exception as e:
+            return (None, 0, 0, f"Error uploading {para_data['blob_name']}: {e}")
+
+    upload_items = [
+        (para_data, embedding)
+        for para_data, embedding in zip(paragraphs_to_process, embeddings)
+        if embedding is not None
+    ]
+
+    json_documents = []
+    total_size = 0
     upload_time = 0.0
-    upload_batch_size = 50
+    done = 0
 
-    for i in range(0, len(paragraphs_to_process), upload_batch_size):
-        batch = paragraphs_to_process[i : i + upload_batch_size]
-        batch_embeddings = embeddings[i : i + upload_batch_size]
-
-        for para_data, embedding in zip(batch, batch_embeddings):
-            if embedding is None:
-                logger.warning("Skipping %s (embedding failed)", para_data["blob_name"])
-                continue
-
-            try:
-                json_doc = {
-                    "id": para_data["doc_id"],
-                    "content": para_data["content"],
-                    "category": para_data["category"],
-                    "source": para_data["source"],
-                    "contentVector": embedding,
-                }
-
-                json_documents.append(json_doc)
-
-                blob_client = container_client.get_blob_client(para_data["blob_name"])
-                blob_data = json.dumps(json_doc)
-                upload_start_time = time.perf_counter()
-                blob_client.upload_blob(blob_data, overwrite=False)
-                upload_time += time.perf_counter() - upload_start_time
-                size = len(blob_data.encode("utf-8"))
+    with ThreadPoolExecutor(max_workers=100) as executor:
+        futures = [executor.submit(_upload_blob, item) for item in upload_items]
+        for future in as_completed(futures):
+            doc, size, elapsed, error = future.result()
+            done += 1
+            if error:
+                logger.error(error)
+            else:
+                json_documents.append(doc)
                 total_size += size
-                logger.info("Uploaded %s (%d bytes)", para_data["blob_name"], size)
-            except Exception as e:
-                logger.error("Error uploading %s: %s", para_data["blob_name"], e)
-
-        if (i + upload_batch_size) < len(paragraphs_to_process):
-            logger.info(
-                "Progress: %d/%d",
-                min(i + upload_batch_size, len(paragraphs_to_process)),
-                len(paragraphs_to_process),
-            )
+                upload_time += elapsed
+            if done % 50 == 0 or done == len(upload_items):
+                logger.info("Progress: %d/%d", done, len(upload_items))
 
     progress_time = time.perf_counter() - upload_phase_start_time - upload_time
     total_time = time.perf_counter() - start_time

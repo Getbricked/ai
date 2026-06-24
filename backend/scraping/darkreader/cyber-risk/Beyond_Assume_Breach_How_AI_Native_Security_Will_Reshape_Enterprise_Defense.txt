@@ -4,8 +4,6 @@ Author: (unknown)
 Date: (unknown)
 Topic: cyber-risk
 
-Since 2006, Dark Reading has been at the forefront of covering cybersecurity, providing deep insights and analysis beyond the headlines. All those major news events? We were there. Shifts in technology trends? We wrote about them. Enjoy this special anniversary coverage celebrating where we've been and what's next.
-
 Twenty years after Dark Reading launched, we're looking ahead at what's next for enterprise security. Spoiler: It's hyper-segmented, AI-orchestrated, and way more sophisticated than your dad's firewall.
 
 Cybersecurity has been one of the fastest-moving tech sectors over the past few decades, rushing headlong from its beginnings as an almost niche IT bolt-on practice to becoming a mainstream enterprise risk category — all thanks to an always-on, swiftly moving threat landscape that changes the face of the enemy seemingly weekly. Dynamic change, in other words, is the steady state.

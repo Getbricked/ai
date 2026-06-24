@@ -4,8 +4,6 @@ Author: the FBI in Las Vegas after attending the Black Hat USA 2017 and DEF CON 
 Date: (unknown)
 Topic: cybersecurity-operations
 
-Since 2006, Dark Reading has been at the forefront of covering cybersecurity, providing deep insights and analysis beyond the headlines. All those major news events? We were there. Shifts in technology trends? We wrote about them. Enjoy this special anniversary coverage celebrating where we've been and what's next.
-
 As part of Dark Reading's 20th anniversary special coverage, we profile the CISOs, founders, researchers, criminals, and policymakers who rewrote the enterprise risk playbook.
 
 20 Leaders Who Built the CISO Era: 2 Decades of Change

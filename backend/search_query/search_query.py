@@ -1,9 +1,11 @@
 import logging
+import json
+import concurrent.futures
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from azure.storage.blob import BlobServiceClient
 from azure.search.documents import SearchClient
 from azure.search.documents.indexes import SearchIndexClient
 from azure.core.credentials import AzureKeyCredential
-import json
 from typing import List, Dict, Any, Optional
 from azure.search.documents.models import VectorizedQuery  # Change this import
 
@@ -11,20 +13,23 @@ logger = logging.getLogger(__name__)
 
 
 def load_json_documents_from_blob(
-    connection_string: str, container_name: str
+    connection_string: str, container_name: str, max_workers: int = 10
 ) -> List[Dict[str, Any]]:
     """
-    Loads JSON documents from Azure Blob Storage.
+    Loads JSON documents from Azure Blob Storage using parallel downloads.
 
     Args:
         connection_string: Azure Storage connection string
         container_name: Name of the blob container
+        max_workers: Number of parallel download threads (default 10)
 
     Returns:
         List of document dictionaries
     """
-    logger.info("Loading JSON documents from container '%s'...", container_name)
-    documents = []
+    logger.info(
+        "Loading JSON documents from container '%s' (%d workers)...",
+        container_name, max_workers,
+    )
 
     try:
         blob_service_client = BlobServiceClient.from_connection_string(
@@ -32,29 +37,52 @@ def load_json_documents_from_blob(
         )
         container_client = blob_service_client.get_container_client(container_name)
 
-        blob_list = container_client.list_blobs()
-        for blob in blob_list:
-            if blob.name.endswith(".json"):
-                logger.info("Processing %s...", blob.name)
-                blob_client = container_client.get_blob_client(blob)
+        blob_names = [
+            b.name for b in container_client.list_blobs() if b.name.endswith(".json")
+        ]
+
+        if not blob_names:
+            logger.info("No .json blobs found in container '%s'.", container_name)
+            return []
+
+        logger.info("Found %d JSON blobs, downloading...", len(blob_names))
+
+        def _download_blob(name: str) -> list[dict]:
+            try:
+                blob_client = container_client.get_blob_client(name)
                 blob_data = blob_client.download_blob().readall()
+                data = json.loads(blob_data)
 
+                if isinstance(data, list):
+                    return data
+                elif isinstance(data, dict):
+                    return [data]
+
+                logger.warning(
+                    "%s does not contain a valid JSON object or list.", name
+                )
+                return []
+
+            except json.JSONDecodeError:
+                logger.warning("Could not decode JSON from %s.", name)
+                return []
+            except Exception as e:
+                logger.error("Error processing blob %s: %s", name, e)
+                return []
+
+        documents = []
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            futures = {
+                executor.submit(_download_blob, name): name for name in blob_names
+            }
+            for future in as_completed(futures):
+                name = futures[future]
                 try:
-                    data = json.loads(blob_data)
-
-                    if isinstance(data, list):
-                        documents.extend(data)
-                    elif isinstance(data, dict):
-                        documents.append(data)
-                    else:
-                        logger.warning(
-                            "%s does not contain a valid JSON object or list.", blob.name
-                        )
-
-                except json.JSONDecodeError:
-                    logger.warning("Could not decode JSON from %s.", blob.name)
+                    docs = future.result()
+                    documents.extend(docs)
+                    logger.info("Downloaded %s (%d docs)", name, len(docs))
                 except Exception as e:
-                    logger.error("Error processing blob %s: %s", blob.name, e)
+                    logger.error("Failed to download %s: %s", name, e)
 
         if not documents:
             logger.info("No valid .json documents found in blob container.")
@@ -119,14 +147,17 @@ def map_documents_for_search(
 
 
 def upload_documents_to_search(
-    search_client: SearchClient, documents: List[Dict[str, Any]]
+    search_client: SearchClient,
+    documents: List[Dict[str, Any]],
+    max_workers: int = 100,
 ) -> bool:
     """
-    Uploads documents to Azure AI Search index.
+    Uploads documents to Azure AI Search index in parallel batches.
 
     Args:
         search_client: Initialized SearchClient instance
         documents: List of documents to upload
+        max_workers: Number of parallel upload threads (default 5)
 
     Returns:
         True if all documents uploaded successfully, False otherwise
@@ -135,35 +166,53 @@ def upload_documents_to_search(
         logger.info("No documents to upload.")
         return False
 
-    max_batch_size = 100
+    max_batch_size = 1000
+    total_batches = (len(documents) + max_batch_size - 1) // max_batch_size
     logger.info(
-        "Uploading %d documents to index in batches of %d...", len(documents), max_batch_size
+        "Uploading %d documents to index (%d batches, %d workers)...",
+        len(documents), total_batches, max_workers,
     )
-    try:
-        all_success = True
-        total_uploaded = 0
 
-        for start in range(0, len(documents), max_batch_size):
-            batch = documents[start : start + max_batch_size]
-            batch_number = start // max_batch_size + 1
-            total_batches = (len(documents) + max_batch_size - 1) // max_batch_size
-            logger.info(
-                "Uploading batch %d/%d (%d documents)...",
-                batch_number, total_batches, len(batch),
-            )
-
+    def _upload_batch(
+        batch_start: int,
+    ) -> tuple[int, bool]:
+        batch = documents[batch_start : batch_start + max_batch_size]
+        try:
             result = search_client.upload_documents(documents=batch)
-            batch_success = True
-
+            successes = sum(1 for r in result if r.succeeded)
             for r in result:
                 if not r.succeeded:
-                    batch_success = False
                     logger.warning("  - Document %s: %s", r.key, r.error_message)
+            return successes, successes == len(batch)
+        except Exception as e:
+            logger.error(
+                "Error uploading batch starting at %d: %s", batch_start, e
+            )
+            return 0, False
 
-            if batch_success:
-                total_uploaded += len(batch)
-            else:
-                all_success = False
+    try:
+        total_uploaded = 0
+        all_success = True
+
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            futures = {
+                executor.submit(_upload_batch, start): start
+                for start in range(0, len(documents), max_batch_size)
+            }
+            for future in as_completed(futures):
+                start = futures[future]
+                batch_num = start // max_batch_size + 1
+                try:
+                    count, ok = future.result()
+                    total_uploaded += count
+                    all_success = all_success and ok
+                    logger.info(
+                        "Batch %d/%d: %d docs uploaded",
+                        batch_num, total_batches, count,
+                    )
+                except Exception as e:
+                    logger.error("Batch %d/%d failed: %s", batch_num, total_batches, e)
+                    all_success = False
 
         if all_success:
             logger.info("Successfully uploaded all %d documents.", total_uploaded)

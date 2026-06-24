@@ -2,6 +2,8 @@ import os
 import json
 import sys
 import logging
+import concurrent.futures
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List, Dict, Any, Optional
 
 from _credentials import container_client, blob_connection_string
@@ -53,79 +55,113 @@ def download_json_blob(blob_name: str) -> Any:
         return None
 
 
-def download_all_json(prefix: Optional[str] = None) -> List[Dict[str, Any]]:
+def download_all_json(
+    prefix: Optional[str] = None, max_workers: int = 10
+) -> List[Dict[str, Any]]:
     """
-    Download and aggregate all JSON blobs into a flat list of documents.
+    Download and aggregate all JSON blobs into a flat list of documents (parallel).
 
     - If a blob contains a list, items are extended into the result.
     - If a blob contains a dict, it is appended.
 
     Args:
             prefix: Optional prefix to restrict which blobs are downloaded.
+            max_workers: Number of parallel download threads (default 10).
 
     Returns:
             List of document dicts aggregated from all JSON blobs.
     """
-    docs: List[Dict[str, Any]] = []
-    for name in list_json_blobs(prefix):
-        logger.info("Downloading '%s'...", name)
+    names = list_json_blobs(prefix)
+    if not names:
+        return []
+
+    logger.info("Downloading %d blobs (%d workers)...", len(names), max_workers)
+
+    def _fetch(name: str) -> list[dict]:
         obj = download_json_blob(name)
         if obj is None:
-            continue
+            return []
         if isinstance(obj, list):
-            docs.extend([x for x in obj if isinstance(x, dict)])
+            return [x for x in obj if isinstance(x, dict)]
         elif isinstance(obj, dict):
-            docs.append(obj)
-        else:
-            logger.warning("'%s' does not contain a dict or list.", name)
+            return [obj]
+        logger.warning("'%s' does not contain a dict or list.", name)
+        return []
+
+    docs: List[Dict[str, Any]] = []
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = {executor.submit(_fetch, name): name for name in names}
+        for future in as_completed(futures):
+            name = futures[future]
+            try:
+                result = future.result()
+                docs.extend(result)
+                logger.info("Downloaded '%s' (%d docs)", name, len(result))
+            except Exception as e:
+                logger.error("Failed to download '%s': %s", name, e)
 
     logger.info("Aggregated %d document(s) from JSON blobs.", len(docs))
     return docs
 
 
-def save_all_json(download_dir: str, prefix: Optional[str] = None) -> str:
+def save_all_json(
+    download_dir: str, prefix: Optional[str] = None, max_workers: int = 10
+) -> str:
     """
-    Download all JSON blobs and save them to a local folder.
+    Download all JSON blobs and save them to a local folder (parallel download).
 
     Files are saved using their blob names relative to `download_dir`.
 
     Args:
             download_dir: Local directory to write files.
             prefix: Optional prefix to restrict which blobs are downloaded.
+            max_workers: Number of parallel download threads (default 10).
 
     Returns:
             The absolute path of the download directory.
     """
     os.makedirs(download_dir, exist_ok=True)
     blob_names = list_json_blobs(prefix)
-    saved_count = 0
-    for name in blob_names:
-        logger.info("Saving '%s'...", name)
+    if not blob_names:
+        return os.path.abspath(download_dir)
+
+    logger.info("Saving %d blobs (%d workers)...", len(blob_names), max_workers)
+
+    def _download_and_save(name: str) -> bool:
         local_path = os.path.join(download_dir, *name.split("/"))
         os.makedirs(os.path.dirname(local_path), exist_ok=True)
 
-        # Skip if already saved locally
         if os.path.exists(local_path):
             logger.info("Skipping '%s' (already exists).", name)
-            continue
-        obj = download_json_blob(name)
+            return False
 
-        # Ensure nested folders are created to mirror blob paths
-        local_path = os.path.join(download_dir, *name.split("/"))
-        os.makedirs(os.path.dirname(local_path), exist_ok=True)
+        obj = download_json_blob(name)
         if obj is not None:
             with open(local_path, "w", encoding="utf-8") as f:
                 json.dump(obj, f, ensure_ascii=False, indent=2)
-            saved_count += 1
-        else:
-            # Fallback: write raw bytes to file if JSON parsing failed
+            return True
+
+        # Fallback: write raw bytes if JSON parsing failed
+        try:
+            data = container_client.get_blob_client(name).download_blob().readall()
+            with open(local_path, "wb") as f:
+                f.write(data)
+            return True
+        except Exception as e:
+            logger.error("Failed to save raw content for '%s': %s", name, e)
+            return False
+
+    saved_count = 0
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = {executor.submit(_download_and_save, name): name for name in blob_names}
+        for future in as_completed(futures):
+            name = futures[future]
             try:
-                data = container_client.get_blob_client(name).download_blob().readall()
-                with open(local_path, "wb") as f:
-                    f.write(data)
-                saved_count += 1
+                if future.result():
+                    saved_count += 1
+                    logger.info("Saved '%s'", name)
             except Exception as e:
-                logger.error("Failed to save raw content for '%s': %s", name, e)
+                logger.error("Failed to save '%s': %s", name, e)
 
     abs_dir = os.path.abspath(download_dir)
     logger.info("Saved %d of %d file(s) to '%s'.", saved_count, len(blob_names), abs_dir)
