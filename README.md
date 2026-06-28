@@ -12,7 +12,7 @@ This repo contains a Gemini‑inspired React frontend and a FastAPI backend that
 - Data:
 	- Files in `backend/docs/` are unstructured data.
 	- Files in `backend/scraping/` are scraped data from MITRE and darkreader.
- 	- Files in `backend/badckup/` are backup file from Blob Storage.
+ 	- Files in `backend/backup/` are backup file from Blob Storage.
  
 ## Prerequisites
 
