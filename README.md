@@ -9,8 +9,11 @@ This repo contains a Gemini‑inspired React frontend and a FastAPI backend that
 
 - Frontend: Vite + React, Markdown rendering (`react-markdown` + `remark-gfm`) with syntax highlighting (`rehype-highlight`).
 - Backend: FastAPI endpoint `/api/chat` performing retrieval (Azure AI Search) + generation (Azure OpenAI).
-- Data: Files in `backend/docs/` are converted to JSON, uploaded to Azure Blob Storage, and indexed into Azure AI Search.
-
+- Data:
+	- Files in `backend/docs/` are unstructured data.
+	- Files in `backend/scraping/` are scraped data from MITRE and darkreader.
+ 	- Files in `backend/badckup/` are backup file from Blob Storage.
+ 
 ## Prerequisites
 
 - Azure subscription with rights to create Cognitive Services (Azure OpenAI), Search, and Storage.
@@ -30,16 +33,13 @@ Edit `backend/_config.py` to set resource names and region:
 
 ## Quick Start
 
-1) Provision Azure resources
+### 1. Provision Azure resources
 
 ```bash
 cd backend
 # Create and activate a local virtual env
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1   # PowerShell on Windows
-```
-or
-```bash
 source .venv/bin/activate   # macOS/Linux
 ```
 ```bash
@@ -49,7 +49,7 @@ pip install -r requirements.txt
 python deploy.py
 ```
 
-2) Upload and index documents
+### 2. Upload and index documents
 
 Place source files under `backend/docs/` (supports `.txt`, `.pdf`, `.docx`). Then:
 
@@ -57,14 +57,14 @@ Place source files under `backend/docs/` (supports `.txt`, `.pdf`, `.docx`). The
 python upload_doc.py   # runs inside .venv after activation
 ```
 
-3) Start the backend API (FastAPI)
+### 3. Start the backend API (FastAPI)
 
 ```bash
 python -m uvicorn server:app --host 0.0.0.0 --port 8000 --reload
 # (running inside .venv; keep the shell open while developing)
 ```
 
-4) Configure and run the frontend
+### 4. Configure and run the frontend
 
 ```bash
 cd frontend
@@ -116,7 +116,3 @@ Plain‑text responses are displayed directly.
 - OpenAI credentials: verify `OPENAI_NAME` + `RG_NAME` and that keys/endpoints resolve in `_utils.get_azure_openai_credentials()`.
 - Search admin key: confirm `SEARCH_NAME` exists in `RG_NAME`, and names match `_config.py`.
 - Frontend 404/CORS: set `VITE_API_BASE_URL` correctly; backend must run on `http://localhost:8000`.
-
-## Notes
-
-- The frontend `package.json` already includes `react-markdown`, `remark-gfm`, and `rehype-highlight`; `npm install` installs all required packages.
